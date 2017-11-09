@@ -1021,7 +1021,7 @@ bool get_block_longhash(const block& b, cn_pow_hash_v2 &ctx, crypto::hash& res)
     block_hashes_cached = block_hashes_cached_count;
   }
   //---------------------------------------------------------------
-  crypto::secret_key encrypt_key(crypto::secret_key key, const epee::wipeable_string &passphrase, uint64_t height)
+  crypto::secret_key encrypt_key(crypto::secret_key key, const epee::wipeable_string &passphrase)
   {
     crypto::hash hash;
     cn_pow_hash_v2 cph;
@@ -1031,7 +1031,7 @@ bool get_block_longhash(const block& b, cn_pow_hash_v2 &ctx, crypto::hash& res)
     return key;
   }
   //---------------------------------------------------------------
-  crypto::secret_key decrypt_key(crypto::secret_key key, const epee::wipeable_string &passphrase, uint64_t height)
+  crypto::secret_key decrypt_key(crypto::secret_key key, const epee::wipeable_string &passphrase)
   {
     crypto::hash hash;
     cn_pow_hash_v2 cph;
