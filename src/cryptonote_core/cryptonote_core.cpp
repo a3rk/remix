@@ -402,7 +402,7 @@ namespace cryptonote
     // folder might not be a directory, etc, etc
     catch (...) { }
 
-    BlockchainDB* db = new_db(db_type);
+    std::unique_ptr<BlockchainDB> db(new_db(db_type));
     if (db == NULL)
     {
       LOG_ERROR("Attempted to use non-existent database type");
@@ -494,7 +494,7 @@ namespace cryptonote
     m_blockchain_storage.set_user_options(blocks_threads,
         blocks_per_sync, sync_mode, fast_sync);
 
-    r = m_blockchain_storage.init(db, m_testnet, m_offline, test_options);
+    r = m_blockchain_storage.init(db.release(), m_testnet, m_offline, test_options);
 
     r = m_mempool.init();
     CHECK_AND_ASSERT_MES(r, false, "Failed to initialize memory pool");
