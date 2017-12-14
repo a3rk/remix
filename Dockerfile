@@ -45,4 +45,8 @@ VOLUME /wallet
 EXPOSE 11330
 EXPOSE 11331
 
+<<<<<<< HEAD
 ENTRYPOINT ["remixd", "--p2p-bind-ip=0.0.0.0", "--p2p-bind-port=18080", "--rpc-bind-ip=127.0.0.1", "--rpc-bind-port=18081", "--non-interactive"] 
+=======
+ENTRYPOINT ["monerod", "--p2p-bind-ip=0.0.0.0", "--p2p-bind-port=18080", "--rpc-bind-ip=0.0.0.0", "--rpc-bind-port=18081", "--non-interactive", "--confirm-external-bind"] 
+>>>>>>> a7e2e1b07... fix: bind RPC to all interfaces inside Docker container
