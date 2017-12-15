@@ -379,7 +379,7 @@ public:
         if(m_cache_in_buffer.size() < m_current_head.m_cb)
         {
           is_continue = false;
-          if(cb >= MIN_BYTES_WANTED && !m_invoke_response_handlers.empty())
+          if(cb >= MIN_BYTES_WANTED)
           {
             CRITICAL_REGION_LOCAL(m_invoke_response_handlers_lock);
             if (!m_invoke_response_handlers.empty())
