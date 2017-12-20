@@ -6298,6 +6298,7 @@ bool simple_wallet::export_key_images(const std::vector<std::string> &args)
 
   try
   {
+    LOCK_IDLE_SCOPE();
     if (!m_wallet->export_key_images(filename))
     {
       fail_msg_writer() << tr("failed to save file ") << filename;
@@ -6330,6 +6331,7 @@ bool simple_wallet::import_key_images(const std::vector<std::string> &args)
   }
   std::string filename = args[0];
 
+  LOCK_IDLE_SCOPE();
   try
   {
     uint64_t spent = 0, unspent = 0;
@@ -6363,6 +6365,7 @@ bool simple_wallet::export_outputs(const std::vector<std::string> &args)
   if (m_wallet->confirm_export_overwrite() && !check_file_overwrite(filename))
     return true;
 
+  LOCK_IDLE_SCOPE();
   try
   {
     std::vector<tools::wallet2::transfer_details> outs = m_wallet->export_outputs();
@@ -6461,6 +6464,7 @@ bool simple_wallet::import_outputs(const std::vector<std::string> &args)
       boost::archive::binary_iarchive ar(iss);
       ar >> outputs;
     }
+    LOCK_IDLE_SCOPE();
     size_t n_outputs = m_wallet->import_outputs(outputs);
     success_msg_writer() << boost::lexical_cast<std::string>(n_outputs) << " outputs imported";
   }
