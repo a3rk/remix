@@ -31,21 +31,27 @@
 
 #pragma once
 
-#include <set>
+#include <deque>
 
 template <template <bool> class Archive, class T>
-bool do_serialize(Archive<false> &ar, std::set<T> &v);
+bool do_serialize(Archive<false> &ar, std::deque<T> &v);
 template <template <bool> class Archive, class T>
-bool do_serialize(Archive<true> &ar, std::set<T> &v);
+bool do_serialize(Archive<true> &ar, std::deque<T> &v);
 
 namespace serialization
 {
   namespace detail
   {
     template <typename T>
-    void do_add(std::set<T> &c, T &&e)
+    void do_reserve(std::deque<T> &c, size_t N)
     {
-      c.insert(std::move(e));
+      c.reserve(N);
+    }
+
+    template <typename T>
+    void do_add(std::deque<T> &c, T &&e)
+    {
+      c.emplace_back(std::move(e));
     }
   }
 }
@@ -53,7 +59,7 @@ namespace serialization
 #include "serialization.h"
 
 template <template <bool> class Archive, class T>
-bool do_serialize(Archive<false> &ar, std::set<T> &v) { return do_serialize_container(ar, v); }
+bool do_serialize(Archive<false> &ar, std::deque<T> &v) { return do_serialize_container(ar, v); }
 template <template <bool> class Archive, class T>
-bool do_serialize(Archive<true> &ar, std::set<T> &v) { return do_serialize_container(ar, v); }
+bool do_serialize(Archive<true> &ar, std::deque<T> &v) { return do_serialize_container(ar, v); }
 
