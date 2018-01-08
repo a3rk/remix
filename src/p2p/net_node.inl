@@ -378,7 +378,7 @@ namespace nodetool
       // full_addrs.insert("163.172.182.165:28080");
       // full_addrs.insert("195.154.123.123:28080");
       // full_addrs.insert("212.83.172.165:28080");
-      full_addrs.insert("127.0.0.1:21380"); // Add VPS when ready
+      full_addrs.insert("127.0.0.1:21180"); // Add VPS when ready
     }
     else
     {
@@ -390,7 +390,7 @@ namespace nodetool
       // full_addrs.insert("198.74.231.92:18080");
       // full_addrs.insert("195.154.123.123:28080");
       // full_addrs.insert("212.83.172.165:28080");
-      full_addrs.insert("127.0.0.1:21380"); // Add VPS when ready
+      full_addrs.insert("127.0.0.1:11180"); // Add VPS when ready
     }
     return full_addrs;
   }
