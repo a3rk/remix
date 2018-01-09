@@ -2030,8 +2030,10 @@ bool simple_wallet::init(const boost::program_options::variables_map& vm)
       if (std::cin.eof() || !pwd_container)
         return false;
       epee::wipeable_string seed_pass = pwd_container->password();
+      std::string err;
+      uint64_t blockchain_height = get_daemon_blockchain_height(err);
       if (!seed_pass.empty())
-        m_recovery_key = cryptonote::decrypt_key(m_recovery_key, seed_pass);
+        m_recovery_key = cryptonote::decrypt_key(m_recovery_key, seed_pass, blockchain_height);
     }
     if (!m_generate_from_view_key.empty())
     {

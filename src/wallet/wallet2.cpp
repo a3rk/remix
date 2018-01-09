@@ -296,7 +296,7 @@ std::unique_ptr<tools::wallet2> generate_from_json(const std::string& json_file,
       if (field_seed_passphrase_found)
       {
         if (!field_seed_passphrase.empty())
-          recovery_key = cryptonote::decrypt_key(recovery_key, field_seed_passphrase);
+          recovery_key = cryptonote::decrypt_key(recovery_key, field_seed_passphrase, wallet->estimate_blockchain_height());
       }
     }
 
@@ -709,7 +709,7 @@ bool wallet2::get_seed(std::string& electrum_words, const epee::wipeable_string 
 
   crypto::secret_key key = get_account().get_keys().m_spend_secret_key;
   if (!passphrase.empty())
-    key = cryptonote::encrypt_key(key, passphrase);
+    key = cryptonote::encrypt_key(key, passphrase, m_blockchain.size());
   crypto::ElectrumWords::bytes_to_words(key, electrum_words, seed_language);
 
   return true;
