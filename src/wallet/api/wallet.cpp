@@ -1060,6 +1060,8 @@ PendingTransaction *WalletImpl::createTransaction(const string &dst_addr, const 
     if (fake_outs_count == 0)
         fake_outs_count = DEFAULT_MIXIN;
 
+    uint32_t adjusted_priority = m_wallet->adjust_priority(static_cast<uint32_t>(priority));
+
     PendingTransactionImpl * transaction = new PendingTransactionImpl(*this);
 
     do {
@@ -1119,7 +1121,7 @@ PendingTransaction *WalletImpl::createTransaction(const string &dst_addr, const 
                 de.is_subaddress = info.is_subaddress;
                 dsts.push_back(de);
                 transaction->m_pending_tx = m_wallet->create_transactions_2(dsts, fake_outs_count, 0 /* unlock_time */,
-                                                                          static_cast<uint32_t>(priority),
+                                                                          adjusted_priority,
                                                                           extra, subaddr_account, subaddr_indices, m_trustedDaemon);
             } else {
                 // for the GUI, sweep_all (i.e. amount set as "(all)") will always sweep all the funds in all the addresses
@@ -1129,7 +1131,7 @@ PendingTransaction *WalletImpl::createTransaction(const string &dst_addr, const 
                         subaddr_indices.insert(index);
                 }
                 transaction->m_pending_tx = m_wallet->create_transactions_all(0, info.address, info.is_subaddress, fake_outs_count, 0 /* unlock_time */,
-                                                                          static_cast<uint32_t>(priority),
+                                                                          adjusted_priority,
                                                                           extra, subaddr_account, subaddr_indices, m_trustedDaemon);
             }
 
