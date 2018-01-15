@@ -93,6 +93,7 @@ namespace cryptonote {
 
     /* Check and see if we should use the original AEON reward */
     if(version < 2) {
+        /* TODO: Need to add a check for test net in here. Version 1 testnet will be off due to different height. */
         int speed = height < HARDFORK_1_HEIGHT ? HARDFORK_1_OLD_SPEED_FACTOR : REBASE_1_EMISSION_SPEED_FACTOR;        
         base_reward = (MONEY_SUPPLY - already_generated_coins) >> speed;
     } else {
