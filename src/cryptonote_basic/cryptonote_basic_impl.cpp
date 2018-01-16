@@ -86,13 +86,13 @@ namespace cryptonote {
     return CRYPTONOTE_MAX_TX_SIZE;
   }
   //-----------------------------------------------------------------------------------------------
-  bool get_block_reward(size_t median_size, size_t current_block_size, uint64_t already_generated_coins, uint64_t &reward, uint8_t version, uint64_t height) {
+  bool get_block_reward(size_t median_size, size_t current_block_size, uint64_t already_generated_coins, uint64_t &reward, uint8_t version, uint64_t height, bool testnet) {
     const int target_minutes = DIFFICULTY_TARGET / 60;
     const int emission_speed_factor = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1);
     uint64_t base_reward;
 
     /* Check and see if we should use the original AEON reward */
-    if(version < 2) {
+    if(version < 2 && !testnet) {
         /* TODO: Need to add a check for test net in here. Version 1 testnet will be off due to different height. */
         int speed = height < HARDFORK_1_HEIGHT ? HARDFORK_1_OLD_SPEED_FACTOR : REBASE_1_EMISSION_SPEED_FACTOR;        
         base_reward = (MONEY_SUPPLY - already_generated_coins) >> speed;
