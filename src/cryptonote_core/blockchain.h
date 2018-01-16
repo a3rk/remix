@@ -195,6 +195,9 @@ namespace cryptonote
      */
     crypto::hash get_block_id_by_height(uint64_t height) const;
 
+    /* Returns the testnet flag */
+    bool is_test_net() const;
+
     /**
      * @brief gets the block with a given hash
      *
