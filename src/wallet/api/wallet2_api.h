@@ -764,7 +764,7 @@ struct WalletManager
     /*!
      * \brief  recovers existing wallet using memo (electrum seed)
      * \param  path           Name of wallet file to be created
-     * \param  memo           memo (25 words electrum seed)
+     * \param  memo           memo (24 words electrum seed)
      * \param  testnet        testnet
      * \param  restoreHeight  restore from start height
      * \return                Wallet instance (Wallet::status() needs to be called to check if recovered successfully)
