@@ -20,7 +20,8 @@ Portions Copyright (c) 2012-2013 The Cryptonote developers.
 
 | Operating System      | Processor | Status |
 | --------------------- | -------- |--------|
-| Ubuntu 16.04          |  x86_64    | [![Ubuntu 16.04 i686](https://build.aeon.direct/badges/run-builds.svg)](https://build.aeon.direct/#/builders/1)
+| Ubuntu 16.04          |  amd64    | [![Ubuntu 16.04 amd64](https://build.aeon.direct/badges/run-builds.svg)](https://build.aeon.direct/#/builders/1)
+| Windows 64 bit MSYS/MINGW       |  amd64    | [![Windows 64 MSYS/MINGW](https://build.aeon.direct/badges/win-builds.svg)](https://build.aeon.direct/#/builders/2)
 
 ## Coverage
 
