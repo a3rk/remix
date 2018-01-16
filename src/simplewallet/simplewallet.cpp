@@ -3305,10 +3305,10 @@ bool simple_wallet::show_payments(const std::vector<std::string> &args)
 //----------------------------------------------------------------------------------------------------
 uint64_t simple_wallet::get_daemon_blockchain_height(std::string& err)
 {
-  if (!m_wallet)
-  {
-    throw std::runtime_error("simple_wallet null wallet");
-  }
+  // if (!m_wallet)
+  // {
+  //   throw std::runtime_error("simple_wallet null wallet");
+  // }
 
   COMMAND_RPC_GET_HEIGHT::request req;
   COMMAND_RPC_GET_HEIGHT::response res = boost::value_initialized<COMMAND_RPC_GET_HEIGHT::response>();
