@@ -42,7 +42,7 @@
 
 using namespace std;
 
-namespace Monero {
+namespace AEON {
 
 UnsignedTransaction::~UnsignedTransaction() {}
 
@@ -313,5 +313,5 @@ uint64_t UnsignedTransactionImpl::minMixinCount() const
 
 } // namespace
 
-namespace Bitmonero = Monero;
+
 

@@ -40,9 +40,9 @@ set(checkpoints_headers)
 set(checkpoints_private_headers
   checkpoints.h)
 
-monero_private_headers(checkpoints
+aeon_private_headers(checkpoints
   ${checkpoints_private_headers})
-monero_add_library(checkpoints
+aeon_add_library(checkpoints
   ${checkpoints_sources}
   ${checkpoints_headers}
   ${checkpoints_private_headers})

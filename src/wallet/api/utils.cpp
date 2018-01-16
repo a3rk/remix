@@ -35,7 +35,7 @@
 
 using namespace std;
 
-namespace Monero {
+namespace AEON {
 namespace Utils {
 
 bool isAddressLocal(const std::string &address)
@@ -53,4 +53,4 @@ bool isAddressLocal(const std::string &address)
 
 } // namespace
 
-namespace Bitmonero = Monero;
+

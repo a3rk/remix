@@ -72,9 +72,9 @@ set(daemon_private_headers
   ../p2p/p2p_protocol_defs.h
   ../p2p/stdafx.h)
 
-monero_private_headers(daemon
+aeon_private_headers(daemon
   ${daemon_private_headers})
-monero_add_executable(daemon
+aeon_add_executable(daemon
   ${daemon_sources}
   ${daemon_headers}
   ${daemon_private_headers}

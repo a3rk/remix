@@ -57,9 +57,9 @@ set(cryptonote_basic_private_headers
   tx_extra.h
   verification_context.h)
 
-monero_private_headers(cryptonote_basic
+aeon_private_headers(cryptonote_basic
   ${cryptonote_basic_private_headers})
-monero_add_library(cryptonote_basic
+aeon_add_library(cryptonote_basic
   ${cryptonote_basic_sources}
   ${cryptonote_basic_headers}
   ${cryptonote_basic_private_headers})

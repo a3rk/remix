@@ -175,7 +175,7 @@ namespace daemonizer
     }
     else // interactive
     {
-      //LOG_PRINT_L0("Aeon '" << MONERO_RELEASE_NAME << "' (v" << MONERO_VERSION_FULL);
+      //LOG_PRINT_L0("Aeon '" << AEON_RELEASE_NAME << "' (v" << AEON_VERSION_FULL);
       return executor.run_interactive(vm);
     }
 

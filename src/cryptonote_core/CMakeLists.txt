@@ -47,9 +47,9 @@ else()
   set(Blocks "")
 endif()
 
-monero_private_headers(cryptonote_core
+aeon_private_headers(cryptonote_core
   ${cryptonote_core_private_headers})
-monero_add_library(cryptonote_core
+aeon_add_library(cryptonote_core
   ${cryptonote_core_sources}
   ${cryptonote_core_headers}
   ${cryptonote_core_private_headers})

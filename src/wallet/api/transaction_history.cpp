@@ -42,7 +42,7 @@
 
 using namespace epee;
 
-namespace Monero {
+namespace AEON {
 
 TransactionHistory::~TransactionHistory() {}
 
@@ -245,4 +245,4 @@ void TransactionHistoryImpl::refresh()
 
 } // namespace
 
-namespace Bitmonero = Monero;
+
