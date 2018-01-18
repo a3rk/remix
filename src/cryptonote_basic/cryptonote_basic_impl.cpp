@@ -77,7 +77,7 @@ namespace cryptonote {
         speed = HARDFORK_1_OLD_SPEED_FACTOR;
       } 
     } else if (version == 2) {
-      speed = EMISSION_SPEED_FACTOR_PER_MINUTE_V2 - (target_minutes - 1);
+      speed = EMISSION_SPEED_FACTOR_PER_MINUTE_V2;
     }
 
     return speed;
@@ -92,7 +92,7 @@ namespace cryptonote {
     } else if (version == 2) {
       min_block_size = CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V2;
     } 
-    
+
     return min_block_size;
   }
   //-----------------------------------------------------------------------------------------------
