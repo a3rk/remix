@@ -890,8 +890,8 @@ namespace cryptonote
     if (block_sync_size > 0)
       return block_sync_size;
     if (height >= quick_height)
-      return BLOCKS_SYNCHRONIZING_DEFAULT_COUNT;
-    return BLOCKS_SYNCHRONIZING_DEFAULT_COUNT_PRE_V4;
+      return BLOCKS_SYNCHRONIZING_DEFAULT_COUNT_V2;
+    return BLOCKS_SYNCHRONIZING_DEFAULT_COUNT_V1;
   }
   //-----------------------------------------------------------------------------------------------
   bool core::are_key_images_spent_in_pool(const std::vector<crypto::key_image>& key_im, std::vector<bool> &spent) const
@@ -944,7 +944,7 @@ namespace cryptonote
   bool core::check_tx_inputs_ring_members_diff(const transaction& tx) const
   {
     const uint8_t version = m_blockchain_storage.get_current_hard_fork_version();
-    if (version >= 6)
+    if (version >= 2)
     {
       for(const auto& in: tx.vin)
       {

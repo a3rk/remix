@@ -89,23 +89,29 @@ static const struct {
   uint8_t threshold;
   time_t time;
 } mainnet_hard_forks[] = {
-  // version 1 from the start of the blockchain
-  { 1, 1, 0, 1341378000 },
 
-  // version 2 starts from block 1009827, which is on or around the 20th of March, 2016. Fork time finalised on 2015-09-20. No fork voting occurs for the v2 fork.
-  { 2, 1009827, 0, 1442763710 },
+  // version 1 hard fork of AEON
+  { 1, 1, 0, HARDFORK_1_HEIGHT },
+  // version 1 hard fork of AEON is not yet known
+  // { 2, X, 0, X },
 
-  // version 3 starts from block 1141317, which is on or around the 24th of September, 2016. Fork time finalised on 2016-03-21.
-  { 3, 1141317, 0, 1458558528 },
+  // // version 1 from the start of the blockchain
+  // { 1, 1, 0, 1341378000 },
+
+  // // version 2 starts from block 1009827, which is on or around the 20th of March, 2016. Fork time finalised on 2015-09-20. No fork voting occurs for the v2 fork.
+  // { 2, 1009827, 0, 1442763710 },
+
+  // // version 3 starts from block 1141317, which is on or around the 24th of September, 2016. Fork time finalised on 2016-03-21.
+  // { 3, 1141317, 0, 1458558528 },
   
-  // version 4 starts from block 1220516, which is on or around the 5th of January, 2017. Fork time finalised on 2016-09-18.
-  { 4, 1220516, 0, 1483574400 },
+  // // version 4 starts from block 1220516, which is on or around the 5th of January, 2017. Fork time finalised on 2016-09-18.
+  // { 4, 1220516, 0, 1483574400 },
   
-  // version 5 starts from block 1288616, which is on or around the 15th of April, 2017. Fork time finalised on 2017-03-14.
-  { 5, 1288616, 0, 1489520158 },  
+  // // version 5 starts from block 1288616, which is on or around the 15th of April, 2017. Fork time finalised on 2017-03-14.
+  // { 5, 1288616, 0, 1489520158 },  
 
-  // version 6 starts from block 1400000, which is on or around the 16th of September, 2017. Fork time finalised on 2017-08-18.
-  { 6, 1400000, 0, 1503046577 },
+  // // version 6 starts from block 1400000, which is on or around the 16th of September, 2017. Fork time finalised on 2017-08-18.
+  // { 6, 1400000, 0, 1503046577 },
 };
 static const uint64_t mainnet_hard_fork_version_1_till = 1009826;
 
@@ -115,19 +121,24 @@ static const struct {
   uint8_t threshold;
   time_t time;
 } testnet_hard_forks[] = {
-  // version 1 from the start of the blockchain
-  { 1, 1, 0, 1341378000 },
+  // version 1 of the testnet starting from scratch until such time
+  // that we go public with a testnet and determine if hard forking
+  // from the top of the AEON mainnet blockchain is preferable 
+  { 1, 1, 0, 0 },
 
-  // version 2 starts from block 624634, which is on or around the 23rd of November, 2015. Fork time finalised on 2015-11-20. No fork voting occurs for the v2 fork.
-  { 2, 624634, 0, 1445355000 },
+  // // version 1 from the start of the blockchain
+  // { 1, 1, 0, 1341378000 },
 
-  // versions 3-5 were passed in rapid succession from September 18th, 2016
-  { 3, 800500, 0, 1472415034 },
-  { 4, 801219, 0, 1472415035 },
-  { 5, 802660, 0, 1472415036 + 86400*180 }, // add 5 months on testnet to shut the update warning up since there's a large gap to v6
+  // // version 2 starts from block 624634, which is on or around the 23rd of November, 2015. Fork time finalised on 2015-11-20. No fork voting occurs for the v2 fork.
+  // { 2, 624634, 0, 1445355000 },
 
-  { 6, 971400, 0, 1501709789 },
-  { 7, 1057028, 0, 1512211236 },
+  // // versions 3-5 were passed in rapid succession from September 18th, 2016
+  // { 3, 800500, 0, 1472415034 },
+  // { 4, 801219, 0, 1472415035 },
+  // { 5, 802660, 0, 1472415036 + 86400*180 }, // add 5 months on testnet to shut the update warning up since there's a large gap to v6
+
+  // { 6, 971400, 0, 1501709789 },
+  // { 7, 1057028, 0, 1512211236 },
 };
 static const uint64_t testnet_hard_fork_version_1_till = 624633;
 
@@ -1204,7 +1215,7 @@ bool Blockchain::create_block_template(block& b, const account_public_address& m
    */
   //make blocks coin-base tx looks close to real coinbase tx to get truthful blob size
   uint8_t hf_version = m_hardfork->get_current_version();
-  size_t max_outs = hf_version >= 4 ? 1 : 11;
+  size_t max_outs = hf_version >= 2 ? 1 : 11;
   bool r = construct_miner_tx(height, median_size, already_generated_coins, txs_size, fee, miner_address, b.miner_tx, ex_nonce, max_outs, hf_version, m_testnet);
   CHECK_AND_ASSERT_MES(r, false, "Failed to construct miner tx, first chance");
   size_t cumulative_size = txs_size + get_object_blobsize(b.miner_tx);
@@ -2397,34 +2408,26 @@ bool Blockchain::check_tx_outputs(const transaction& tx, tx_verification_context
 
   const uint8_t hf_version = m_hardfork->get_current_version();
 
-  // from hard fork 2, we forbid dust and compound outputs
   if (hf_version >= 2) {
-    for (auto &o: tx.vout) {
+    for (const auto &o: tx.vout) {
       if (tx.version == 1)
       {
+        // forbid dust and compound outputs
         if (!is_valid_decomposed_amount(o.amount)) {
           tvc.m_invalid_output = true;
           return false;
         }
       }
-    }
-  }
-
-  // in a v2 tx, all outputs must have 0 amount
-  if (hf_version >= 3) {
-    if (tx.version >= 2) {
-      for (auto &o: tx.vout) {
+      else if (tx.version >= 2)
+      {
+        // all outputs must have 0 amount
         if (o.amount != 0) {
           tvc.m_invalid_output = true;
           return false;
         }
       }
-    }
-  }
 
-  // from v4, forbid invalid pubkeys
-  if (hf_version >= 4) {
-    for (const auto &o: tx.vout) {
+      // Forbid invalid pubkeys
       if (o.target.type() == typeid(txout_to_key)) {
         const txout_to_key& out_to_key = boost::get<txout_to_key>(o.target);
         if (!crypto::check_key(out_to_key.key)) {
@@ -2435,16 +2438,23 @@ bool Blockchain::check_tx_outputs(const transaction& tx, tx_verification_context
     }
   }
 
-  // from v7, allow bulletproofs
-  if (hf_version < 7 || !m_testnet) {
+  // From v7 of Monero, allow bulletproofs, as an
+  // assumption of next version of AEON
+  // 
+  // Commented out for now, as we don't want to check for bulletproofs 
+  // when second version of AEON goes on mainnet
+
+  /*
+  if (hf_version < 3 || !m_testnet) {
     if (!tx.rct_signatures.p.bulletproofs.empty())
     {
-      MERROR("Bulletproofs are not allowed before v7 or on mainnet");
+      MERROR("Bulletproofs are not allowed before v3 or on mainnet");
       tvc.m_invalid_output = true;
       return false;
     }
   }
-
+  */
+ 
   return true;
 }
 //------------------------------------------------------------------
@@ -2597,7 +2607,7 @@ bool Blockchain::check_tx_inputs(transaction& tx, tx_verification_context &tvc, 
     }
 
     // min/max tx version based on HF, and we accept v1 txes if having a non mixable
-    const size_t max_tx_version = (hf_version <= 3) ? 1 : 2;
+    const size_t max_tx_version = (hf_version <= 1) ? 1 : 2;
     if (tx.version > max_tx_version)
     {
       MERROR_VER("transaction version " << (unsigned)tx.version << " is higher than max accepted version " << max_tx_version);
@@ -2613,7 +2623,9 @@ bool Blockchain::check_tx_inputs(transaction& tx, tx_verification_context &tvc, 
     }
   }
 
-  // from v7, sorted ins
+  // from v7 of Monero, sorted ins
+  // 
+  // Assumed to be a part of v3 for AEON
   if (hf_version >= 7) {
     const crypto::key_image *last_key_image = NULL;
     for (size_t n = 0; n < tx.vin.size(); ++n)
@@ -2929,7 +2941,7 @@ static uint64_t get_fee_quantization_mask()
 uint64_t Blockchain::get_dynamic_per_kb_fee(uint64_t block_reward, size_t median_block_size, uint8_t version)
 {
   const uint64_t min_block_size = get_min_block_size(version);
-  const uint64_t fee_per_kb_base = version >= 5 ? DYNAMIC_FEE_PER_KB_BASE_FEE_V5 : DYNAMIC_FEE_PER_KB_BASE_FEE;
+  const uint64_t fee_per_kb_base = version >= 2 ? DYNAMIC_FEE_PER_KB_BASE_FEE_V2 : DYNAMIC_FEE_PER_KB_BASE_FEE_V1;
 
   if (median_block_size < min_block_size)
     median_block_size = min_block_size;
