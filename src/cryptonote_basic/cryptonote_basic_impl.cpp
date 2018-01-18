@@ -67,7 +67,7 @@ namespace cryptonote {
   /* Cryptonote helper functions                                          */
   /************************************************************************/
   //-----------------------------------------------------------------------------------------------
-  int get_emission_speed(uint8_t version, uint64_t height) 
+  int get_emission_speed(uint8_t version, uint64_t height, bool testnet) 
   {
     int target_minutes = DIFFICULTY_TARGET/60;
     int speed = EMISSION_SPEED_FACTOR_PER_MINUTE_V1;
@@ -76,6 +76,9 @@ namespace cryptonote {
       if (height < HARDFORK_1_HEIGHT) {
         speed = HARDFORK_1_OLD_SPEED_FACTOR;
       } 
+      if (testnet && height > 1){
+        speed = EMISSION_SPEED_FACTOR_PER_MINUTE_V2;
+      }
     } else if (version == 2) {
       speed = EMISSION_SPEED_FACTOR_PER_MINUTE_V2;
     }
@@ -100,7 +103,6 @@ namespace cryptonote {
   {
     uint64_t base_reward = (MONEY_SUPPLY - already_generated_coins) >> speed;
     int target_minutes = DIFFICULTY_TARGET/60;
-
     if (version == 2)
     {
       if(base_reward < FINAL_SUBSIDY_PER_MINUTE * target_minutes)
@@ -123,9 +125,13 @@ namespace cryptonote {
     uint64_t already_generated_coins, uint64_t &reward, 
     uint8_t version, uint64_t height, bool testnet) {
 
-    int speed = get_emission_speed(version, height);
+    int speed = get_emission_speed(version, height, testnet);
     uint64_t base_reward = get_base_reward(version, already_generated_coins, speed);
     uint64_t full_reward_zone = get_min_block_size(version);
+    if(testnet){
+      LOG_PRINT_L0("Reward generated. base=" << print_money(base_reward) << "(Money Supply: "  << print_money(MONEY_SUPPLY) << " Minus Already Generated Coins: " << print_money(already_generated_coins)
+      << "), values: money_supply=" << print_money(MONEY_SUPPLY) << ", already_generated_coins=" << print_money(already_generated_coins));
+    }
     
     if (median_size < full_reward_zone) {
         median_size = full_reward_zone;
