@@ -30,7 +30,7 @@ all: release-all
 
 cmake-debug:
 	mkdir -p build/debug
-	cd build/debug && cmake -D CMAKE_BUILD_TYPE=Debug ../..
+	cd build/debug && cmake -D CMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ../..
 
 debug: cmake-debug
 	cd build/debug && $(MAKE)
