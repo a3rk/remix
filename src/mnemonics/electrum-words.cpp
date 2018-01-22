@@ -399,6 +399,10 @@ namespace crypto
       {
         language = Language::Singleton<Language::Lojban>::instance();
       }
+      else if (language_name == "EnglishOld")
+      {
+        language = Language::Singleton<Language::EnglishOld>::instance();
+      }
       else
       {
         return false;
@@ -453,6 +457,7 @@ namespace crypto
       std::vector<Language::Base*> language_instances({
         Language::Singleton<Language::German>::instance(),
         Language::Singleton<Language::English>::instance(),
+        Language::Singleton<Language::EnglishOld>::instance(),         
         Language::Singleton<Language::Spanish>::instance(),
         Language::Singleton<Language::French>::instance(),
         Language::Singleton<Language::Italian>::instance(),
