@@ -62,17 +62,21 @@
 #include "ringct/rctSigs.h"
 #include "multisig/multisig.h"
 #include "wallet/wallet_args.h"
+#include "cryptonote_config.h"
 #include <stdexcept>
 
 #ifdef HAVE_READLINE
-#include "readline_buffer.h"
+  #include "readline_buffer.h"
 #endif
 
 using namespace std;
 using namespace epee;
 using namespace cryptonote;
+
 using boost::lexical_cast;
+
 namespace po = boost::program_options;
+
 typedef cryptonote::simple_wallet sw;
 
 #undef AEON_DEFAULT_LOG_CATEGORY
@@ -1501,6 +1505,7 @@ simple_wallet::simple_wallet()
   , m_in_manual_refresh(false)
   , m_current_subaddress_account(0)
 {
+
   m_cmd_binder.set_handler("start_mining",
                            boost::bind(&simple_wallet::start_mining, this, _1),
                            tr("start_mining [<number_of_threads>] [bg_mining] [ignore_battery]"),
@@ -1561,7 +1566,7 @@ simple_wallet::simple_wallet()
   m_cmd_binder.set_handler("donate",
                            boost::bind(&simple_wallet::donate, this, _1),
                            tr("donate [index=<N1>[,<N2>,...]] [<priority>] [<ring_size>] <amount> [<payment_id>]"),
-                           tr("Donate <amount> to the development team (donate.getmonero.org)."));
+                           tr("Donate <amount> to the development team (donate.aeon.cash)."));
   m_cmd_binder.set_handler("sign_transfer",
                            boost::bind(&simple_wallet::sign_transfer, this, _1),
                            tr("sign_transfer <file>"),
@@ -4502,8 +4507,9 @@ bool simple_wallet::donate(const std::vector<std::string> &args_)
      fail_msg_writer() << tr("usage: donate [index=<N1>[,<N2>,...]] [<priority>] [<ring_size>] <amount> [<payment_id>]");
      return true;
   }
-  // Hardcode Monero's donation address (see #1447)
-  const std::string address_str = "44AFFq5kSiGBoZ4NMDwYtN18obc8AemS33DBLWs3H7otXft3XjrpDtQGv7SqSsaBYBb98uNbr2VBBEt7f2wfn3RVGQBEP3A";
+
+  const std::string address_str = DONATION_ADDRESS;
+
   std::string amount_str;
   std::string payment_id_str;
   // get payment id and pop
@@ -4523,7 +4529,7 @@ bool simple_wallet::donate(const std::vector<std::string> &args_)
   local_args.push_back(amount_str);
   if (!payment_id_str.empty())
     local_args.push_back(payment_id_str);
-  message_writer() << tr("Donating ") << amount_str << " to The Monero Project (donate.getmonero.org/44AFFq5kSiGBoZ4NMDwYtN18obc8AemS33DBLWs3H7otXft3XjrpDtQGv7SqSsaBYBb98uNbr2VBBEt7f2wfn3RVGQBEP3A).";
+  message_writer() << tr("Donating ") << amount_str << tr(" to The AEON Project (donate.aeon.cash/") << address_str << tr(").");
   transfer_new(local_args);
   return true;
 }
