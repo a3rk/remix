@@ -78,7 +78,6 @@
 
 // TODO:
 #include "net/network_throttle-detail.hpp"
-#include "cryptonote_core/cryptonote_core.h"
 
 #undef AEON_DEFAULT_LOG_CATEGORY
 #define AEON_DEFAULT_LOG_CATEGORY "net.p2p"
