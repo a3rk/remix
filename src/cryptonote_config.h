@@ -145,7 +145,7 @@
 
 #define ALLOW_DEBUG_COMMANDS
 
-#define CRYPTONOTE_NAME                                 "aeon"
+#define CRYPTONOTE_NAME                                 "aeon2"
 #define CRYPTONOTE_POOLDATA_FILENAME                    "poolstate.bin"
 #define CRYPTONOTE_BLOCKCHAINDATA_FILENAME              "data.mdb"
 #define CRYPTONOTE_BLOCKCHAINDATA_LOCK_FILENAME         "lock.mdb"
@@ -162,7 +162,8 @@
 
 #define HASH_OF_HASHES_STEP                             256
 
-#define DONATION_ADDRESS                                "WmsSWgtT1JPg5e3cK41hKXSHVpKW7e47bjgiKmWZkYrhSS5LhRemNyqayaSBtAQ6517eo5PtH9wxHVmM78JDZSUu2W8PqRiNs"; 
+#define DONATION_URL                                    "donate.aeon.cash"
+#define DONATION_EMAIL_ADDRESS                          "donate@aeon.cash"
 
 // New constants are intended to go here
 namespace config
@@ -190,6 +191,9 @@ namespace config
   
   std::string const GENESIS_TX = "013c01ff0001ffffffffffff03029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd08807121018260e771c13f1d9b82bed2d975c80202cae950b8572b9d0724cecda5bf1744f5";
   
+  std::string const DONATION_AEON_WALLET_ADDRESS = "WmsSWgtT1JPg5e3cK41hKXSHVpKW7e47bjgiKmWZkYrhSS5LhRemNyqayaSBtAQ6517eo5PtH9wxHVmM78JDZSUu2W8PqRiNs";
+  std::string const DONATION_AEON_WALLET_PUBLIC_VIEWKEY = "71bf19a7348ede17fa487167710dac401ef1556851bfd36b76040facf051630b";
+  std::string const DONATION_BITCOIN_WALLET_ADDRESS = "12Cyjf3qV6qLyXdzpLSLPdRFPUVidvnzFM";
 
   namespace testnet
   {
@@ -209,5 +213,7 @@ namespace config
 
     std::string const GENESIS_TX = "013c01ff0001ffffffffffff03029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd08807121017123ef38e42232c020ea3744a390f3e9ccd2adc1cd77edfa43ac32637435b8a7"; //Avaengers Test Net
     
+    std::string const DONATION_AEON_WALLET_ADDRESS = "Wx22Jx6NsuXViqX6dGiM1gXdzZBphgpPBAo1WMG8HdxLQUXKzn48X4sFXHKUbtjmDNUkmuurbFvA9HmNSh7cVDwT2KoiMvVoY";
+    std::string const DONATION_AEON_WALLET_PUBLIC_VIEWKEY = "55df2eb6cfc056d2692a405442bda5ef47d4cc898576643b3a2248bffed69a3c";
   }
 }

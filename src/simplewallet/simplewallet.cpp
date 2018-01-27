@@ -1566,7 +1566,7 @@ simple_wallet::simple_wallet()
   m_cmd_binder.set_handler("donate",
                            boost::bind(&simple_wallet::donate, this, _1),
                            tr("donate [index=<N1>[,<N2>,...]] [<priority>] [<ring_size>] <amount> [<payment_id>]"),
-                           tr("Donate <amount> to the development team (donate.aeon.cash)."));
+                           tr("Donate <amount> to the AEON development team."));
   m_cmd_binder.set_handler("sign_transfer",
                            boost::bind(&simple_wallet::sign_transfer, this, _1),
                            tr("sign_transfer <file>"),
@@ -4508,7 +4508,13 @@ bool simple_wallet::donate(const std::vector<std::string> &args_)
      return true;
   }
 
-  const std::string address_str = DONATION_ADDRESS;
+  std::string address_str = config::DONATION_AEON_WALLET_ADDRESS;
+  if(m_wallet->testnet())
+  {
+    address_str = config::testnet::DONATION_AEON_WALLET_ADDRESS;
+  } 
+  
+  std::string full_donation_url = std::string(DONATION_URL) + std::string("/") + std::string(address_str);
 
   std::string amount_str;
   std::string payment_id_str;
@@ -4529,7 +4535,8 @@ bool simple_wallet::donate(const std::vector<std::string> &args_)
   local_args.push_back(amount_str);
   if (!payment_id_str.empty())
     local_args.push_back(payment_id_str);
-  message_writer() << tr("Donating ") << amount_str << tr(" to The AEON Project (donate.aeon.cash/") << address_str << tr(").");
+  
+  message_writer() << tr("Donating ") << amount_str << tr(" to The AEON Project (") << full_donation_url << tr(").");
   transfer_new(local_args);
   return true;
 }
