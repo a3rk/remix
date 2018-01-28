@@ -290,8 +290,14 @@ namespace cryptonote
       }
       tvc.m_added_to_pool = true;
 
-      if(meta.fee > 0 && !do_not_relay)
+      if(meta.fee >= DEFAULT_FEE && !do_not_relay){
         tvc.m_should_be_relayed = true;
+      }
+      else if(meta.fee < DEFAULT_FEE && !do_not_relay){
+          MINFO("not relaying, tx fee too low " << \
+            print_money(meta.fee) << \
+            "<" << print_money(DEFAULT_FEE) << " txid=" << id );
+      }
     }
 
     tvc.m_verifivation_failed = false;
