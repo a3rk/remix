@@ -51,13 +51,16 @@ namespace
     ASSERT_TRUE(m_block_not_too_big);                                                                         \
     ASSERT_EQ(m_block_reward, expected_reward);
 
-  TEST_F(block_reward_and_already_generated_coins, handles_first_values)
-  {
-  	// 17592186044415 from neozaru, confirmed by fluffypony
-    TEST_ALREADY_GENERATED_COINS(0, UINT64_C(17592186044415));
-    TEST_ALREADY_GENERATED_COINS(m_block_reward, UINT64_C(17592169267200));
-    TEST_ALREADY_GENERATED_COINS(UINT64_C(2756434948434199641), UINT64_C(14963444829249));
-  }
+  // TODO: TEST CASE - reintegrate once values can be identified and used below for AEON, 
+  // as opposed to those that exist, commented out below, for Monero
+  
+  // TEST_F(block_reward_and_already_generated_coins, handles_first_values)
+  // {
+  // 	// 17592186044415 from neozaru, confirmed by fluffypony
+  //   TEST_ALREADY_GENERATED_COINS(0, UINT64_C(17592186044415));
+  //   TEST_ALREADY_GENERATED_COINS(m_block_reward, UINT64_C(17592169267200));
+  //   TEST_ALREADY_GENERATED_COINS(UINT64_C(2756434948434199641), UINT64_C(14963444829249));
+  // }
 
   TEST_F(block_reward_and_already_generated_coins, correctly_steps_from_2_to_1)
   {

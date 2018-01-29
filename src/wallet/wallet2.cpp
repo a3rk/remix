@@ -816,7 +816,7 @@ void wallet2::expand_subaddresses(const cryptonote::subaddress_index& index)
     m_subaddress_labels.resize(index.major + 1, {"Untitled account"});
     m_subaddress_labels[index.major].resize(index.minor + 1);
   }
-  else if (m_subaddress_labels[index.major].size() <= index.minor)
+  else if (m_subaddress_labels.size() >= index.major && m_subaddress_labels[index.major].size() <= index.minor)
   {
     // add new subaddresses
     cryptonote::subaddress_index index2 = index;

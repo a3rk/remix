@@ -674,6 +674,8 @@ namespace tools
     bool is_transfer_unlocked(const transfer_details& td) const;
     bool is_transfer_unlocked(uint64_t unlock_time, uint64_t block_height) const;
     template <class t_archive>
+    
+    // TODO: refactor this serialization method according to AEON rebase and configuration
     inline void serialize(t_archive &a, const unsigned int ver)
     {
       uint64_t dummy_refresh_height = 0; // moved to keys file
