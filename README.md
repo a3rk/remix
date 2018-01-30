@@ -326,3 +326,18 @@ The output of `mdb_stat -ea <path to blockchain dir>` will indicate inconsistenc
 The output of `mdb_dump -s blocks <path to blockchain dir>` and `mdb_dump -s block_info <path to blockchain dir>` is useful for indicating whether blocks and block_info contain the same keys.
 
 These records are dumped as hex data, where the first line is the key and the second line is the data.
+
+### Open Alias
+
+The Aeon wallet client supports OpenAlias Addresses. 
+Instructions for setting up OpenAlias on a domain name.
+
+Create a TXT DNS Record on your domain with using the following syntax
+
+`oa1:aeon recipient_address=<YOUR WALLET ADDRESS>;`
+
+You can then send funds to the domain name in place of the wallet address. 
+
+`transfer 2 alias.domain.com 100`
+
+Please refer to [OpenAlias.org](http://openalias.org) for full implementation and security recommendations
