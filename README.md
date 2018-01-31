@@ -22,7 +22,7 @@ Portions Copyright (c) 2012-2013 The Cryptonote developers.
 
 | Type      | Status |
 |-----------|--------|
-| Coveralls | Issue #5
+| Coveralls | [![Coverage Status](https://coveralls.io/repos/github/drparadoxical/aeon-rebase/badge.svg?branch=master)](https://coveralls.io/github/drparadoxical/aeon-rebase?branch=master)
 | License   | [![License](https://img.shields.io/badge/license-BSD3-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
 ## Licence
