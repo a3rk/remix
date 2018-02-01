@@ -86,7 +86,7 @@ typedef cryptonote::simple_wallet sw;
 
 #define DEFAULT_MIX 4
 
-#define MIN_RING_SIZE 5 // Used to inform user about min ring size -- does not track actual protocol
+#define MIN_RING_SIZE 1 // Used to inform user about min ring size -- does not track actual protocol
 
 #define OUTPUT_EXPORT_FILE_MAGIC "AEON output export\003"
 
