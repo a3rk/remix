@@ -1225,7 +1225,7 @@ bool simple_wallet::set_default_ring_size(const std::vector<std::string> &args/*
       return true;
     }
     uint32_t ring_size = boost::lexical_cast<uint32_t>(args[1]);
-    if (ring_size < MIN_RING_SIZE && ring_size != 0)
+    if(ring_size >= MIN_RING_SIZE)
     {
       fail_msg_writer() << tr("ring size must be an integer >= ") << MIN_RING_SIZE;
       return true;
