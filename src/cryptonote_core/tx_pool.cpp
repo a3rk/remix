@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2017-∞, AEON, The Monero Project
+// Copyright (c) 2017-∞, AEON, The Monero Project
 //
 // All rights reserved.
 //
@@ -1018,7 +1018,6 @@ namespace cryptonote
         continue;
       }
 
-      // start using the optimal filling algorithm from v5 of Monero
       if (version >= 2)
       {
         // If we're getting lower coinbase tx,

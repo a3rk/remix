@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2017-∞, AEON, The Monero Project
+// Copyright (c) 2017-∞, AEON, The Monero Project
 // 
 // All rights reserved.
 // 
@@ -61,6 +61,12 @@
 #define CRYPTONOTE_PUBLIC_ADDRESS_TEXTBLOB_VER          0
 #define CRYPTONOTE_MINED_MONEY_UNLOCK_WINDOW            60
 
+// --NOTE--
+// AEON v0.9.14.0 has no version, and rebase is set as version 1, with version 2 here and 
+// elsewhere meant to serve as placeholders, in order to allow for easier future development.
+// Take note that you will see this reflected in the define naming convention as well, 
+// whenever you happen upon a *_V1 and *_V2 pair and are confused as to why a second
+// version even exists in the first place
 #define CURRENT_TRANSACTION_VERSION                     2
 #define CURRENT_BLOCK_MAJOR_VERSION                     1
 #define CURRENT_BLOCK_MINOR_VERSION                     0

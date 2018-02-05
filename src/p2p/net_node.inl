@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2017-∞, AEON, The Monero Project
+// Copyright (c) 2017-∞, AEON, The Monero Project
 //
 // All rights reserved.
 //
@@ -373,19 +373,9 @@ namespace nodetool
     std::set<std::string> full_addrs;
     if (testnet)
     {
-      // full_addrs.insert("212.83.175.67:28080");
-      // full_addrs.insert("5.9.100.248:28080");
-      // full_addrs.insert("163.172.182.165:28080");
-      // full_addrs.insert("195.154.123.123:28080");
-      
-      //@devopsralf's server
-      // full_addrs.insert("52.191.198.51:21180"); 
       full_addrs.insert("d13.testnet.aeon.direct:21180");
-      
-      //@drparadox' server
-      // full_addrs.insert("45.32.165.18:21180");
       full_addrs.insert("n1.testnet.aeon.direct:21180");
-      full_addrs.insert("127.0.0.1:21180"); // Add VPS when ready
+      full_addrs.insert("127.0.0.1:21180"); 
     }
     else
     {

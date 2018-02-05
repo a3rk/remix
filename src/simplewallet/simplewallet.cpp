@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2017-∞, AEON, The Monero Project
+// Copyright (c) 2017-∞, AEON, The Monero Project
 // 
 // All rights reserved.
 // 
@@ -3449,7 +3449,7 @@ bool simple_wallet::print_ring_members(const std::vector<tools::wallet2::pending
         ostr << tr(j == source.real_output ? " *" : " ") << res.outs[j].height;
       spent_key_height[i] = res.outs[source.real_output].height;
       spent_key_txid  [i] = res.outs[source.real_output].txid;
-      // visualize the distribution, using the code by moneroexamples onion-aeon-viewer
+      // visualize the distribution, using the code by moneroexamples onion-monero-viewer
       const uint64_t resolution = 79;
       std::string ring_str(resolution, '_');
       for (size_t j = 0; j < absolute_offsets.size(); ++j)

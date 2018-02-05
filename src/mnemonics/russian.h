@@ -1,6 +1,6 @@
 // Word list created by Monero contributor sammy007
 // 
-// Copyright (c) 2014-2017-∞, AEON, The Monero Project
+// Copyright (c) 2017-∞, AEON, The Monero Project
 // 
 // All rights reserved.
 // 

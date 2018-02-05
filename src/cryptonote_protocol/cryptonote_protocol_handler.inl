@@ -2,7 +2,7 @@
 /// @author rfree (current maintainer/user in monero.cc project - most of code is from CryptoNote)
 /// @brief This is the orginal cryptonote protocol network-events handler, modified by us
 
-// Copyright (c) 2014-2017-∞, AEON, The Monero Project
+// Copyright (c) 2017-∞, AEON, The Monero Project
 //
 // All rights reserved.
 //
@@ -481,7 +481,7 @@ namespace cryptonote
           }
           
           // hijacking m_requested objects in connection context to patch up
-          // a possible DOS vector pointed out by @moneromoo where peers keep
+          // a possible DOS vector pointed out by @monero-moo where peers keep
           // sending (0...n-1) transactions.
           // If requested objects is not empty, then we must have asked for 
           // some missing transacionts, make sure that they're all there.
@@ -525,7 +525,7 @@ namespace cryptonote
             // future todo: 
             // tx should only not be added to pool if verification failed, but
             // maybe in the future could not be added for other reasons 
-            // according to moneromoo so keep track of these separately ..
+            // according to monero-moo so keep track of these separately ..
             //
           }
         }

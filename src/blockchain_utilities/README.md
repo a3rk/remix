@@ -1,6 +1,6 @@
 # Monero Blockchain Utilities
 
-Copyright (c) 2014-2017-∞, AEON, The Monero Project
+Copyright (c) 2017-∞, AEON, The Monero Project
 
 ## Introduction
 

@@ -27,7 +27,7 @@ PGP signing commits is strongly encouraged. That should explain why the previous
 ## License
 
 Copyright (c) 2009-2015 Pieter Hintjens.
-Copyright (c) 2014-2017-∞, AEON, The Monero Project
+Copyright (c) 2017-∞, AEON, The Monero Project
 
 This Specification is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
 
