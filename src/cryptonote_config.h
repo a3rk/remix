@@ -47,6 +47,7 @@
 #define HARDFORK_1_HEIGHT                               592000
 #define HARDFORK_1_OLD_TARGET                           60
 #define HARDFORK_1_OLD_SPEED_FACTOR                     (20)
+#define AFTER_HARDFORK_SPEED_FACTOR                     (18)
 #define HARDFORK_1_POW_SPEED_MULTIPLIER                 2
 #define HARDFORK_1_DIFFADJ                              HARDFORK_1_POW_SPEED_MULTIPLIER
 #define HARDFORK_1_DIFFADJ_WINDOW                       360
@@ -70,8 +71,6 @@
 
 // MONEY_SUPPLY - total number coins to be generated
 #define MONEY_SUPPLY                                    ((uint64_t)(-1))
-#define EMISSION_SPEED_FACTOR_PER_MINUTE_V1             (20)
-#define EMISSION_SPEED_FACTOR_PER_MINUTE_V2             (18)
 #define FINAL_SUBSIDY_PER_MINUTE                        ((uint64_t)300000000000) // 3 * pow(10, 11)
 
 #define CRYPTONOTE_REWARD_BLOCKS_WINDOW                 100
