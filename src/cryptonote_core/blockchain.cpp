@@ -89,9 +89,15 @@ static const struct {
   uint8_t threshold;
   time_t time;
 } mainnet_hard_forks[] = {
-
-  // version 1 hard fork of AEON
-  { 1, 1, 0, HARDFORK_1_HEIGHT },
+ // OYE! Pay attention here:
+ // Forks are entered like this { Version, Height, Threshold, EpochTime}
+ // Version 0
+  // version 1 hard fork of AEON was at 592000 2015-08-04 14:45:24
+  // at that time Target diff gets changes from 60 to 240
+  // and speed changes from 20 to 18
+  //Start of Aeon - V0
+  { 0, 1, 0, 1341378000 },
+  { 1, HARDFORK_1_HEIGHT, 0, 1428504324 },
   // version 2 does not yet exist, but will go here if and when it does
   // { 2, X, 0, X },
 };
