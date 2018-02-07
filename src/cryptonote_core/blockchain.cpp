@@ -97,9 +97,8 @@ static const struct {
   // and speed changes from 20 to 18
   //Start of Aeon - V0
   { 0, 1, 0, 1341378000 },
-  { 1, HARDFORK_1_HEIGHT, 0, 1428504324 },
-  // version 2 does not yet exist, but will go here if and when it does
-  // { 2, X, 0, X },
+  // version 1 does not yet exist, but will go here if and when it does
+  // { 1, X, 0, X },
 };
 static const uint64_t mainnet_hard_fork_version_1_till = 1009826;
 
