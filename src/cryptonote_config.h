@@ -67,7 +67,7 @@
 // Take note that you will see this reflected in the define naming convention as well, 
 // whenever you happen upon a *_V1 and *_V2 pair and are confused as to why a second
 // version even exists in the first place
-#define CURRENT_TRANSACTION_VERSION                     2
+#define CURRENT_TRANSACTION_VERSION                     1
 #define CURRENT_BLOCK_MAJOR_VERSION                     1
 #define CURRENT_BLOCK_MINOR_VERSION                     0
 #define CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT              60*60*2

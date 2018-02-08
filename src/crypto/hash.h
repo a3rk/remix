@@ -75,6 +75,10 @@ namespace crypto {
     cn_slow_hash(data, length, reinterpret_cast<char *>(&hash), light);
   }
 
+  inline void cn_slow_hash_1m(const void *data, std::size_t length, hash &hash) {
+    cn_slow_hash(data, length, hash, 1);
+  }
+
   inline void cn_slow_hash_2m(const void *data, std::size_t length, hash &hash) {
     cn_slow_hash(data, length, hash, 0);
   }

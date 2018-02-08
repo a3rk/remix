@@ -91,16 +91,16 @@ static const struct {
 } mainnet_hard_forks[] = {
  // OYE! Pay attention here:
  // Forks are entered like this { Version, Height, Threshold, EpochTime}
- // Version 0
+
+  //Start of Aeon - V0
+  //{ 0, 1, 0, 1341378000 },
   // version 1 hard fork of AEON was at 592000 2015-08-04 14:45:24
   // at that time Target diff gets changes from 60 to 240
   // and speed changes from 20 to 18
-  //Start of Aeon - V0
-  { 0, 1, 0, 1341378000 },
-  // version 1 does not yet exist, but will go here if and when it does
-  // { 1, X, 0, X },
+  { 1, HARDFORK_1_HEIGHT, 0, 1438699524 }
 };
-static const uint64_t mainnet_hard_fork_version_1_till = 1009826;
+
+static const uint64_t mainnet_hard_fork_version_1_till = HARDFORK_1_HEIGHT - 1;
 
 static const struct {
   uint8_t version;
@@ -113,7 +113,8 @@ static const struct {
   // from the top of the AEON mainnet blockchain is preferable 
   { 1, 1, 0, 0 },
 };
-static const uint64_t testnet_hard_fork_version_1_till = 624633;
+
+static const uint64_t testnet_hard_fork_version_1_till = 1000000000;
 
 //------------------------------------------------------------------
 Blockchain::Blockchain(tx_memory_pool& tx_pool) :
@@ -970,8 +971,7 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
     }
   }
 
-  // FIXME: This will fail if fork activation heights are subject to voting
-  size_t target = DIFFICULTY_TARGET;
+  size_t target = bei.height < HARDFORK_1_HEIGHT ? HARDFORK_1_OLD_TARGET : DIFFICULTY_TARGET;
 
   // calculate the difficulty target for the block and return it
   return next_difficulty(timestamps, cumulative_difficulties, target, bei.height);
@@ -2939,6 +2939,10 @@ uint64_t Blockchain::get_dynamic_per_kb_fee(uint64_t block_reward, size_t median
 bool Blockchain::check_fee(size_t blob_size, uint64_t fee) const
 {
   const uint8_t version = get_current_hard_fork_version();
+
+  if(version <= 1) {
+    return DEFAULT_FEE;
+  }
 
   uint64_t fee_per_kb;
   if (version < HF_VERSION_DYNAMIC_FEE)

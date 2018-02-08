@@ -135,6 +135,10 @@ void do_prepare_file_names(const std::string& file_path, std::string& keys_file,
 
 uint64_t calculate_fee(uint64_t fee_per_kb, size_t bytes, uint64_t fee_multiplier)
 {
+  if(CURRENT_TRANSACTION_VERSION <= 1) {
+    return DEFAULT_FEE;
+  }
+
   uint64_t kB = (bytes + 1023) / 1024;
   return kB * fee_per_kb * fee_multiplier;
 }
@@ -4876,7 +4880,7 @@ std::vector<wallet2::pending_tx> wallet2::create_transactions(std::vector<crypto
 	  transfer(dst_vector, fake_outs_count, unused_transfers_indices, unlock_time, needed_fee, extra, tx, ptx, trusted_daemon);
 	  auto txBlob = t_serializable_object_to_blob(ptx.tx);
           needed_fee = calculate_fee(fee_per_kb, txBlob, fee_multiplier);
-	} while (ptx.fee < needed_fee);
+	} while (ptx.fee < needed_fee || ptx.fee < DEFAULT_FEE);
 
         ptx_vector.push_back(ptx);
 
@@ -6969,13 +6973,11 @@ uint64_t wallet2::get_upper_transaction_size_limit()
   if (m_upper_transaction_size_limit > 0)
     return m_upper_transaction_size_limit;
 
-  uint64_t full_reward_zone; 
+  uint64_t full_reward_zone = CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V1; 
   uint64_t height = m_blockchain.size() - 1;
 
   if (height < HARDFORK_1_HEIGHT)
     full_reward_zone = CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V1;
-  else
-    full_reward_zone = CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V2;
 
   return full_reward_zone - CRYPTONOTE_COINBASE_BLOB_RESERVED_SIZE;
 }

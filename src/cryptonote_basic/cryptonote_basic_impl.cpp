@@ -70,12 +70,12 @@ namespace cryptonote {
   int get_emission_speed(uint8_t version, uint64_t height, bool testnet) 
   {
 
-    if (testnet && height > 1){
+    if (testnet && height > 1)
         return AFTER_HARDFORK_SPEED_FACTOR;
-    }
-
+    
     if (height >= HARDFORK_1_HEIGHT)
       return AFTER_HARDFORK_SPEED_FACTOR;
+
     return HARDFORK_1_OLD_SPEED_FACTOR;
   }
   //-----------------------------------------------------------------------------------------------
@@ -92,12 +92,14 @@ namespace cryptonote {
     return min_block_size;
   }
   //-----------------------------------------------------------------------------------------------
-  uint64_t get_base_reward(uint8_t version, uint64_t already_generated_coins, int speed) 
+  uint64_t get_base_reward(uint8_t version, uint64_t height, uint64_t already_generated_coins, int speed) 
   {
     uint64_t base_reward = (MONEY_SUPPLY - already_generated_coins) >> speed;
-    int target_minutes = DIFFICULTY_TARGET/60;
-    if (version == 2)
+  
+    if (version == 1)
     {
+      //int target_minutes = DIFFICULTY_TARGET/60;
+      int target_minutes = (height < HARDFORK_1_HEIGHT ? HARDFORK_1_OLD_TARGET : DIFFICULTY_TARGET) / 60;
       if(base_reward < FINAL_SUBSIDY_PER_MINUTE * target_minutes)
         base_reward = FINAL_SUBSIDY_PER_MINUTE * target_minutes;
     }
@@ -117,10 +119,9 @@ namespace cryptonote {
   bool get_block_reward(size_t median_size, size_t current_block_size, 
     uint64_t already_generated_coins, uint64_t &reward, 
     uint8_t version, uint64_t height, bool testnet) {
-
-  //  int speed = height < HARDFORK_1_HEIGHT ? HARDFORK_1_OLD_SPEED_FACTOR : REBASE_1_EMISSION_SPEED_FACTOR;        
+  
     int speed = get_emission_speed(version, height, testnet);
-    uint64_t base_reward = get_base_reward(version, already_generated_coins, speed);
+    uint64_t base_reward = get_base_reward(version, height, already_generated_coins, speed);
     uint64_t full_reward_zone = get_min_block_size(version);
 
     /* This will speed things up to catch up to AEON */
