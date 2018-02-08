@@ -996,18 +996,17 @@ namespace cryptonote
     get_block_reward(median_size, total_size, already_generated_coins, best_coinbase, version, height, m_blockchain.is_test_net());
 
 
-    size_t max_total_size_v1 = (130 * median_size) / 100 - CRYPTONOTE_COINBASE_BLOB_RESERVED_SIZE;
-    size_t max_total_size_v2 = 2 * median_size - CRYPTONOTE_COINBASE_BLOB_RESERVED_SIZE;
-    size_t max_total_size = version >= 2 ? max_total_size_v2 : max_total_size_v1;
+    size_t max_total_size = (130 * median_size) / 100 - CRYPTONOTE_COINBASE_BLOB_RESERVED_SIZE;
     std::unordered_set<crypto::key_image> k_images;
 
     LOG_PRINT_L2("Filling block template, median size " << median_size << ", " << m_txs_by_fee_and_receive_time.size() << " txes in the pool");
 
     LockedTXN lock(m_blockchain);
-
+    // sorted by fee/byte and time
     auto sorted_it = m_txs_by_fee_and_receive_time.begin();
     while (sorted_it != m_txs_by_fee_and_receive_time.end())
     {
+
       txpool_tx_meta_t meta = m_blockchain.get_txpool_tx_meta(sorted_it->second);
       LOG_PRINT_L2("Considering " << sorted_it->second << ", size " << meta.blob_size << ", current block size " << total_size << "/" << max_total_size << ", current coinbase " << print_money(best_coinbase));
 
@@ -1019,7 +1018,45 @@ namespace cryptonote
         continue;
       }
 
-      if (version >= 2)
+      //todo() this works for now by totally defeats the purpose of metadata
+      //being used here instead
+      //
+      //add the ring size of the first input in the vector of inputs in the
+      //tx to metadata in lmbd instead
+      cryptonote::blobdata txblob = m_blockchain.get_txpool_tx_blob(sorted_it->second);
+      cryptonote::transaction tx;
+      if (!parse_and_validate_tx_from_blob(txblob, tx))
+      {
+        MERROR("Failed to parse tx from txpool");
+        sorted_it++;
+        continue;
+      }
+
+			//aeon specific
+      if (tx.vin.size() > 0)
+      {
+        //retrieves itk
+        CHECKED_GET_SPECIFIC_VARIANT(tx.vin[0], const txin_to_key, itk, false);
+
+        // per aeon: discourage < 3-way-mix transactions by mining them only as the first tx in an empty block
+        if (sorted_it!=m_txs_by_fee_and_receive_time.begin()  && itk.key_offsets.size() < 3)
+          LOG_PRINT_L2("  ring size < 3 but not first tx in emtpy block");
+          sorted_it++;
+          continue;
+      }
+
+      // If adding this tx will make the block size
+      // greater than CRYPTONOTE_GETBLOCKTEMPLATE_MAX
+      // _BLOCK_SIZE bytes, reject the tx; this will
+      // keep block sizes from becoming too unwieldly
+      // to propagate at 60s block times.
+      if ( (total_size + meta.blob_size) > CRYPTONOTE_GETBLOCKTEMPLATE_MAX_BLOCK_SIZE )
+        LOG_PRINT_L2("  would exceed maximum block size");
+        sorted_it++;
+        continue;
+
+      // start using the optimal filling algorithm from v5 of Monero
+      if (version >= 5)
       {
         // If we're getting lower coinbase tx,
         // stop including more tx
@@ -1046,27 +1083,6 @@ namespace cryptonote
         {
           LOG_PRINT_L2("  would exceed median block size");
           break;
-        }
-      }
-
-      cryptonote::blobdata txblob = m_blockchain.get_txpool_tx_blob(sorted_it->second);
-      cryptonote::transaction tx;
-      if (!parse_and_validate_tx_from_blob(txblob, tx))
-      {
-        MERROR("Failed to parse tx from txpool");
-        sorted_it++;
-        continue;
-      }
-
-      // Courtesy of stoffu:aeon-rebase - https://github.com/aeonix/aeon-rebase/pull/2
-      if (tx.vin.size() > 0)
-      {
-        CHECKED_GET_SPECIFIC_VARIANT(tx.vin[0], const txin_to_key, itk, false);
-        // discourage < 3-way-mix transactions by mining them only as the first tx in an empty block
-        if (n > 0 && itk.key_offsets.size() < 3)
-        {
-          sorted_it++;
-          continue;
         }
       }
 
@@ -1116,6 +1132,7 @@ namespace cryptonote
         << " (including " << print_money(fee) << " in fees)");
     return true;
   }
+
   //---------------------------------------------------------------------------------
   size_t tx_memory_pool::validate(uint8_t version)
   {
