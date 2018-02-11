@@ -211,7 +211,22 @@ int main(int argc, char const * argv[])
     // Set log level
     if (!command_line::is_arg_defaulted(vm, daemon_args::arg_log_level))
     {
-      mlog_set_log(command_line::get_arg(vm, daemon_args::arg_log_level).c_str());
+      try
+      {
+        int log_level = atoi(command_line::get_arg(vm, daemon_args::arg_log_level).c_str()); 
+        if(log_level < 0 || log_level > 4) 
+        {
+          std::cerr << "Invalid log level (0-4 only): " << log_level << std::endl;
+        }
+        else 
+        {
+          mlog_set_log_level(log_level);
+        }
+      }
+      catch (const std::exception &e)
+      {
+        std::cerr << "Error parsing log level: " << e.what() << std::endl;
+      }
     }
 
     // after logs initialized
