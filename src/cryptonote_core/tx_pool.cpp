@@ -1039,10 +1039,11 @@ namespace cryptonote
         CHECKED_GET_SPECIFIC_VARIANT(tx.vin[0], const txin_to_key, itk, false);
 
         // per aeon: discourage < 3-way-mix transactions by mining them only as the first tx in an empty block
-        if (sorted_it!=m_txs_by_fee_and_receive_time.begin()  && itk.key_offsets.size() < 3)
+        if (sorted_it!=m_txs_by_fee_and_receive_time.begin()  && itk.key_offsets.size() < 3){
           LOG_PRINT_L2("  ring size < 3 but not first tx in emtpy block");
           sorted_it++;
           continue;
+        }
       }
 
       // If adding this tx will make the block size
@@ -1050,10 +1051,11 @@ namespace cryptonote
       // _BLOCK_SIZE bytes, reject the tx; this will
       // keep block sizes from becoming too unwieldly
       // to propagate at 60s block times.
-      if ( (total_size + meta.blob_size) > CRYPTONOTE_GETBLOCKTEMPLATE_MAX_BLOCK_SIZE )
+      if ( (total_size + meta.blob_size) > CRYPTONOTE_GETBLOCKTEMPLATE_MAX_BLOCK_SIZE ){
         LOG_PRINT_L2("  would exceed maximum block size");
         sorted_it++;
         continue;
+      }
 
       // start using the optimal filling algorithm from v5 of Monero
       if (version >= 5)
