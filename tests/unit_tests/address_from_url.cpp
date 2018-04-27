@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2018, The Epoch Project
 // 
 // All rights reserved.
 // 
@@ -42,7 +42,7 @@
 // {
 //   std::string addr = config::testnet::DONATION_EPOCH_WALLET_ADDRESS; //"46BeWrHpwXmHDpDEUmZBWZfoQpdc6HaERCNmx1pEYL2rAcuwufPN9rXHHtyUA4QVy66qeFQkn6sfK8aHYjA3jk3o1Bv16em";
 
-//   std::string txtr = "oa1:aeon";
+//   std::string txtr = "oa1:epoch";
 //   txtr += " recipient_address=";
 //   txtr += addr;
 //   txtr += ";";
@@ -61,7 +61,7 @@
 
 //   EXPECT_STREQ(addr.c_str(), res.c_str());
 
-//   std::string txtr3 = "foobar oa1:aeon tx_description=\"Donation for AEON Development Fund\"; ";
+//   std::string txtr3 = "foobar oa1:epoch tx_description=\"Donation for EpochCoin Development Fund\"; ";
 //   txtr3 += "recipient_address=";
 //   txtr3 += addr;
 //   txtr3 += "; foobar";
@@ -73,7 +73,7 @@
 
 TEST(AddressFromTXT, Failure)
 {
-  std::string txtr = "oa1:aeon recipient_address=not a real address";
+  std::string txtr = "oa1:epoch recipient_address=not a real address";
 
   std::string res = tools::dns_utils::address_from_txt_record(txtr);
 
@@ -85,7 +85,7 @@ TEST(AddressFromTXT, Failure)
   ASSERT_STREQ("", res.c_str());
 }
 
-// TODO: TEST CASE - Include back in when donate.aeon.cash exists and can be 
+// TODO: TEST CASE - Include back in when donate.epoch.cash exists and can be 
 // relied upon (and DNS utils work, or are a part of the rebase effort to begin with)
 
 // TEST(AddressFromURL, Success)
@@ -94,7 +94,7 @@ TEST(AddressFromTXT, Failure)
   
 //   bool dnssec_result = false;
 
-//   std::vector<std::string> addresses = tools::dns_utils::addresses_from_url("donate.aeon.cash", dnssec_result);
+//   std::vector<std::string> addresses = tools::dns_utils::addresses_from_url("donate.epoch.cash", dnssec_result);
 
 //   EXPECT_EQ(1, addresses.size());
 //   if (addresses.size() == 1)
@@ -103,7 +103,7 @@ TEST(AddressFromTXT, Failure)
 //   }
 
 //   // OpenAlias address with an @ instead of first .
-//   addresses = tools::dns_utils::addresses_from_url("donate@aeon.cash", dnssec_result);
+//   addresses = tools::dns_utils::addresses_from_url("donate@epoch.cash", dnssec_result);
 //   EXPECT_EQ(1, addresses.size());
 //   if (addresses.size() == 1)
 //   {

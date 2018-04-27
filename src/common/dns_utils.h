@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2018, The Epoch Project
 // 
 // All rights reserved.
 // 
@@ -108,7 +108,7 @@ public:
    * @brief Gets a DNS address from OpenAlias format
    *
    * If the address looks good, but contains one @ symbol, replace that with a .
-   * e.g. donate@aeon.cash becomes donate.aeon.cash
+   * e.g. donate@epoch.cash becomes donate.epoch.cash
    *
    * @param oa_addr  OpenAlias address
    *

@@ -1,30 +1,30 @@
-name: aeon
+name: epoch
 version: 0.10.0.A
-summary: "AEON: the private, secure, untraceable currency - http://www.aeon.cash"
+summary: "EpochCoin: the private, secure, untraceable currency - http://www.epoch.cash"
 description: |
-    AEON is a private, secure, untraceable currency. You are your bank, you 
+    EpochCoin is a private, secure, untraceable currency. You are your bank, you 
     control your funds, and nobody can trace your transfers.
 grade: devel
 confinement: strict
 
 apps:
-    aeond:
+    epochd:
         daemon: forking
         command: |
-          aeond-wrapper --detach --data-dir ${SNAP_COMMON} --config-file ${SNAP_USER_DATA}/etc/aeond.conf
+          epochd-wrapper --detach --data-dir ${SNAP_COMMON} --config-file ${SNAP_USER_DATA}/etc/epochd.conf
         plugs:
             - network
             - network-bind
-    aeon-wallet-rpc:
+    epoch-wallet-rpc:
         command: |
-          aeon-wallet-rpc --log-file ${SNAP_USER_DATA}
+          epoch-wallet-rpc --log-file ${SNAP_USER_DATA}
         plugs:
             - home
             - network
             - network-bind
-    aeon-wallet-cli:
+    epoch-wallet-cli:
         command: |
-          aeon-wallet-cli --log-file ${SNAP_USER_DATA}
+          epoch-wallet-cli --log-file ${SNAP_USER_DATA}
         plugs:
             - home
             - network
@@ -71,8 +71,8 @@ parts:
         plugin: dump
         source: .
         organize:
-            contrib/snap/aeond.conf: etc/aeond.conf
-            contrib/snap/aeond-wrapper: bin/aeond-wrapper
+            contrib/snap/epochd.conf: etc/epochd.conf
+            contrib/snap/epochd-wrapper: bin/epochd-wrapper
         prime:
             - etc
             - bin

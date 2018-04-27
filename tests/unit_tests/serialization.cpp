@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2018, The Epoch Project
 // 
 // All rights reserved.
 // 
@@ -789,7 +789,7 @@ TEST(Serialization, portability_wallet)
   }
 }
 
-#define OUTPUT_EXPORT_FILE_MAGIC "AEON output export\003"
+#define OUTPUT_EXPORT_FILE_MAGIC "EpochCoin output export\003"
 TEST(Serialization, portability_outputs)
 {
   // read file
@@ -905,7 +905,7 @@ TEST(Serialization, portability_outputs)
   ASSERT_TRUE(td2.m_pk_index == 0);
 }
 
-#define UNSIGNED_TX_PREFIX "AEON unsigned tx set\003"
+#define UNSIGNED_TX_PREFIX "EpochCoin unsigned tx set\003"
 TEST(Serialization, portability_unsigned_tx)
 {
   const boost::filesystem::path filename = unit_test::data_dir / "unsigned_EPOCH_tx";
@@ -1053,7 +1053,7 @@ TEST(Serialization, portability_unsigned_tx)
   ASSERT_TRUE(td2.m_pk_index == 0);
 }
 
-#define SIGNED_TX_PREFIX "AEON signed tx set\003"
+#define SIGNED_TX_PREFIX "EpochCoin signed tx set\003"
 TEST(Serialization, portability_signed_tx)
 {
   const boost::filesystem::path filename = unit_test::data_dir / "signed_EPOCH_tx";

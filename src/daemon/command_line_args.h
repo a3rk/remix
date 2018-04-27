@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2018, The Epoch Project
 // 
 // All rights reserved.
 // 
@@ -34,7 +34,7 @@
 
 namespace daemon_args
 {
-  std::string const WINDOWS_SERVICE_NAME = "AEON Daemon";
+  std::string const WINDOWS_SERVICE_NAME = "EpochCoin Daemon";
 
   const command_line::arg_descriptor<std::string> arg_config_file = {
     "config-file"

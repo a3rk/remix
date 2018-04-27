@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2018, The Epoch Project
 //
 // All rights reserved.
 //
@@ -94,7 +94,7 @@ static const struct {
 
   //Start of Aeon - V0
   //{ 0, 1, 0, 1341378000 },
-  // version 1 hard fork of AEON was at 592000 2015-08-04 14:45:24
+  // version 1 hard fork of EpochCoin was at 592000 2015-08-04 14:45:24
   // at that time Target diff gets changes from 60 to 240
   // and speed changes from 20 to 18
   { 1, HARDFORK_1_HEIGHT, 0, 1438699524 }
@@ -110,7 +110,7 @@ static const struct {
 } testnet_hard_forks[] = {
   // version 1 of the testnet starting from scratch until such time
   // that we go public with a testnet and determine if hard forking
-  // from the top of the AEON mainnet blockchain is preferable 
+  // from the top of the EpochCoin mainnet blockchain is preferable 
   // { 1, 1, 0, 0 },
 };
 
@@ -2413,10 +2413,10 @@ bool Blockchain::check_tx_outputs(const transaction& tx, tx_verification_context
   }
 
   // From v7 of Monero, allow bulletproofs, as an
-  // assumption of next version of AEON
+  // assumption of next version of EpochCoin
   // 
   // Commented out for now, as we don't want to check for bulletproofs 
-  // when second version of AEON goes on mainnet
+  // when second version of EpochCoin goes on mainnet
 
   /*
   if (hf_version < 3 || !m_testnet) {

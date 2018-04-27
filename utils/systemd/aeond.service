@@ -3,13 +3,13 @@ Description=EPOCH Full Node
 After=network.target
 
 [Service]
-User=aeon
-Group=aeon
+User=epoch
+Group=epoch
 WorkingDirectory=~
 RuntimeDirectory=epoch
 
 Type=forking
-PIDFile=/run/aeon/epochd.pid
+PIDFile=/run/epoch/epochd.pid
 
 ExecStart=/usr/bin/epochd --config-file /etc/epochd.conf \
     --detach --pidfile /run/epoch/epochd.pid

@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2018, The Epoch Project
 // 
 // All rights reserved.
 // 
@@ -143,22 +143,22 @@ TEST(DNSResolver, IPv6Failure)
 // {
 //   bool avail, valid;
 
-//   std::vector<std::string> records = tools::DNSResolver::instance().get_txt_record("donate.aeon.cash", avail, valid);
+//   std::vector<std::string> records = tools::DNSResolver::instance().get_txt_record("donate.epoch.cash", avail, valid);
 
 //   EXPECT_NE(0, records.size());
 
 //   for (auto& rec : records)
 //   {
-//     std::cout << "TXT record for donate.aeon.cash: " << rec << std::endl;
+//     std::cout << "TXT record for donate.epoch.cash: " << rec << std::endl;
 //   }
 
 //   // replace first @ with .
-//   std::string addr = tools::DNSResolver::instance().get_dns_format_from_oa_address("donate@aeon.cash");
-//   EXPECT_STREQ("donate.aeon.cash", addr.c_str());
+//   std::string addr = tools::DNSResolver::instance().get_dns_format_from_oa_address("donate@epoch.cash");
+//   EXPECT_STREQ("donate.epoch.cash", addr.c_str());
 
 //   // no change
-//   addr = tools::DNSResolver::instance().get_dns_format_from_oa_address("donate.aeon.cash");
-//   EXPECT_STREQ("donate.aeon.cash", addr.c_str());
+//   addr = tools::DNSResolver::instance().get_dns_format_from_oa_address("donate.epoch.cash");
+//   EXPECT_STREQ("donate.epoch.cash", addr.c_str());
 // }
 
 TEST(DNS_PUBLIC, empty) { EXPECT_STREQ("", tools::dns_utils::parse_dns_public("").c_str()); }
