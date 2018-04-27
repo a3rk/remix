@@ -1,4 +1,4 @@
-# Copyright (c) 2014-2018, The Monero Project
+# Copyright (c) 2018, The Epoch Project
 #
 # All rights reserved.
 #
@@ -27,7 +27,7 @@
 # THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 cmake_minimum_required (VERSION 2.6)
-project (aeon CXX)
+project (epoch CXX)
 
 file(GLOB P2P *)
 source_group(p2p FILES ${P2P})

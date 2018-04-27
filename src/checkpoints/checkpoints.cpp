@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2018, The Epoch Project
 //
 // All rights reserved.
 //
@@ -217,7 +217,7 @@ namespace cryptonote
   {
     std::vector<std::string> records;
 
-    // TODO AEON DNS CHECKPOINTS
+    // TODO EpochCoin DNS CHECKPOINTS
     static const std::vector<std::string> dns_urls = { 
       //TODO
     };

@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2018, The Epoch Project
 //
 // All rights reserved.
 //
@@ -159,7 +159,7 @@ int main(int argc, char const * argv[])
     auto data_dir_arg = testnet_mode ? cryptonote::arg_testnet_data_dir : cryptonote::arg_data_dir;
 
     // data_dir
-    //   default: e.g. ~/.aeon/ or ~/.aeon/testnet
+    //   default: e.g. ~/.epoch/ or ~/.epoch/testnet
     //   if data-dir argument given:
     //     absolute path
     //     relative path: relative to cwd

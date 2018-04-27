@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2018, The Epoch Project
 // 
 // All rights reserved.
 // 
@@ -62,7 +62,7 @@ namespace
   const command_line::arg_descriptor<std::string> arg_wallet_dir = {"wallet-dir", "Directory for newly created wallets"};
   const command_line::arg_descriptor<bool> arg_prompt_for_password = {"prompt-for-password", "Prompts for password when not provided", false};
 
-  constexpr const char default_rpc_username[] = "aeon";
+  constexpr const char default_rpc_username[] = "epoch";
 
   boost::optional<tools::password_container> password_prompter(const char *prompt, bool verify)
   {
@@ -198,7 +198,7 @@ namespace tools
           string_encoding::base64_encode(rand_128bit.data(), rand_128bit.size())
         );
 
-        std::string temp = "aeon-wallet-rpc." + bind_port + ".login";
+        std::string temp = "epoch-wallet-rpc." + bind_port + ".login";
         rpc_login_file = tools::private_file::create(temp);
         if (!rpc_login_file.handle())
         {
@@ -505,7 +505,7 @@ namespace tools
           }
           if (addresses.empty())
           {
-            er.message = std::string("No AEON address found at ") + url;
+            er.message = std::string("No EpochCoin address found at ") + url;
             return {};
           }
           return addresses[0];
@@ -1479,7 +1479,7 @@ namespace tools
         }
         if (addresses.empty())
         {
-          er.message = std::string("No AEON address found at ") + url;
+          er.message = std::string("No EpochCoin address found at ") + url;
           return {};
         }
         return addresses[0];
@@ -2117,7 +2117,7 @@ namespace tools
         }
         if (addresses.empty())
         {
-          er.message = std::string("No AEON address found at ") + url;
+          er.message = std::string("No EpochCoin address found at ") + url;
           return {};
         }
         return addresses[0];
@@ -2875,12 +2875,12 @@ int main(int argc, char** argv) {
 
   const auto vm = wallet_args::main(
     argc, argv,
-    "aeon-wallet-rpc [--wallet-file=<file>|--generate-from-json=<file>|--wallet-dir=<directory>] [--rpc-bind-port=<port>]",
-    tools::wallet_rpc_server::tr("This is the RPC AEON wallet. It needs to connect to an AEON\ndaemon to work correctly."),
+    "epoch-wallet-rpc [--wallet-file=<file>|--generate-from-json=<file>|--wallet-dir=<directory>] [--rpc-bind-port=<port>]",
+    tools::wallet_rpc_server::tr("This is the RPC EpochCoin wallet. It needs to connect to an EpochCoin\ndaemon to work correctly."),
     desc_params,
     po::positional_options_description(),
     [](const std::string &s, bool emphasis){ epee::set_console_color(emphasis ? epee::console_color_white : epee::console_color_default, true); std::cout << s << std::endl; if (emphasis) epee::reset_console_color(); },
-    "aeon-wallet-rpc.log",
+    "epoch-wallet-rpc.log",
     true
   );
   if (!vm)

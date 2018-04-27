@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2018, The Epoch Project
 //
 // All rights reserved.
 //
@@ -1032,13 +1032,13 @@ namespace cryptonote
         continue;
       }
 
-			//aeon specific
+			//epoch specific
       if (tx.vin.size() > 0)
       {
         //retrieves itk
         CHECKED_GET_SPECIFIC_VARIANT(tx.vin[0], const txin_to_key, itk, false);
 
-        // per aeon: discourage < 3-way-mix transactions by mining them only as the first tx in an empty block
+        // per epoch: discourage < 3-way-mix transactions by mining them only as the first tx in an empty block
         if (sorted_it!=m_txs_by_fee_and_receive_time.begin()  && itk.key_offsets.size() < 3){
           LOG_PRINT_L2("  ring size < 3 but not first tx in emtpy block");
           sorted_it++;

@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2018, The Epoch Project
 // 
 // All rights reserved.
 // 
@@ -88,7 +88,7 @@ typedef cryptonote::simple_wallet sw;
 
 #define MIN_RING_SIZE 1 // Used to inform user about min ring size -- does not track actual protocol
 
-#define OUTPUT_EXPORT_FILE_MAGIC "AEON output export\003"
+#define OUTPUT_EXPORT_FILE_MAGIC "EpochCoin output export\003"
 
 #define LOCK_IDLE_SCOPE() \
   bool auto_refresh_enabled = m_auto_refresh_enabled.load(std::memory_order_relaxed); \
@@ -129,7 +129,7 @@ namespace
   const command_line::arg_descriptor<bool> arg_trusted_daemon = {"trusted-daemon", sw::tr("Enable commands which rely on a trusted daemon"), false};
   const command_line::arg_descriptor<bool> arg_allow_mismatched_daemon_version = {"allow-mismatched-daemon-version", sw::tr("Allow communicating with a daemon that uses a different RPC version"), false};
   const command_line::arg_descriptor<uint64_t> arg_restore_height = {"restore-height", sw::tr("Restore from specific blockchain height"), 0};
-  const command_line::arg_descriptor<bool> arg_do_not_relay = {"do-not-relay", sw::tr("The newly created transaction will not be relayed to the AEON network"), false};
+  const command_line::arg_descriptor<bool> arg_do_not_relay = {"do-not-relay", sw::tr("The newly created transaction will not be relayed to the EpochCoin network"), false};
 
   const command_line::arg_descriptor< std::vector<std::string> > arg_command = {"command", ""};
 
@@ -304,7 +304,7 @@ namespace
     std::stringstream prompt;
     prompt << tr("For URL: ") << url
            << ", " << dnssec_str << std::endl
-           << tr(" AEON Address = ") << addresses[0]
+           << tr(" EpochCoin Address = ") << addresses[0]
            << std::endl
            << tr("Is this OK? (Y/n) ")
     ;
@@ -656,7 +656,7 @@ bool simple_wallet::print_fee_info(const std::vector<std::string> &args/* = std:
   }
   const uint64_t per_kb_fee = m_wallet->get_per_kb_fee();
   const uint64_t typical_size_kb = 13;
-  message_writer() << (boost::format(tr("Current fee is %s AEON per kB")) % print_money(per_kb_fee)).str();
+  message_writer() << (boost::format(tr("Current fee is %s EpochCoin per kB")) % print_money(per_kb_fee)).str();
 
   std::vector<uint64_t> fees;
   for (uint32_t priority = 1; priority <= 4; ++priority)
@@ -1361,15 +1361,15 @@ bool simple_wallet::set_unit(const std::vector<std::string> &args/* = std::vecto
   const std::string &unit = args[1];
   unsigned int decimal_point = CRYPTONOTE_DISPLAY_DECIMAL_POINT;
 
-  if (unit == "aeon")
+  if (unit == "epoch")
     decimal_point = CRYPTONOTE_DISPLAY_DECIMAL_POINT;
-  else if (unit == "millaeon")
+  else if (unit == "millepoch")
     decimal_point = CRYPTONOTE_DISPLAY_DECIMAL_POINT - 3;
-  else if (unit == "micraeon")
+  else if (unit == "micrepoch")
     decimal_point = CRYPTONOTE_DISPLAY_DECIMAL_POINT - 6;
-  else if (unit == "nanaeon")
+  else if (unit == "nanepoch")
     decimal_point = CRYPTONOTE_DISPLAY_DECIMAL_POINT - 9;
-  else if (unit == "picaeon")
+  else if (unit == "picepoch")
     decimal_point = 0;
   else
   {
@@ -1566,7 +1566,7 @@ simple_wallet::simple_wallet()
   m_cmd_binder.set_handler("donate",
                            boost::bind(&simple_wallet::donate, this, _1),
                            tr("donate [index=<N1>[,<N2>,...]] [<priority>] [<ring_size>] <amount> [<payment_id>]"),
-                           tr("Donate <amount> to the AEON development team."));
+                           tr("Donate <amount> to the EpochCoin development team."));
   m_cmd_binder.set_handler("sign_transfer",
                            boost::bind(&simple_wallet::sign_transfer, this, _1),
                            tr("sign_transfer <file>"),
@@ -1631,8 +1631,8 @@ simple_wallet::simple_wallet()
                                   "  Set the fee too default/unimportant/normal/elevated/priority.\n "
                                   "confirm-missing-payment-id <1|0>\n "
                                   "ask-password <1|0>\n "
-                                  "unit <aeon|millaeon|micraeon|nanaeon|picaeon>\n "
-                                  "  Set the default AEON (sub-)unit.\n "
+                                  "unit <epoch|millepoch|micrepoch|nanepoch|picepoch>\n "
+                                  "  Set the default EpochCoin (sub-)unit.\n "
                                   "min-outputs-count [n]\n "
                                   "  Try to keep at least that many outputs of value at least min-outputs-value.\n "
                                   "min-outputs-value [n]\n "
@@ -1841,7 +1841,7 @@ bool simple_wallet::set_variable(const std::vector<std::string> &args)
     CHECK_SIMPLE_VARIABLE("priority", set_default_priority, tr("0, 1, 2, 3, or 4"));
     CHECK_SIMPLE_VARIABLE("confirm-missing-payment-id", set_confirm_missing_payment_id, tr("0 or 1"));
     CHECK_SIMPLE_VARIABLE("ask-password", set_ask_password, tr("0 or 1"));
-    CHECK_SIMPLE_VARIABLE("unit", set_unit, tr("aeon, millaeon, micraeon, nanaeon, picaeon"));
+    CHECK_SIMPLE_VARIABLE("unit", set_unit, tr("epoch, millepoch, micrepoch, nanepoch, picepoch"));
     CHECK_SIMPLE_VARIABLE("min-outputs-count", set_min_output_count, tr("unsigned integer"));
     CHECK_SIMPLE_VARIABLE("min-outputs-value", set_min_output_value, tr("amount"));
     CHECK_SIMPLE_VARIABLE("merge-destinations", set_merge_destinations, tr("0 or 1"));
@@ -2640,7 +2640,7 @@ bool simple_wallet::new_wallet(const boost::program_options::variables_map& vm,
     "To start synchronizing with the daemon, use \"refresh\" command.\n"
     "Use \"help\" command to see the list of available commands.\n"
     "Use \"help <command>\" to see a command's documentation.\n"
-    "Always use \"exit\" command when closing aeon-wallet-cli to save your\n"
+    "Always use \"exit\" command when closing epoch-wallet-cli to save your\n"
     "current session's state. Otherwise, you might need to synchronize \n"
     "your wallet again (your wallet keys are NOT at risk in any case).\n")
   ;
@@ -4536,7 +4536,7 @@ bool simple_wallet::donate(const std::vector<std::string> &args_)
   if (!payment_id_str.empty())
     local_args.push_back(payment_id_str);
   
-  message_writer() << tr("Donating ") << amount_str << tr(" to The AEON Project (") << full_donation_url << tr(").");
+  message_writer() << tr("Donating ") << amount_str << tr(" to The EpochCoin Project (") << full_donation_url << tr(").");
   transfer_new(local_args);
   return true;
 }
@@ -6452,12 +6452,12 @@ int main(int argc, char* argv[])
 
   const auto vm = wallet_args::main(
    argc, argv,
-   "aeon-wallet-cli [--wallet-file=<file>|--generate-new-wallet=<file>] [<COMMAND>]",
-    sw::tr("This is the command line AEON wallet. It needs to connect to an AEON\ndaemon to work correctly."),
+   "epoch-wallet-cli [--wallet-file=<file>|--generate-new-wallet=<file>] [<COMMAND>]",
+    sw::tr("This is the command line EpochCoin wallet. It needs to connect to an EpochCoin\ndaemon to work correctly."),
     desc_params,
     positional_options,
     [](const std::string &s, bool emphasis){ tools::scoped_message_writer(emphasis ? epee::console_color_white : epee::console_color_default, true) << s; },
-    "aeon-wallet-cli.log"
+    "epoch-wallet-cli.log"
   );
 
   if (!vm)

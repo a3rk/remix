@@ -1,4 +1,4 @@
-# Copyright (c) 2014-2018, The Monero Project
+# Copyright (c) 2018, The Epoch Project
 #
 # All rights reserved.
 #
@@ -33,7 +33,7 @@ endif()
 
 cmake_minimum_required(VERSION 2.8.7)
 
-project(aeon)
+project(epoch)
 
 function (die msg)
   if (NOT WIN32)

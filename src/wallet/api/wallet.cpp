@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2018, The Epoch Project
 //
 // All rights reserved.
 //
@@ -50,7 +50,7 @@ using namespace cryptonote;
 #undef EPOCH_DEFAULT_LOG_CATEGORY
 #define EPOCH_DEFAULT_LOG_CATEGORY "WalletAPI"
 
-namespace AEON {
+namespace EpochCoin {
 
 namespace {
     // copy-pasted from simplewallet

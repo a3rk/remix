@@ -81,8 +81,8 @@ RUN git clone https://github.com/zeromq/zeromq4-1.git \
 
 RUN ln -s /opt/android/openssl/libcrypto.a /opt/android/openssl/libssl.a /opt/android/toolchain-arm/aarch64-linux-android/lib
 
-RUN git clone https://github.com/aeonix/aeon.git \
-    && cd aeon \
+RUN git clone https://github.com/epochix/epoch.git \
+    && cd epoch \
     && mkdir -p build/release \
     && cd build/release \
     && CC=clang CXX=clang++ \

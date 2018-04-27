@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2018, The Epoch Project
 // 
 // All rights reserved.
 // 
@@ -51,7 +51,7 @@ namespace
     ASSERT_TRUE(m_block_not_too_big);                                                                         \
     ASSERT_EQ(m_block_reward, expected_reward);
 
-  // TODO: TEST CASE - reintegrate once values can be identified and used below for AEON, 
+  // TODO: TEST CASE - reintegrate once values can be identified and used below for EpochCoin, 
   // as opposed to those that exist, commented out below, for Monero
   
   // TEST_F(block_reward_and_already_generated_coins, handles_first_values)

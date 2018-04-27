@@ -1,6 +1,6 @@
 # Monero Blockchain Utilities
 
-Copyright (c) 2014-2018, The Monero Project
+Copyright (c) 2018, The Epoch Project
 
 ## Introduction
 
@@ -12,16 +12,16 @@ See also each utility's "--help" option.
 
 ### Export an existing blockchain database
 
-`$ aeon-blockchain-export`
+`$ epoch-blockchain-export`
 
 This loads the existing blockchain and exports it to `$EPOCH_DATA_DIR/export/blockchain.raw`
 
 ### Import the exported file
 
-`$ aeon-blockchain-import`
+`$ epoch-blockchain-import`
 
 This imports blocks from `$EPOCH_DATA_DIR/export/blockchain.raw` (exported using the
-`aeon-blockchain-export` tool as described above) into the current database.
+`epoch-blockchain-export` tool as described above) into the current database.
 
 Defaults: `--batch on`, `--batch size 20000`, `--verify on`
 
@@ -30,14 +30,14 @@ Batch size refers to number of blocks and can be adjusted for performance based 
 Verification should only be turned off if importing from a trusted blockchain.
 
 If you encounter an error like "resizing not supported in batch mode", you can just re-run
-the `aeon-blockchain-import` command again, and it will restart from where it left off.
+the `epoch-blockchain-import` command again, and it will restart from where it left off.
 
 ```bash
 ## use default settings to import blockchain.raw into database
-$ aeon-blockchain-import
+$ epoch-blockchain-import
 
 ## fast import with large batch size, database mode "fastest", verification off
-$ aeon-blockchain-import --batch-size 20000 --database lmdb#fastest --verify off
+$ epoch-blockchain-import --batch-size 20000 --database lmdb#fastest --verify off
 
 ```
 
@@ -80,9 +80,9 @@ LMDB flags (more than one may be specified):
 ## Examples:
 
 ```
-$ aeon-blockchain-import --database lmdb#fastest
+$ epoch-blockchain-import --database lmdb#fastest
 
-$ aeon-blockchain-import --database lmdb#nosync
+$ epoch-blockchain-import --database lmdb#nosync
 
-$ aeon-blockchain-import --database lmdb#nosync,nometasync
+$ epoch-blockchain-import --database lmdb#nosync,nometasync
 ```

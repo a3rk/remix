@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2018, The Epoch Project
 //
 // All rights reserved.
 //
@@ -35,7 +35,7 @@
 #include <vector>
 
 
-namespace AEON {
+namespace EpochCoin {
 
 class WalletImpl;
 class PendingTransactionImpl : public PendingTransaction

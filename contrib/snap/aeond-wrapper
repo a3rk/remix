@@ -2,7 +2,7 @@
 
 if [ ! -d "$SNAP_USER_DATA/etc" ]; then
   mkdir $SNAP_USER_DATA/etc/
-  cp -R $SNAP/etc/aeond.conf $SNAP_USER_DATA/etc/aeond.conf
+  cp -R $SNAP/etc/epochd.conf $SNAP_USER_DATA/etc/epochd.conf
 fi
 
-exec "$SNAP/bin/aeond" "$@"
+exec "$SNAP/bin/epochd" "$@"

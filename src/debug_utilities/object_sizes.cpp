@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2018, The Epoch Project
 //
 // All rights reserved.
 //
@@ -104,12 +104,12 @@ int main(int argc, char* argv[])
   SL(tools::wallet2::unsigned_tx_set);
   SL(tools::wallet2::signed_tx_set);
 
-  SL(AEON::WalletImpl);
-  SL(AEON::AddressBookRow);
-  SL(AEON::TransactionInfoImpl);
-  SL(AEON::TransactionHistoryImpl);
-  SL(AEON::PendingTransactionImpl);
-  SL(AEON::UnsignedTransactionImpl);
+  SL(EpochCoin::WalletImpl);
+  SL(EpochCoin::AddressBookRow);
+  SL(EpochCoin::TransactionInfoImpl);
+  SL(EpochCoin::TransactionHistoryImpl);
+  SL(EpochCoin::PendingTransactionImpl);
+  SL(EpochCoin::UnsignedTransactionImpl);
 
   return 0;
 }

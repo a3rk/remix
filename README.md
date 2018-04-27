@@ -13,7 +13,7 @@ Portions Copyright 2012-2013 The Cryptonote developers
 
 ## Introduction
 
-Epoch is a private, secure, untraceable, lightweight, decentralised digital currency based on the Monero and AEON code bases. Epoch aims to be a fungible and untraceable digital peer-to-peer medium of exchange, actively developed. Epoch is the start of a new, distinctive period for CryptoNote-Lite cryptocurrencies.
+Epoch is a private, secure, untraceable, lightweight, decentralised digital currency based on the Monero and EpochCoin code bases. Epoch aims to be a fungible and untraceable digital peer-to-peer medium of exchange, actively developed. Epoch is the start of a new, distinctive period for CryptoNote-Lite cryptocurrencies.
 
 - **Privacy:** Epoch uses a cryptographically sound system to allow you to send and receive funds without your transactions being easily revealed on the blockchain<sup id="a1">[1](#f1)</sup>. This ensures that your purchases, receipts, and all transfers remain absolutely private by default.
 

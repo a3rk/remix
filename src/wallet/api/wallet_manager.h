@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2018, The Epoch Project
 //
 // All rights reserved.
 //
@@ -32,7 +32,7 @@
 #include "wallet/api/wallet2_api.h"
 #include <string>
 
-namespace AEON {
+namespace EpochCoin {
 
 class WalletManagerImpl : public WalletManager
 {

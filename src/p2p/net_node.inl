@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2018, The Epoch Project
 //
 // All rights reserved.
 //
@@ -373,8 +373,8 @@ namespace nodetool
     std::set<std::string> full_addrs;
     if (testnet)
     {
-      //full_addrs.insert("d13.testnet.aeon.direct:21180");
-      //full_addrs.insert("n1.testnet.aeon.direct:21180");
+      //full_addrs.insert("d13.testnet.epoch.direct:21180");
+      //full_addrs.insert("n1.testnet.epoch.direct:21180");
       full_addrs.insert("127.0.0.1:21330"); 
     }
     else

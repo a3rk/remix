@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2018, The Epoch Project
 //
 // All rights reserved.
 //
@@ -57,7 +57,7 @@ namespace {
     }
 }
 
-namespace AEON {
+namespace EpochCoin {
 
 Wallet *WalletManagerImpl::createWallet(const std::string &path, const std::string &password,
                                     const std::string &language, bool testnet)
