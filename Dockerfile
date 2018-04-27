@@ -39,10 +39,10 @@ VOLUME /root/.aeon
 
 # Generate your wallet via accessing the container and run:
 # cd /wallet
-# aeon-wallet-cli
+# epoch-wallet-cli
 VOLUME /wallet
 
-EXPOSE 18080
-EXPOSE 18081
+EXPOSE 11330
+EXPOSE 11331
 
-ENTRYPOINT ["aeond", "--p2p-bind-ip=0.0.0.0", "--p2p-bind-port=18080", "--rpc-bind-ip=127.0.0.1", "--rpc-bind-port=18081", "--non-interactive"] 
+ENTRYPOINT ["epochd", "--p2p-bind-ip=0.0.0.0", "--p2p-bind-port=18080", "--rpc-bind-ip=127.0.0.1", "--rpc-bind-port=18081", "--non-interactive"] 

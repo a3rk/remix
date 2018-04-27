@@ -40,8 +40,8 @@
 #include <crtdbg.h>
 #endif
 
-#undef AEON_DEFAULT_LOG_CATEGORY
-#define AEON_DEFAULT_LOG_CATEGORY "wallet.wallet2"
+#undef EPOCH_DEFAULT_LOG_CATEGORY
+#define EPOCH_DEFAULT_LOG_CATEGORY "wallet.wallet2"
 
 // workaround for a suspected bug in pthread/kernel on MacOS X
 #ifdef __APPLE__
@@ -134,7 +134,7 @@ namespace wallet_args
 
       if (command_line::get_arg(vm, command_line::arg_help))
       {
-        Print(print) << "Aeon '" << AEON_RELEASE_NAME << "' (v" << AEON_VERSION_FULL << ")" << ENDL;
+        Print(print) << "Epoch '" << EPOCH_RELEASE_NAME << "' (v" << EPOCH_VERSION_FULL << ")" << ENDL;
         Print(print) << wallet_args::tr("This is the command line AEON wallet. It needs to connect to an AEON\n"
 												  "daemon to work correctly.") << ENDL;
         Print(print) << wallet_args::tr("Usage:") << ENDL << "  " << usage;
@@ -143,7 +143,7 @@ namespace wallet_args
       }
       else if (command_line::get_arg(vm, command_line::arg_version))
       {
-        Print(print) << "Aeon '" << AEON_RELEASE_NAME << "' (v" << AEON_VERSION_FULL << ")";
+        Print(print) << "Epoch '" << EPOCH_RELEASE_NAME << "' (v" << EPOCH_VERSION_FULL << ")";
         return false;
       }
 
@@ -186,12 +186,12 @@ namespace wallet_args
     if (!command_line::is_arg_defaulted(vm, arg_max_concurrency))
       tools::set_max_concurrency(command_line::get_arg(vm, arg_max_concurrency));
 
-    Print(print) << "Aeon '" << AEON_RELEASE_NAME << "' (v" << AEON_VERSION_FULL << ")";
+    Print(print) << "Epoch '" << EPOCH_RELEASE_NAME << "' (v" << EPOCH_VERSION_FULL << ")";
 
     if (!command_line::is_arg_defaulted(vm, arg_log_level))
       MINFO("Setting log level = " << command_line::get_arg(vm, arg_log_level));
     else
-      MINFO("Setting log levels = " << getenv("AEON_LOGS"));
+      MINFO("Setting log levels = " << getenv("EPOCH_LOGS"));
     MINFO(wallet_args::tr("Logging to: ") << log_path);
 
     Print(print) << boost::format(wallet_args::tr("Logging to %s")) % log_path;

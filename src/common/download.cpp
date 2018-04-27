@@ -36,8 +36,8 @@
 #include "net/http_client.h"
 #include "download.h"
 
-#undef AEON_DEFAULT_LOG_CATEGORY
-#define AEON_DEFAULT_LOG_CATEGORY "net.dl"
+#undef EPOCH_DEFAULT_LOG_CATEGORY
+#define EPOCH_DEFAULT_LOG_CATEGORY "net.dl"
 
 namespace tools
 {

@@ -44,9 +44,9 @@ set(wallet_private_headers
   wallet_rpc_server_error_codes.h
   node_rpc_proxy.h)
 
-aeon_private_headers(wallet
+EPOCH_private_headers(wallet
   ${wallet_private_headers})
-aeon_add_library(wallet
+EPOCH_add_library(wallet
   ${wallet_sources}
   ${wallet_private_headers})
 target_link_libraries(wallet
@@ -72,9 +72,9 @@ set(wallet_rpc_headers)
 set(wallet_rpc_private_headers
   wallet_rpc_server.h)
 
-aeon_private_headers(wallet_rpc_server
+EPOCH_private_headers(wallet_rpc_server
   ${wallet_rpc_private_headers})
-aeon_add_executable(wallet_rpc_server
+EPOCH_add_executable(wallet_rpc_server
   ${wallet_rpc_sources}
   ${wallet_rpc_headers}
   ${wallet_rpc_private_headers})
@@ -96,7 +96,7 @@ target_link_libraries(wallet_rpc_server
     ${EXTRA_LIBRARIES})
 set_property(TARGET wallet_rpc_server
   PROPERTY
-    OUTPUT_NAME "aeon-wallet-rpc")
+    OUTPUT_NAME "epoch-wallet-rpc")
 install(TARGETS wallet_rpc_server DESTINATION bin)
 
 

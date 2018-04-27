@@ -32,8 +32,8 @@
 
 #include "rpc/core_rpc_server.h"
 
-#undef AEON_DEFAULT_LOG_CATEGORY
-#define AEON_DEFAULT_LOG_CATEGORY "daemon"
+#undef EPOCH_DEFAULT_LOG_CATEGORY
+#define EPOCH_DEFAULT_LOG_CATEGORY "daemon"
 
 namespace daemonize
 {

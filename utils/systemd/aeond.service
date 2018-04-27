@@ -1,18 +1,18 @@
 [Unit]
-Description=AEON Full Node
+Description=EPOCH Full Node
 After=network.target
 
 [Service]
 User=aeon
 Group=aeon
 WorkingDirectory=~
-RuntimeDirectory=aeon
+RuntimeDirectory=epoch
 
 Type=forking
-PIDFile=/run/aeon/aeond.pid
+PIDFile=/run/aeon/epochd.pid
 
-ExecStart=/usr/bin/aeond --config-file /etc/aeond.conf \
-    --detach --pidfile /run/aeon/aeond.pid
+ExecStart=/usr/bin/epochd --config-file /etc/epochd.conf \
+    --detach --pidfile /run/epoch/epochd.pid
 
 Restart=always
 PrivateTmp=true

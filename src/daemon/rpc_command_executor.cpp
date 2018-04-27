@@ -39,8 +39,8 @@
 #include <ctime>
 #include <string>
 
-#undef AEON_DEFAULT_LOG_CATEGORY
-#define AEON_DEFAULT_LOG_CATEGORY "daemon"
+#undef EPOCH_DEFAULT_LOG_CATEGORY
+#define EPOCH_DEFAULT_LOG_CATEGORY "daemon"
 
 namespace daemonize {
 
@@ -1127,10 +1127,10 @@ bool t_rpc_command_executor::print_status()
   bool daemon_is_alive = m_rpc_client->check_connection();
 
   if(daemon_is_alive) {
-    tools::success_msg_writer() << "aeond is running";
+    tools::success_msg_writer() << "epochd is running";
   }
   else {
-    tools::fail_msg_writer() << "aeond is NOT running";
+    tools::fail_msg_writer() << "epochd is NOT running";
   }
 
   return true;

@@ -32,8 +32,8 @@ project (aeon CXX)
 file(GLOB CRYPTONOTE_PROTOCOL *)
 source_group(cryptonote_protocol FILES ${CRYPTONOTE_PROTOCOL})
 
-#aeon_private_headers(cryptonote_protocol ${CRYPTONOTE_PROTOCOL})
-aeon_add_library(cryptonote_protocol ${CRYPTONOTE_PROTOCOL})
+#EPOCH_private_headers(cryptonote_protocol ${CRYPTONOTE_PROTOCOL})
+EPOCH_add_library(cryptonote_protocol ${CRYPTONOTE_PROTOCOL})
 target_link_libraries(cryptonote_protocol
   PUBLIC
     p2p

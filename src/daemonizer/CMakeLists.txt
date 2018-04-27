@@ -54,9 +54,9 @@ else()
   )
 endif()
 
-aeon_private_headers(daemonizer
+EPOCH_private_headers(daemonizer
   ${daemonizer_private_headers})
-aeon_add_library(daemonizer
+EPOCH_add_library(daemonizer
   ${daemonizer_sources}
   ${daemonizer_headers}
   ${daemonizer_private_headers})

@@ -43,8 +43,8 @@ using namespace epee;
 #include "common/int-util.h"
 #include "common/dns_utils.h"
 
-#undef AEON_DEFAULT_LOG_CATEGORY
-#define AEON_DEFAULT_LOG_CATEGORY "cn"
+#undef EPOCH_DEFAULT_LOG_CATEGORY
+#define EPOCH_DEFAULT_LOG_CATEGORY "cn"
 
 namespace cryptonote {
 
@@ -126,8 +126,8 @@ namespace cryptonote {
 
     /* This will speed things up to catch up to AEON */
     if(height == 1 && testnet) {
-        uint64_t current_aeon_coins = static_cast<uint64_t>(15372295795843000000U);
-        base_reward = (current_aeon_coins - already_generated_coins);
+        uint64_t current_EPOCH_coins = static_cast<uint64_t>(15372295795843000000U);
+        base_reward = (current_EPOCH_coins - already_generated_coins);
         LOG_PRINT_L4("Reward generated. base=" << print_money(base_reward) << "(Money Supply: "  << print_money(MONEY_SUPPLY) << " Minus Already Generated Coins: " << print_money(already_generated_coins)
         << "), values: money_supply=" << print_money(MONEY_SUPPLY) << ", already_generated_coins=" << print_money(already_generated_coins));
     }

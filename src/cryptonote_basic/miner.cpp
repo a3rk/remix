@@ -69,8 +69,8 @@
 #include <unistd.h>
 #endif
 
-#undef AEON_DEFAULT_LOG_CATEGORY
-#define AEON_DEFAULT_LOG_CATEGORY "miner"
+#undef EPOCH_DEFAULT_LOG_CATEGORY
+#define EPOCH_DEFAULT_LOG_CATEGORY "miner"
 
 using namespace epee;
 

@@ -68,9 +68,9 @@ set(crypto_private_headers
   skein.h
   skein_port.h)
 
-aeon_private_headers(cncrypto
+EPOCH_private_headers(cncrypto
   ${crypto_private_headers})
-aeon_add_library(cncrypto
+EPOCH_add_library(cncrypto
   ${crypto_sources}
   ${crypto_headers}
   ${crypto_private_headers})

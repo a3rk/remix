@@ -36,8 +36,8 @@
 
 #include <string>
 
-#undef AEON_DEFAULT_LOG_CATEGORY
-#define AEON_DEFAULT_LOG_CATEGORY "daemon"
+#undef EPOCH_DEFAULT_LOG_CATEGORY
+#define EPOCH_DEFAULT_LOG_CATEGORY "daemon"
 
 namespace daemonize
 {
@@ -59,7 +59,7 @@ namespace daemonize
       boost::program_options::variables_map const & vm
     )
   {
-    LOG_PRINT_L0("Aeon '" << AEON_RELEASE_NAME << "' (v" << AEON_VERSION_FULL << ") Daemonised");
+    LOG_PRINT_L0("Epoch '" << EPOCH_RELEASE_NAME << "' (v" << EPOCH_VERSION_FULL << ") Daemonised");
     return t_daemon{vm};
   }
 

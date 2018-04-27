@@ -35,12 +35,12 @@
 #include "cryptonote_config.h"
 #include <string>
 
-// TODO: TEST CASE - Include back in when DONATION_AEON_WALLET_ADDRESS can 
+// TODO: TEST CASE - Include back in when DONATION_EPOCH_WALLET_ADDRESS can 
 // be set, relied upon to be tested here
 
 // TEST(AddressFromTXT, Success)
 // {
-//   std::string addr = config::testnet::DONATION_AEON_WALLET_ADDRESS; //"46BeWrHpwXmHDpDEUmZBWZfoQpdc6HaERCNmx1pEYL2rAcuwufPN9rXHHtyUA4QVy66qeFQkn6sfK8aHYjA3jk3o1Bv16em";
+//   std::string addr = config::testnet::DONATION_EPOCH_WALLET_ADDRESS; //"46BeWrHpwXmHDpDEUmZBWZfoQpdc6HaERCNmx1pEYL2rAcuwufPN9rXHHtyUA4QVy66qeFQkn6sfK8aHYjA3jk3o1Bv16em";
 
 //   std::string txtr = "oa1:aeon";
 //   txtr += " recipient_address=";
@@ -90,7 +90,7 @@ TEST(AddressFromTXT, Failure)
 
 // TEST(AddressFromURL, Success)
 // {
-//   const std::string addr = config::testnet::DONATION_AEON_WALLET_ADDRESS;
+//   const std::string addr = config::testnet::DONATION_EPOCH_WALLET_ADDRESS;
   
 //   bool dnssec_result = false;
 

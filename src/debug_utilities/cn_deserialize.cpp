@@ -33,8 +33,8 @@
 #include "common/command_line.h"
 #include "version.h"
 
-#undef AEON_DEFAULT_LOG_CATEGORY
-#define AEON_DEFAULT_LOG_CATEGORY "debugtools.deserialize"
+#undef EPOCH_DEFAULT_LOG_CATEGORY
+#define EPOCH_DEFAULT_LOG_CATEGORY "debugtools.deserialize"
 
 namespace po = boost::program_options;
 using namespace epee;
@@ -77,7 +77,7 @@ int main(int argc, char* argv[])
 
   if (command_line::get_arg(vm, command_line::arg_help))
   {
-    std::cout << "AEON '" << AEON_RELEASE_NAME << "' (v" << AEON_VERSION_FULL << ")" << ENDL << ENDL;
+    std::cout << "EPOCH '" << EPOCH_RELEASE_NAME << "' (v" << EPOCH_VERSION_FULL << ")" << ENDL << ENDL;
     std::cout << desc_options << std::endl;
     return 1;
   }

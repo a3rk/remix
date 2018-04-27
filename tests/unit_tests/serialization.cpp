@@ -673,7 +673,7 @@ TEST(Serialization, portability_wallet)
   const bool testnet = true;
   const bool restricted = false;
   tools::wallet2 w(testnet, restricted);
-  const boost::filesystem::path wallet_file = unit_test::data_dir / "wallet_aeon_9svHk1";
+  const boost::filesystem::path wallet_file = unit_test::data_dir / "wallet_EPOCH_9svHk1";
   string password = "test";
   bool r = false;
   try
@@ -908,7 +908,7 @@ TEST(Serialization, portability_outputs)
 #define UNSIGNED_TX_PREFIX "AEON unsigned tx set\003"
 TEST(Serialization, portability_unsigned_tx)
 {
-  const boost::filesystem::path filename = unit_test::data_dir / "unsigned_aeon_tx";
+  const boost::filesystem::path filename = unit_test::data_dir / "unsigned_EPOCH_tx";
   std::string s;
   const bool testnet = true;
   bool r = epee::file_io_utils::load_file_to_string(filename.string(), s);
@@ -1056,7 +1056,7 @@ TEST(Serialization, portability_unsigned_tx)
 #define SIGNED_TX_PREFIX "AEON signed tx set\003"
 TEST(Serialization, portability_signed_tx)
 {
-  const boost::filesystem::path filename = unit_test::data_dir / "signed_aeon_tx";
+  const boost::filesystem::path filename = unit_test::data_dir / "signed_EPOCH_tx";
   const bool testnet = true;
   std::string s;
   bool r = epee::file_io_utils::load_file_to_string(filename.string(), s);
