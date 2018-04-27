@@ -41,9 +41,9 @@ set(ringct_private_headers
   rctTypes.h
   bulletproofs.h)
 
-aeon_private_headers(ringct
+EPOCH_private_headers(ringct
   ${crypto_private_headers})
-aeon_add_library(ringct
+EPOCH_add_library(ringct
   ${ringct_sources}
   ${ringct_headers}
   ${ringct_private_headers})

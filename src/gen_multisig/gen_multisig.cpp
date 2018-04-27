@@ -53,8 +53,8 @@ using namespace cryptonote;
 using boost::lexical_cast;
 namespace po = boost::program_options;
 
-#undef AEON_DEFAULT_LOG_CATEGORY
-#define AEON_DEFAULT_LOG_CATEGORY "wallet.gen_multisig"
+#undef EPOCH_DEFAULT_LOG_CATEGORY
+#define EPOCH_DEFAULT_LOG_CATEGORY "wallet.gen_multisig"
 
 namespace genms
 {

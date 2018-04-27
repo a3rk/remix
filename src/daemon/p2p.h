@@ -34,8 +34,8 @@
 #include "p2p/net_node.h"
 #include "daemon/protocol.h"
 
-#undef AEON_DEFAULT_LOG_CATEGORY
-#define AEON_DEFAULT_LOG_CATEGORY "daemon"
+#undef EPOCH_DEFAULT_LOG_CATEGORY
+#define EPOCH_DEFAULT_LOG_CATEGORY "daemon"
 
 namespace daemonize
 {

@@ -43,8 +43,8 @@
 #include "wallet/api/unsigned_transaction.h"
 #include "wallet/api/pending_transaction.h"
 
-#undef AEON_DEFAULT_LOG_CATEGORY
-#define AEON_DEFAULT_LOG_CATEGORY "debugtools.objectsizes"
+#undef EPOCH_DEFAULT_LOG_CATEGORY
+#define EPOCH_DEFAULT_LOG_CATEGORY "debugtools.objectsizes"
 
 class size_logger
 {

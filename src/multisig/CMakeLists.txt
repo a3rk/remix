@@ -34,10 +34,10 @@ set(multisig_headers)
 set(multisig_private_headers
   multisig.h)
 
-aeon_private_headers(multisig
+EPOCH_private_headers(multisig
   ${multisig_private_headers})
 
-aeon_add_library(multisig
+EPOCH_add_library(multisig
   ${multisig_sources}
   ${multisig_headers}
   ${multisig_private_headers})

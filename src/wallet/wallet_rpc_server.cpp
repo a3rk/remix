@@ -51,8 +51,8 @@ using namespace epee;
 #include "rpc/rpc_args.h"
 #include "rpc/core_rpc_server_commands_defs.h"
 
-#undef AEON_DEFAULT_LOG_CATEGORY
-#define AEON_DEFAULT_LOG_CATEGORY "wallet.rpc"
+#undef EPOCH_DEFAULT_LOG_CATEGORY
+#define EPOCH_DEFAULT_LOG_CATEGORY "wallet.rpc"
 
 namespace
 {

@@ -14,13 +14,13 @@ See also each utility's "--help" option.
 
 `$ aeon-blockchain-export`
 
-This loads the existing blockchain and exports it to `$AEON_DATA_DIR/export/blockchain.raw`
+This loads the existing blockchain and exports it to `$EPOCH_DATA_DIR/export/blockchain.raw`
 
 ### Import the exported file
 
 `$ aeon-blockchain-import`
 
-This imports blocks from `$AEON_DATA_DIR/export/blockchain.raw` (exported using the
+This imports blocks from `$EPOCH_DATA_DIR/export/blockchain.raw` (exported using the
 `aeon-blockchain-export` tool as described above) into the current database.
 
 Defaults: `--batch on`, `--batch size 20000`, `--verify on`

@@ -47,9 +47,9 @@ else()
   set(Blocks "")
 endif()
 
-aeon_private_headers(cryptonote_core
+EPOCH_private_headers(cryptonote_core
   ${cryptonote_core_private_headers})
-aeon_add_library(cryptonote_core
+EPOCH_add_library(cryptonote_core
   ${cryptonote_core_sources}
   ${cryptonote_core_headers}
   ${cryptonote_core_private_headers})

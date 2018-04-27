@@ -33,8 +33,8 @@
 #include <boost/program_options/variables_map.hpp>
 #include <string>
 
-#undef AEON_DEFAULT_LOG_CATEGORY
-#define AEON_DEFAULT_LOG_CATEGORY "daemon"
+#undef EPOCH_DEFAULT_LOG_CATEGORY
+#define EPOCH_DEFAULT_LOG_CATEGORY "daemon"
 
 namespace daemonize
 {

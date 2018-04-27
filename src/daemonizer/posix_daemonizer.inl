@@ -100,7 +100,7 @@ namespace daemonizer
     }
     else
     {
-      //LOG_PRINT_L0("Aeon '" << AEON_RELEASE_NAME << "' (v" << AEON_VERSION_FULL);
+      //LOG_PRINT_L0("Epoch '" << EPOCH_RELEASE_NAME << "' (v" << EPOCH_VERSION_FULL);
       return executor.run_interactive(vm);
     }
   }

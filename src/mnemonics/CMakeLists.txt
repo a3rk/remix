@@ -49,9 +49,9 @@ set(mnemonics_private_headers
   esperanto.h
   lojban.h)
 
-aeon_private_headers(mnemonics
+EPOCH_private_headers(mnemonics
   ${mnemonics_private_headers})
-aeon_add_library(mnemonics
+EPOCH_add_library(mnemonics
   ${mnemonics_sources}
   ${mnemonics_headers}
   ${mnemonics_private_headers})

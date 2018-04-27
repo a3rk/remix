@@ -57,9 +57,9 @@ set(cryptonote_basic_private_headers
   tx_extra.h
   verification_context.h)
 
-aeon_private_headers(cryptonote_basic
+EPOCH_private_headers(cryptonote_basic
   ${cryptonote_basic_private_headers})
-aeon_add_library(cryptonote_basic
+EPOCH_add_library(cryptonote_basic
   ${cryptonote_basic_sources}
   ${cryptonote_basic_headers}
   ${cryptonote_basic_private_headers})

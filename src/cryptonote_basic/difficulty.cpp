@@ -39,8 +39,8 @@
 #include "cryptonote_config.h"
 #include "difficulty.h"
 
-#undef AEON_DEFAULT_LOG_CATEGORY
-#define AEON_DEFAULT_LOG_CATEGORY "difficulty"
+#undef EPOCH_DEFAULT_LOG_CATEGORY
+#define EPOCH_DEFAULT_LOG_CATEGORY "difficulty"
 
 namespace cryptonote {
 

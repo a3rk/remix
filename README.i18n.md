@@ -19,11 +19,11 @@ To update ts files after changing source code:
 
 To add a new language, eg Spanish (ISO code es):
 
-    cp translations/aeon.ts translations/aeon_es.ts
+    cp translations/aeon.ts translations/EPOCH_es.ts
 
 To edit translations for Spanish:
 
-    linguist translations/aeon_es.ts
+    linguist translations/EPOCH_es.ts
 
 To build translations after modifying them:
 

@@ -32,8 +32,8 @@
 using namespace crypto;
 using namespace std;
 
-#undef AEON_DEFAULT_LOG_CATEGORY
-#define AEON_DEFAULT_LOG_CATEGORY "ringct"
+#undef EPOCH_DEFAULT_LOG_CATEGORY
+#define EPOCH_DEFAULT_LOG_CATEGORY "ringct"
 
 namespace rct {
 

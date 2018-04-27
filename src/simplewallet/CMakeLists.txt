@@ -34,9 +34,9 @@ set(simplewallet_headers)
 set(simplewallet_private_headers
   simplewallet.h)
 
-aeon_private_headers(simplewallet
+EPOCH_private_headers(simplewallet
   ${simplewallet_private_headers})
-aeon_add_executable(simplewallet
+EPOCH_add_executable(simplewallet
   ${simplewallet_sources}
   ${simplewallet_headers}
   ${simplewallet_private_headers})
@@ -60,5 +60,5 @@ target_link_libraries(simplewallet
     ${EXTRA_LIBRARIES})
 set_property(TARGET simplewallet
   PROPERTY
-    OUTPUT_NAME "aeon-wallet-cli")
+    OUTPUT_NAME "epoch-wallet-cli")
 install(TARGETS simplewallet DESTINATION bin)

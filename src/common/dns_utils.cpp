@@ -39,8 +39,8 @@
 using namespace epee;
 namespace bf = boost::filesystem;
 
-#undef AEON_DEFAULT_LOG_CATEGORY
-#define AEON_DEFAULT_LOG_CATEGORY "net.dns"
+#undef EPOCH_DEFAULT_LOG_CATEGORY
+#define EPOCH_DEFAULT_LOG_CATEGORY "net.dns"
 
 #define DEFAULT_DNS_PUBLIC_ADDR "8.8.4.4"
 
