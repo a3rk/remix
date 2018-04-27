@@ -373,14 +373,14 @@ namespace nodetool
     std::set<std::string> full_addrs;
     if (testnet)
     {
-      full_addrs.insert("d13.testnet.aeon.direct:21180");
-      full_addrs.insert("n1.testnet.aeon.direct:21180");
-      full_addrs.insert("127.0.0.1:21180"); 
+      //full_addrs.insert("d13.testnet.aeon.direct:21180");
+      //full_addrs.insert("n1.testnet.aeon.direct:21180");
+      full_addrs.insert("127.0.0.1:21330"); 
     }
     else
     {
-        full_addrs.insert("74.91.23.186:11180");
-        full_addrs.insert("192.187.114.114:11180");
+      //full_addrs.insert("74.91.23.186:11180");
+      //full_addrs.insert("192.187.114.114:11180");
       //full_addrs.insert("127.0.0.1:11180"); // Add VPS when ready
     }
     return full_addrs;
