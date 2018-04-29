@@ -1,4 +1,4 @@
-// Copyright (c) 2018, The Epoch Project
+// Copyright (c) 2018, The Remix Project
 //
 // All rights reserved.
 //
@@ -46,8 +46,8 @@
 #include "common/perf_timer.h"
 #include "crypto/hash.h"
 
-#undef EPOCH_DEFAULT_LOG_CATEGORY
-#define EPOCH_DEFAULT_LOG_CATEGORY "txpool"
+#undef REMIX_DEFAULT_LOG_CATEGORY
+#define REMIX_DEFAULT_LOG_CATEGORY "txpool"
 
 DISABLE_VS_WARNINGS(4244 4345 4503) //'boost::foreach_detail_::or_' : decorated name length exceeded, name was truncated
 
@@ -1032,13 +1032,13 @@ namespace cryptonote
         continue;
       }
 
-			//epoch specific
+			//remix specific
       if (tx.vin.size() > 0)
       {
         //retrieves itk
         CHECKED_GET_SPECIFIC_VARIANT(tx.vin[0], const txin_to_key, itk, false);
 
-        // per epoch: discourage < 3-way-mix transactions by mining them only as the first tx in an empty block
+        // per remix: discourage < 3-way-mix transactions by mining them only as the first tx in an empty block
         if (sorted_it!=m_txs_by_fee_and_receive_time.begin()  && itk.key_offsets.size() < 3){
           LOG_PRINT_L2("  ring size < 3 but not first tx in emtpy block");
           sorted_it++;

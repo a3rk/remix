@@ -1,4 +1,4 @@
-// Copyright (c) 2018, The Epoch Project
+// Copyright (c) 2018, The Remix Project
 //
 // All rights reserved.
 //
@@ -28,8 +28,8 @@
 
 #include "blocksdat_file.h"
 
-#undef EPOCH_DEFAULT_LOG_CATEGORY
-#define EPOCH_DEFAULT_LOG_CATEGORY "bcutil"
+#undef REMIX_DEFAULT_LOG_CATEGORY
+#define REMIX_DEFAULT_LOG_CATEGORY "bcutil"
 
 namespace po = boost::program_options;
 

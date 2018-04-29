@@ -1,4 +1,4 @@
-// Copyright (c) 2018, The Epoch Project
+// Copyright (c) 2018, The Remix Project
 //
 // All rights reserved.
 //
@@ -34,7 +34,7 @@
 
 #include <vector>
 
-namespace EpochCoin {
+namespace RemixCoin {
   
 SubaddressAccount::~SubaddressAccount() {}
   

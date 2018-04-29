@@ -27,8 +27,8 @@
 
 #pragma comment(lib, "Ws2_32.lib")
 
-#undef EPOCH_DEFAULT_LOG_CATEGORY
-#define EPOCH_DEFAULT_LOG_CATEGORY "net"
+#undef REMIX_DEFAULT_LOG_CATEGORY
+#define REMIX_DEFAULT_LOG_CATEGORY "net"
 
 namespace epee
 {

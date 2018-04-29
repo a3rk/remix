@@ -1,4 +1,4 @@
-# Copyright (c) 2018, The Epoch Project
+# Copyright (c) 2018, The Remix Project
 #
 # All rights reserved.
 #
@@ -72,9 +72,9 @@ set(daemon_private_headers
   ../p2p/p2p_protocol_defs.h
   ../p2p/stdafx.h)
 
-EPOCH_private_headers(daemon
+REMIX_private_headers(daemon
   ${daemon_private_headers})
-EPOCH_add_executable(daemon
+REMIX_add_executable(daemon
   ${daemon_sources}
   ${daemon_headers}
   ${daemon_private_headers}
@@ -106,5 +106,5 @@ target_link_libraries(daemon
     ${EXTRA_LIBRARIES})
 set_property(TARGET daemon
   PROPERTY
-    OUTPUT_NAME "epochd")
+    OUTPUT_NAME "remixd")
 install(TARGETS daemon DESTINATION bin)

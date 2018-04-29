@@ -1,4 +1,4 @@
-# Copyright (c) 2018, The Epoch Project
+# Copyright (c) 2018, The Remix Project
 #
 # All rights reserved.
 #
@@ -34,9 +34,9 @@ set(simplewallet_headers)
 set(simplewallet_private_headers
   simplewallet.h)
 
-EPOCH_private_headers(simplewallet
+REMIX_private_headers(simplewallet
   ${simplewallet_private_headers})
-EPOCH_add_executable(simplewallet
+REMIX_add_executable(simplewallet
   ${simplewallet_sources}
   ${simplewallet_headers}
   ${simplewallet_private_headers})
@@ -60,5 +60,5 @@ target_link_libraries(simplewallet
     ${EXTRA_LIBRARIES})
 set_property(TARGET simplewallet
   PROPERTY
-    OUTPUT_NAME "epoch-wallet-cli")
+    OUTPUT_NAME "remix-wallet-cli")
 install(TARGETS simplewallet DESTINATION bin)

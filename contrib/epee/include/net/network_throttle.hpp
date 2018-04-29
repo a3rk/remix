@@ -2,7 +2,7 @@
 /// @author rfree (current maintainer in monero.cc project)
 /// @brief interface for throttling of connection (count and rate-limit speed etc)
 
-// Copyright (c) 2018, The Epoch Project
+// Copyright (c) 2018, The Remix Project
 // 
 // All rights reserved.
 // 

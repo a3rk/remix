@@ -1,4 +1,4 @@
-// Copyright (c) 2018, The Epoch Project
+// Copyright (c) 2018, The Remix Project
 // 
 // All rights reserved.
 // 
@@ -36,8 +36,8 @@
 #include "net/http_client.h"
 #include "download.h"
 
-#undef EPOCH_DEFAULT_LOG_CATEGORY
-#define EPOCH_DEFAULT_LOG_CATEGORY "net.dl"
+#undef REMIX_DEFAULT_LOG_CATEGORY
+#define REMIX_DEFAULT_LOG_CATEGORY "net.dl"
 
 namespace tools
 {

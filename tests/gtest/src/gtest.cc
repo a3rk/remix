@@ -806,8 +806,8 @@ std::string UnitTestImpl::CurrentOsStackTraceExceptTop(int skip_count) {
 TimeInMillis GetTimeInMillis() {
 #if GTEST_OS_WINDOWS_MOBILE || defined(__BORLANDC__)
   // Difference between 1970-01-01 and 1601-01-01 in milliseconds.
-  // http://analogous.blogspot.com/2005/04/epoch.html
-  const TimeInMillis kJavaEpochToWinFileTimeDelta =
+  // http://analogous.blogspot.com/2005/04/remix.html
+  const TimeInMillis kJavaRemixToWinFileTimeDelta =
     static_cast<TimeInMillis>(116444736UL) * 100000UL;
   const DWORD kTenthMicrosInMilliSecond = 10000;
 
@@ -821,7 +821,7 @@ TimeInMillis GetTimeInMillis() {
     now_int64.LowPart = now_filetime.dwLowDateTime;
     now_int64.HighPart = now_filetime.dwHighDateTime;
     now_int64.QuadPart = (now_int64.QuadPart / kTenthMicrosInMilliSecond) -
-      kJavaEpochToWinFileTimeDelta;
+      kJavaRemixToWinFileTimeDelta;
     return now_int64.QuadPart;
   }
   return 0;
@@ -3567,9 +3567,9 @@ static bool PortableLocaltime(time_t seconds, struct tm* out) {
 #endif
 }
 
-// Converts the given epoch time in milliseconds to a date string in the ISO
+// Converts the given remix time in milliseconds to a date string in the ISO
 // 8601 format, without the timezone information.
-std::string FormatEpochTimeInMillisAsIso8601(TimeInMillis ms) {
+std::string FormatRemixTimeInMillisAsIso8601(TimeInMillis ms) {
   struct tm time_struct;
   if (!PortableLocaltime(static_cast<time_t>(ms / 1000), &time_struct))
     return "";
@@ -3713,7 +3713,7 @@ void XmlUnitTestResultPrinter::PrintXmlUnitTest(std::ostream* stream,
   OutputXmlAttribute(stream, kTestsuites, "errors", "0");
   OutputXmlAttribute(
       stream, kTestsuites, "timestamp",
-      FormatEpochTimeInMillisAsIso8601(unit_test.start_timestamp()));
+      FormatRemixTimeInMillisAsIso8601(unit_test.start_timestamp()));
   OutputXmlAttribute(stream, kTestsuites, "time",
                      FormatTimeInMillisAsSeconds(unit_test.elapsed_time()));
 
@@ -4039,7 +4039,7 @@ int UnitTest::total_test_count() const { return impl()->total_test_count(); }
 int UnitTest::test_to_run_count() const { return impl()->test_to_run_count(); }
 
 // Gets the time of the test program start, in ms from the start of the
-// UNIX epoch.
+// UNIX remix.
 internal::TimeInMillis UnitTest::start_timestamp() const {
     return impl()->start_timestamp();
 }

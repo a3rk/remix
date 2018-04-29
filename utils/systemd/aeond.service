@@ -1,18 +1,18 @@
 [Unit]
-Description=EPOCH Full Node
+Description=REMIX Full Node
 After=network.target
 
 [Service]
-User=epoch
-Group=epoch
+User=remix
+Group=remix
 WorkingDirectory=~
-RuntimeDirectory=epoch
+RuntimeDirectory=remix
 
 Type=forking
-PIDFile=/run/epoch/epochd.pid
+PIDFile=/run/remix/remixd.pid
 
-ExecStart=/usr/bin/epochd --config-file /etc/epochd.conf \
-    --detach --pidfile /run/epoch/epochd.pid
+ExecStart=/usr/bin/remixd --config-file /etc/remixd.conf \
+    --detach --pidfile /run/remix/remixd.pid
 
 Restart=always
 PrivateTmp=true

@@ -1,4 +1,4 @@
-// Copyright (c) 2018, The Epoch Project
+// Copyright (c) 2018, The Remix Project
 // 
 // All rights reserved.
 // 
@@ -59,8 +59,8 @@
 #include "common/password.h"
 #include "node_rpc_proxy.h"
 
-#undef EPOCH_DEFAULT_LOG_CATEGORY
-#define EPOCH_DEFAULT_LOG_CATEGORY "wallet.wallet2"
+#undef REMIX_DEFAULT_LOG_CATEGORY
+#define REMIX_DEFAULT_LOG_CATEGORY "wallet.wallet2"
 
 class Serialization_portability_wallet_Test;
 
@@ -675,7 +675,7 @@ namespace tools
     bool is_transfer_unlocked(uint64_t unlock_time, uint64_t block_height) const;
     template <class t_archive>
     
-    // TODO: refactor this serialization method according to EpochCoin rebase and configuration
+    // TODO: refactor this serialization method according to RemixCoin rebase and configuration
     inline void serialize(t_archive &a, const unsigned int ver)
     {
       uint64_t dummy_refresh_height = 0; // moved to keys file

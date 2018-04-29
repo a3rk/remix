@@ -294,7 +294,7 @@ server:
 	# (usually "unbound").
 	# log-identity: ""
 
-	# print UTC timestamp in ascii to logfile, default is epoch in seconds.
+	# print UTC timestamp in ascii to logfile, default is remix in seconds.
 	# log-time-ascii: no
 
 	# print one line with time, IP, name, type, class for every query.

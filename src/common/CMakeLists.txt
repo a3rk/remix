@@ -1,4 +1,4 @@
-# Copyright (c) 2018, The Epoch Project
+# Copyright (c) 2018, The Remix Project
 #
 # All rights reserved.
 #
@@ -69,9 +69,9 @@ set(common_private_headers
   threadpool.h
   updates.h)
 
-EPOCH_private_headers(common
+REMIX_private_headers(common
   ${common_private_headers})
-EPOCH_add_library(common
+REMIX_add_library(common
   ${common_sources}
   ${common_headers}
   ${common_private_headers})
@@ -90,5 +90,5 @@ target_link_libraries(common
     ${OPENSSL_LIBRARIES}
     ${EXTRA_LIBRARIES})
 
-#EPOCH_install_headers(common
+#REMIX_install_headers(common
 #  ${common_headers})

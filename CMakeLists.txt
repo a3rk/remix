@@ -1,4 +1,4 @@
-# Copyright (c) 2018, The Epoch Project
+# Copyright (c) 2018, The Remix Project
 #
 # All rights reserved.
 #
@@ -33,7 +33,7 @@ endif()
 
 cmake_minimum_required(VERSION 2.8.7)
 
-project(epoch)
+project(remix)
 
 function (die msg)
   if (NOT WIN32)

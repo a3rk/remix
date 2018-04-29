@@ -1,4 +1,4 @@
-# Copyright (c) 2018, The Epoch Project
+# Copyright (c) 2018, The Remix Project
 #
 # All rights reserved.
 #
@@ -53,9 +53,9 @@ if (BERKELEY_DB)
   )
 endif()
 
-EPOCH_private_headers(blockchain_db
+REMIX_private_headers(blockchain_db
   ${crypto_private_headers})
-EPOCH_add_library(blockchain_db
+REMIX_add_library(blockchain_db
   ${blockchain_db_sources}
   ${blockchain_db_headers}
   ${blockchain_db_private_headers})

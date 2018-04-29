@@ -1,6 +1,6 @@
 #pragma once
 
-extern const char* const EPOCH_VERSION_TAG;
-extern const char* const EPOCH_VERSION;
-extern const char* const EPOCH_RELEASE_NAME;
-extern const char* const EPOCH_VERSION_FULL;
+extern const char* const REMIX_VERSION_TAG;
+extern const char* const REMIX_VERSION;
+extern const char* const REMIX_RELEASE_NAME;
+extern const char* const REMIX_VERSION_FULL;

@@ -1,4 +1,4 @@
-// Copyright (c) 2018, The Epoch Project
+// Copyright (c) 2018, The Remix Project
 // 
 // All rights reserved.
 // 
@@ -26,8 +26,8 @@
 // STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
 // THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef EPOCH_EXCEPTION_H
-#define EPOCH_EXCEPTION_H
+#ifndef REMIX_EXCEPTION_H
+#define REMIX_EXCEPTION_H
 
 #include <string>
 

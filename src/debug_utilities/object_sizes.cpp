@@ -1,4 +1,4 @@
-// Copyright (c) 2018, The Epoch Project
+// Copyright (c) 2018, The Remix Project
 //
 // All rights reserved.
 //
@@ -43,8 +43,8 @@
 #include "wallet/api/unsigned_transaction.h"
 #include "wallet/api/pending_transaction.h"
 
-#undef EPOCH_DEFAULT_LOG_CATEGORY
-#define EPOCH_DEFAULT_LOG_CATEGORY "debugtools.objectsizes"
+#undef REMIX_DEFAULT_LOG_CATEGORY
+#define REMIX_DEFAULT_LOG_CATEGORY "debugtools.objectsizes"
 
 class size_logger
 {
@@ -104,12 +104,12 @@ int main(int argc, char* argv[])
   SL(tools::wallet2::unsigned_tx_set);
   SL(tools::wallet2::signed_tx_set);
 
-  SL(EpochCoin::WalletImpl);
-  SL(EpochCoin::AddressBookRow);
-  SL(EpochCoin::TransactionInfoImpl);
-  SL(EpochCoin::TransactionHistoryImpl);
-  SL(EpochCoin::PendingTransactionImpl);
-  SL(EpochCoin::UnsignedTransactionImpl);
+  SL(RemixCoin::WalletImpl);
+  SL(RemixCoin::AddressBookRow);
+  SL(RemixCoin::TransactionInfoImpl);
+  SL(RemixCoin::TransactionHistoryImpl);
+  SL(RemixCoin::PendingTransactionImpl);
+  SL(RemixCoin::UnsignedTransactionImpl);
 
   return 0;
 }

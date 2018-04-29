@@ -21,7 +21,7 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
-// Code surrounding the word list is Copyright (c) 2018, The Epoch Project
+// Code surrounding the word list is Copyright (c) 2018, The Remix Project
 //
 // All rights reserved.
 //

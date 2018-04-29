@@ -1,4 +1,4 @@
-# Copyright (c) 2018, The Epoch Project
+# Copyright (c) 2018, The Remix Project
 #
 # All rights reserved.
 #
@@ -27,13 +27,13 @@
 # THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 cmake_minimum_required (VERSION 2.6)
-project (epoch CXX)
+project (remix CXX)
 
 file(GLOB CRYPTONOTE_PROTOCOL *)
 source_group(cryptonote_protocol FILES ${CRYPTONOTE_PROTOCOL})
 
-#EPOCH_private_headers(cryptonote_protocol ${CRYPTONOTE_PROTOCOL})
-EPOCH_add_library(cryptonote_protocol ${CRYPTONOTE_PROTOCOL})
+#REMIX_private_headers(cryptonote_protocol ${CRYPTONOTE_PROTOCOL})
+REMIX_add_library(cryptonote_protocol ${CRYPTONOTE_PROTOCOL})
 target_link_libraries(cryptonote_protocol
   PUBLIC
     p2p

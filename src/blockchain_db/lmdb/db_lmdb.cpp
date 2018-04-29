@@ -1,4 +1,4 @@
-// Copyright (c) 2018, The Epoch Project
+// Copyright (c) 2018, The Remix Project
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without modification, are
@@ -41,8 +41,8 @@
 #include "profile_tools.h"
 #include "ringct/rctOps.h"
 
-#undef EPOCH_DEFAULT_LOG_CATEGORY
-#define EPOCH_DEFAULT_LOG_CATEGORY "blockchain.db.lmdb"
+#undef REMIX_DEFAULT_LOG_CATEGORY
+#define REMIX_DEFAULT_LOG_CATEGORY "blockchain.db.lmdb"
 
 
 #if defined(__i386) || defined(__x86_64)
@@ -3216,7 +3216,7 @@ void BlockchainLMDB::fixup()
     ptr = (char *)k.mv_data; \
     ptr[sizeof(name)-2] = 's'
 
-#define LOGIF(y)    if (ELPP->vRegistry()->allowed(y, EPOCH_DEFAULT_LOG_CATEGORY))
+#define LOGIF(y)    if (ELPP->vRegistry()->allowed(y, REMIX_DEFAULT_LOG_CATEGORY))
 
 void BlockchainLMDB::migrate_0_1()
 {

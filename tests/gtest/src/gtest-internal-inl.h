@@ -122,7 +122,7 @@ GTEST_API_ std::string FormatTimeInMillisAsSeconds(TimeInMillis ms);
 // format, without the timezone information.  N.B.: due to the use the
 // non-reentrant localtime() function, this function is not thread safe.  Do
 // not use it in any code that can be called from multiple threads.
-GTEST_API_ std::string FormatEpochTimeInMillisAsIso8601(TimeInMillis ms);
+GTEST_API_ std::string FormatRemixTimeInMillisAsIso8601(TimeInMillis ms);
 
 // Parses a string for an Int32 flag, in the form of "--flag=value".
 //
@@ -557,7 +557,7 @@ class GTEST_API_ UnitTestImpl {
   int test_to_run_count() const;
 
   // Gets the time of the test program start, in ms from the start of the
-  // UNIX epoch.
+  // UNIX remix.
   TimeInMillis start_timestamp() const { return start_timestamp_; }
 
   // Gets the elapsed time, in milliseconds.
@@ -899,7 +899,7 @@ class GTEST_API_ UnitTestImpl {
   internal::Random random_;
 
   // The time of the test program start, in ms from the start of the
-  // UNIX epoch.
+  // UNIX remix.
   TimeInMillis start_timestamp_;
 
   // How long the test took to run, in milliseconds.

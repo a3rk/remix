@@ -15,7 +15,7 @@ print("maybe someone smart can replace the sed with perl..")
 a = ""
 
 license = textwrap.dedent("""\
-    // Copyright (c) 2018, The Epoch Project
+    // Copyright (c) 2018, The Remix Project
     // 
     // All rights reserved.
     // 

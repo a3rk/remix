@@ -1,4 +1,4 @@
-// Copyright (c) 2018, The Epoch Project
+// Copyright (c) 2018, The Remix Project
 // 
 // All rights reserved.
 // 
@@ -32,8 +32,8 @@
 #include "string_tools.h"
 #include "daemon/command_server.h"
 
-#undef EPOCH_DEFAULT_LOG_CATEGORY
-#define EPOCH_DEFAULT_LOG_CATEGORY "daemon"
+#undef REMIX_DEFAULT_LOG_CATEGORY
+#define REMIX_DEFAULT_LOG_CATEGORY "daemon"
 
 namespace daemonize {
 
@@ -199,12 +199,12 @@ t_command_server::t_command_server(
     m_command_lookup.set_handler(
       "start_save_graph"
     , std::bind(&t_command_parser_executor::start_save_graph, &m_parser, p::_1)
-    , "Start saving data for dr epoch."
+    , "Start saving data for dr remix."
     );
     m_command_lookup.set_handler(
       "stop_save_graph"
     , std::bind(&t_command_parser_executor::stop_save_graph, &m_parser, p::_1)
-    , "Stop saving data for dr epoch."
+    , "Stop saving data for dr remix."
     );
     m_command_lookup.set_handler(
       "hard_fork_info"
@@ -323,7 +323,7 @@ bool t_command_server::help(const std::vector<std::string>& args)
 std::string t_command_server::get_commands_str()
 {
   std::stringstream ss;
-  ss << "Epoch '" << EPOCH_RELEASE_NAME << "' (v" << EPOCH_VERSION_FULL << ")" << std::endl;
+  ss << "Remix '" << REMIX_RELEASE_NAME << "' (v" << REMIX_VERSION_FULL << ")" << std::endl;
   ss << "Commands: " << std::endl;
   std::string usage = m_command_lookup.get_usage();
   boost::replace_all(usage, "\n", "\n  ");

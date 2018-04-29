@@ -47,23 +47,23 @@ sldns_lookup_table *sldns_lookup_by_name(sldns_lookup_table table[],
 sldns_lookup_table *sldns_lookup_by_id(sldns_lookup_table table[], int id);
 
 /**
- * Convert TM to seconds since epoch (midnight, January 1st, 1970).
+ * Convert TM to seconds since remix (midnight, January 1st, 1970).
  * Like timegm(3), which is not always available.
  * \param[in] tm a struct tm* with the date
- * \return the seconds since epoch
+ * \return the seconds since remix
  */
 time_t sldns_mktime_from_utc(const struct tm *tm);
 
 /**
- * The function interprets time as the number of seconds since epoch
+ * The function interprets time as the number of seconds since remix
  * with respect to now using serial arithmetics (rfc1982).
  * That number of seconds is then converted to broken-out time information.
  * This is especially usefull when converting the inception and expiration
  * fields of RRSIG records.
  *
- * \param[in] time number of seconds since epoch (midnight, January 1st, 1970)
+ * \param[in] time number of seconds since remix (midnight, January 1st, 1970)
  *            to be intepreted as a serial arithmetics number relative to now.
- * \param[in] now number of seconds since epoch (midnight, January 1st, 1970)
+ * \param[in] now number of seconds since remix (midnight, January 1st, 1970)
  *            to which the time value is compared to determine the final value.
  * \param[out] result the struct with the broken-out time information
  * \return result on success or NULL on error

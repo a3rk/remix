@@ -1,4 +1,4 @@
-# Copyright (c) 2018, The Epoch Project
+# Copyright (c) 2018, The Remix Project
 #
 # All rights reserved.
 #
@@ -39,13 +39,13 @@ if (NOT (MINGW OR APPLE OR FREEBSD OR OPENBSD OR DRAGONFLY))
   add_compile_options("${WARNINGS_AS_ERRORS_FLAG}") # applies only to targets that follow
 endif()
 
-function (EPOCH_private_headers group)
+function (REMIX_private_headers group)
   source_group("${group}\\Private"
     FILES
       ${ARGN})
 endfunction ()
 
-function (EPOCH_install_headers subdir)
+function (REMIX_install_headers subdir)
   install(
     FILES       ${ARGN}
     DESTINATION "include/${subdir}"
@@ -63,7 +63,7 @@ function (enable_stack_trace target)
   endif()
 endfunction()
 
-function (EPOCH_add_executable name)
+function (REMIX_add_executable name)
   source_group("${name}"
     FILES
       ${ARGN})
@@ -82,31 +82,31 @@ function (EPOCH_add_executable name)
   enable_stack_trace("${name}")
 endfunction ()
 
-function (EPOCH_add_library name)
-    EPOCH_add_library_with_deps(NAME "${name}" SOURCES ${ARGN})
+function (REMIX_add_library name)
+    REMIX_add_library_with_deps(NAME "${name}" SOURCES ${ARGN})
 endfunction()
 
-function (EPOCH_add_library_with_deps)
-  cmake_parse_arguments(EPOCH_ADD_LIBRARY "" "NAME" "DEPENDS;SOURCES" ${ARGN})
-  source_group("${EPOCH_ADD_LIBRARY_NAME}" FILES ${EPOCH_ADD_LIBRARY_SOURCES})
+function (REMIX_add_library_with_deps)
+  cmake_parse_arguments(REMIX_ADD_LIBRARY "" "NAME" "DEPENDS;SOURCES" ${ARGN})
+  source_group("${REMIX_ADD_LIBRARY_NAME}" FILES ${REMIX_ADD_LIBRARY_SOURCES})
 
   # Define a ("virtual") object library and an actual library that links those
   # objects together. The virtual libraries can be arbitrarily combined to link
   # any subset of objects into one library archive. This is used for releasing
   # libwallet, which combines multiple components.
-  set(objlib obj_${EPOCH_ADD_LIBRARY_NAME})
-  add_library(${objlib} OBJECT ${EPOCH_ADD_LIBRARY_SOURCES})
-  add_library("${EPOCH_ADD_LIBRARY_NAME}" $<TARGET_OBJECTS:${objlib}>)
-  if (EPOCH_ADD_LIBRARY_DEPENDS)
-    add_dependencies(${objlib} ${EPOCH_ADD_LIBRARY_DEPENDS})
+  set(objlib obj_${REMIX_ADD_LIBRARY_NAME})
+  add_library(${objlib} OBJECT ${REMIX_ADD_LIBRARY_SOURCES})
+  add_library("${REMIX_ADD_LIBRARY_NAME}" $<TARGET_OBJECTS:${objlib}>)
+  if (REMIX_ADD_LIBRARY_DEPENDS)
+    add_dependencies(${objlib} ${REMIX_ADD_LIBRARY_DEPENDS})
   endif()
-  set_property(TARGET "${EPOCH_ADD_LIBRARY_NAME}" PROPERTY FOLDER "libs")
+  set_property(TARGET "${REMIX_ADD_LIBRARY_NAME}" PROPERTY FOLDER "libs")
   target_compile_definitions(${objlib}
-    PRIVATE $<TARGET_PROPERTY:${EPOCH_ADD_LIBRARY_NAME},INTERFACE_COMPILE_DEFINITIONS>)
+    PRIVATE $<TARGET_PROPERTY:${REMIX_ADD_LIBRARY_NAME},INTERFACE_COMPILE_DEFINITIONS>)
 endfunction ()
 
 include(Version)
-EPOCH_add_library(version SOURCES ${CMAKE_BINARY_DIR}/version.cpp DEPENDS genversion)
+REMIX_add_library(version SOURCES ${CMAKE_BINARY_DIR}/version.cpp DEPENDS genversion)
 
 add_subdirectory(common)
 add_subdirectory(crypto)
