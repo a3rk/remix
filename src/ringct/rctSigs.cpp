@@ -39,8 +39,8 @@
 using namespace crypto;
 using namespace std;
 
-#undef EPOCH_DEFAULT_LOG_CATEGORY
-#define EPOCH_DEFAULT_LOG_CATEGORY "ringct"
+#undef REMIX_DEFAULT_LOG_CATEGORY
+#define REMIX_DEFAULT_LOG_CATEGORY "ringct"
 
 namespace rct {
     Bulletproof proveRangeBulletproof(key &C, key &mask, uint64_t amount)

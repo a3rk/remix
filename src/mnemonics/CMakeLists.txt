@@ -1,4 +1,4 @@
-# Copyright (c) 2018, The Epoch Project
+# Copyright (c) 2018, The Remix Project
 #
 # All rights reserved.
 #
@@ -49,9 +49,9 @@ set(mnemonics_private_headers
   esperanto.h
   lojban.h)
 
-EPOCH_private_headers(mnemonics
+REMIX_private_headers(mnemonics
   ${mnemonics_private_headers})
-EPOCH_add_library(mnemonics
+REMIX_add_library(mnemonics
   ${mnemonics_sources}
   ${mnemonics_headers}
   ${mnemonics_private_headers})

@@ -1,4 +1,4 @@
-// Copyright (c) 2018, The Epoch Project
+// Copyright (c) 2018, The Remix Project
 //
 // All rights reserved.
 //
@@ -60,8 +60,8 @@
   #include "upnperrors.h"
 #endif
 
-#undef EPOCH_DEFAULT_LOG_CATEGORY
-#define EPOCH_DEFAULT_LOG_CATEGORY "net.p2p"
+#undef REMIX_DEFAULT_LOG_CATEGORY
+#define REMIX_DEFAULT_LOG_CATEGORY "net.p2p"
 
 #define NET_MAKE_IP(b1,b2,b3,b4)  ((LPARAM)(((DWORD)(b1)<<24)+((DWORD)(b2)<<16)+((DWORD)(b3)<<8)+((DWORD)(b4))))
 
@@ -373,8 +373,8 @@ namespace nodetool
     std::set<std::string> full_addrs;
     if (testnet)
     {
-      //full_addrs.insert("d13.testnet.epoch.direct:21180");
-      //full_addrs.insert("n1.testnet.epoch.direct:21180");
+      //full_addrs.insert("d13.testnet.remix.direct:21180");
+      //full_addrs.insert("n1.testnet.remix.direct:21180");
       full_addrs.insert("127.0.0.1:21330"); 
     }
     else
@@ -1362,7 +1362,7 @@ namespace nodetool
     }
     rsp.connections_count = m_net_server.get_config_object().get_connections_count();
     rsp.incoming_connections_count = rsp.connections_count - get_outgoing_connections_count();
-    rsp.version = EPOCH_VERSION_FULL;
+    rsp.version = REMIX_VERSION_FULL;
     rsp.os_version = tools::get_os_version_string();
     m_payload_handler.get_stat_info(rsp.payload_info);
     return 1;

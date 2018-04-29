@@ -1,4 +1,4 @@
-// Copyright (c) 2018, The Epoch Project
+// Copyright (c) 2018, The Remix Project
 // 
 // All rights reserved.
 // 
@@ -75,8 +75,8 @@ using namespace std;
 using namespace crypto;
 using namespace cryptonote;
 
-#undef EPOCH_DEFAULT_LOG_CATEGORY
-#define EPOCH_DEFAULT_LOG_CATEGORY "wallet.wallet2"
+#undef REMIX_DEFAULT_LOG_CATEGORY
+#define REMIX_DEFAULT_LOG_CATEGORY "wallet.wallet2"
 
 // used to choose when to stop adding outputs to a tx
 #define APPROXIMATE_INPUT_BYTES 80
@@ -87,9 +87,9 @@ using namespace cryptonote;
 // arbitrary, used to generate different hashes from the same input
 #define CHACHA8_KEY_TAIL 0x8c
 
-#define UNSIGNED_TX_PREFIX "EpochCoin unsigned tx set\004"
-#define SIGNED_TX_PREFIX "EpochCoin signed tx set\004"
-#define MULTISIG_UNSIGNED_TX_PREFIX "EpochCoin multisig unsigned tx set\001"
+#define UNSIGNED_TX_PREFIX "RemixCoin unsigned tx set\004"
+#define SIGNED_TX_PREFIX "RemixCoin signed tx set\004"
+#define MULTISIG_UNSIGNED_TX_PREFIX "RemixCoin multisig unsigned tx set\001"
 
 #define RECENT_OUTPUT_RATIO (0.5) // 50% of outputs are from the recent zone
 #define RECENT_OUTPUT_ZONE ((time_t)(1.8 * 86400)) // last 1.8 day makes up the recent zone (taken from monerolink.pdf, Miller et al)
@@ -101,9 +101,9 @@ using namespace cryptonote;
 #define SUBADDRESS_LOOKAHEAD_MAJOR 50
 #define SUBADDRESS_LOOKAHEAD_MINOR 200
 
-#define KEY_IMAGE_EXPORT_FILE_MAGIC "EpochCoin key image export\002"
+#define KEY_IMAGE_EXPORT_FILE_MAGIC "RemixCoin key image export\002"
 
-#define MULTISIG_EXPORT_FILE_MAGIC "EpochCoin multisig export\001"
+#define MULTISIG_EXPORT_FILE_MAGIC "RemixCoin multisig export\001"
 
 namespace
 {
@@ -8748,7 +8748,7 @@ std::string wallet2::make_uri(const std::string &address, const std::string &pay
     }
   }
 
-  std::string uri = "epoch:" + address;
+  std::string uri = "remix:" + address;
   unsigned int n_fields = 0;
 
   if (!payment_id.empty())
@@ -8777,9 +8777,9 @@ std::string wallet2::make_uri(const std::string &address, const std::string &pay
 //----------------------------------------------------------------------------------------------------
 bool wallet2::parse_uri(const std::string &uri, std::string &address, std::string &payment_id, uint64_t &amount, std::string &tx_description, std::string &recipient_name, std::vector<std::string> &unknown_parameters, std::string &error)
 {
-  if (uri.substr(0, 7) != "epoch:")
+  if (uri.substr(0, 7) != "remix:")
   {
-    error = std::string("URI has wrong scheme (expected \"epoch:\"): ") + uri;
+    error = std::string("URI has wrong scheme (expected \"remix:\"): ") + uri;
     return false;
   }
 
@@ -9011,7 +9011,7 @@ std::vector<std::pair<uint64_t, uint64_t>> wallet2::estimate_backlog(uint64_t mi
     uint64_t nblocks_min = priority_size_min / full_reward_zone;
     uint64_t nblocks_max = priority_size_max / full_reward_zone;
     MDEBUG("estimate_backlog: priority_size " << priority_size_min << " - " << priority_size_max << " for " << fee
-        << " (" << our_fee_byte_min << " - " << our_fee_byte_max << " picepoch byte fee), "
+        << " (" << our_fee_byte_min << " - " << our_fee_byte_max << " picremix byte fee), "
         << nblocks_min << " - " << nblocks_max << " blocks at block size " << full_reward_zone);
     blocks.push_back(std::make_pair(nblocks_min, nblocks_max));
   }

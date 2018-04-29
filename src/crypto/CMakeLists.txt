@@ -1,4 +1,4 @@
-# Copyright (c) 2018, The Epoch Project
+# Copyright (c) 2018, The Remix Project
 #
 # All rights reserved.
 #
@@ -68,9 +68,9 @@ set(crypto_private_headers
   skein.h
   skein_port.h)
 
-EPOCH_private_headers(cncrypto
+REMIX_private_headers(cncrypto
   ${crypto_private_headers})
-EPOCH_add_library(cncrypto
+REMIX_add_library(cncrypto
   ${crypto_sources}
   ${crypto_headers}
   ${crypto_private_headers})

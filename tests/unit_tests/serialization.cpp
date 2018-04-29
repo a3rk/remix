@@ -1,4 +1,4 @@
-// Copyright (c) 2018, The Epoch Project
+// Copyright (c) 2018, The Remix Project
 // 
 // All rights reserved.
 // 
@@ -673,7 +673,7 @@ TEST(Serialization, portability_wallet)
   const bool testnet = true;
   const bool restricted = false;
   tools::wallet2 w(testnet, restricted);
-  const boost::filesystem::path wallet_file = unit_test::data_dir / "wallet_EPOCH_9svHk1";
+  const boost::filesystem::path wallet_file = unit_test::data_dir / "wallet_REMIX_9svHk1";
   string password = "test";
   bool r = false;
   try
@@ -789,7 +789,7 @@ TEST(Serialization, portability_wallet)
   }
 }
 
-#define OUTPUT_EXPORT_FILE_MAGIC "EpochCoin output export\003"
+#define OUTPUT_EXPORT_FILE_MAGIC "RemixCoin output export\003"
 TEST(Serialization, portability_outputs)
 {
   // read file
@@ -905,10 +905,10 @@ TEST(Serialization, portability_outputs)
   ASSERT_TRUE(td2.m_pk_index == 0);
 }
 
-#define UNSIGNED_TX_PREFIX "EpochCoin unsigned tx set\003"
+#define UNSIGNED_TX_PREFIX "RemixCoin unsigned tx set\003"
 TEST(Serialization, portability_unsigned_tx)
 {
-  const boost::filesystem::path filename = unit_test::data_dir / "unsigned_EPOCH_tx";
+  const boost::filesystem::path filename = unit_test::data_dir / "unsigned_REMIX_tx";
   std::string s;
   const bool testnet = true;
   bool r = epee::file_io_utils::load_file_to_string(filename.string(), s);
@@ -1053,10 +1053,10 @@ TEST(Serialization, portability_unsigned_tx)
   ASSERT_TRUE(td2.m_pk_index == 0);
 }
 
-#define SIGNED_TX_PREFIX "EpochCoin signed tx set\003"
+#define SIGNED_TX_PREFIX "RemixCoin signed tx set\003"
 TEST(Serialization, portability_signed_tx)
 {
-  const boost::filesystem::path filename = unit_test::data_dir / "signed_EPOCH_tx";
+  const boost::filesystem::path filename = unit_test::data_dir / "signed_REMIX_tx";
   const bool testnet = true;
   std::string s;
   bool r = epee::file_io_utils::load_file_to_string(filename.string(), s);

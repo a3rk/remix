@@ -31,8 +31,8 @@
 #include "levin_base.h"
 #include "serializeble_struct_helper.h"
 
-#undef EPOCH_DEFAULT_LOG_CATEGORY
-#define EPOCH_DEFAULT_LOG_CATEGORY "net"
+#undef REMIX_DEFAULT_LOG_CATEGORY
+#define REMIX_DEFAULT_LOG_CATEGORY "net"
 
 namespace epee
 {

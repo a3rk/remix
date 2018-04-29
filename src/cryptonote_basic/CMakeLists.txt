@@ -1,4 +1,4 @@
-# Copyright (c) 2018, The Epoch Project
+# Copyright (c) 2018, The Remix Project
 #
 # All rights reserved.
 #
@@ -57,9 +57,9 @@ set(cryptonote_basic_private_headers
   tx_extra.h
   verification_context.h)
 
-EPOCH_private_headers(cryptonote_basic
+REMIX_private_headers(cryptonote_basic
   ${cryptonote_basic_private_headers})
-EPOCH_add_library(cryptonote_basic
+REMIX_add_library(cryptonote_basic
   ${cryptonote_basic_sources}
   ${cryptonote_basic_headers}
   ${cryptonote_basic_private_headers})

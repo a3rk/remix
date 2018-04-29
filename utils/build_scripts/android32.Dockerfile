@@ -82,8 +82,8 @@ RUN git clone https://github.com/zeromq/zeromq4-1.git \
 
 RUN ln -s /opt/android/openssl/libcrypto.a /opt/android/openssl/libssl.a /opt/android/toolchain-arm/arm-linux-androideabi/lib/armv7-a
 
-RUN git clone https://github.com/epochix/epoch.git \
-    && cd epoch \
+RUN git clone https://github.com/remixix/remix.git \
+    && cd remix \
     && mkdir -p build/release \
     && CC=clang CXX=clang++ \
          BOOST_ROOT=${WORKDIR}/boost_${BOOST_VERSION} BOOST_LIBRARYDIR=${WORKDIR}/boost_${BOOST_VERSION}/android32/lib/ \

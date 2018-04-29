@@ -1,4 +1,4 @@
-// Copyright (c) 2018, The Epoch Project
+// Copyright (c) 2018, The Remix Project
 // 
 // All rights reserved.
 // 
@@ -38,7 +38,7 @@
 #include <iostream>
 
 //  Public interface for libwallet library
-namespace EpochCoin {
+namespace RemixCoin {
 
     namespace Utils {
         bool isAddressLocal(const std::string &hostaddr);
@@ -857,7 +857,7 @@ struct WalletManager
     //! stops mining
     virtual bool stopMining() = 0;
 
-    //! resolves an OpenAlias address to an EpochCoin address
+    //! resolves an OpenAlias address to an RemixCoin address
     virtual std::string resolveOpenAlias(const std::string &address, bool &dnssec_valid) const = 0;
 
     //! checks for an update and returns version, hash and url

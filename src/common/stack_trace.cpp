@@ -1,4 +1,4 @@
-// Copyright (c) 2018, The Epoch Project
+// Copyright (c) 2018, The Remix Project
 //
 // All rights reserved.
 //
@@ -46,10 +46,10 @@
 #include "common/stack_trace.h"
 #include "misc_log_ex.h"
 
-#undef EPOCH_DEFAULT_LOG_CATEGORY
-#define EPOCH_DEFAULT_LOG_CATEGORY "stacktrace"
+#undef REMIX_DEFAULT_LOG_CATEGORY
+#define REMIX_DEFAULT_LOG_CATEGORY "stacktrace"
 
-#define ST_LOG(x) CINFO(el::base::Writer,el::base::DispatchAction::FileOnlyLog,EPOCH_DEFAULT_LOG_CATEGORY) << x
+#define ST_LOG(x) CINFO(el::base::Writer,el::base::DispatchAction::FileOnlyLog,REMIX_DEFAULT_LOG_CATEGORY) << x
 
 // from http://stackoverflow.com/questions/11665829/how-can-i-print-stack-trace-for-caught-exceptions-in-c-code-injection-in-c
 

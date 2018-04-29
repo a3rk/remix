@@ -1,4 +1,4 @@
-// Copyright (c) 2018, The Epoch Project
+// Copyright (c) 2018, The Remix Project
 // 
 // All rights reserved.
 // 
@@ -62,7 +62,7 @@
 #define CRYPTONOTE_MINED_MONEY_UNLOCK_WINDOW            60
 
 // --NOTE--
-// EpochCoin v0.9.14.0 has no version, and rebase is set as version 1, with version 2 here and 
+// RemixCoin v0.9.14.0 has no version, and rebase is set as version 1, with version 2 here and 
 // elsewhere meant to serve as placeholders, in order to allow for easier future development.
 // Take note that you will see this reflected in the define naming convention as well, 
 // whenever you happen upon a *_V1 and *_V2 pair and are confused as to why a second
@@ -150,7 +150,7 @@
 
 #define ALLOW_DEBUG_COMMANDS
 
-#define CRYPTONOTE_NAME                                 "epoch"
+#define CRYPTONOTE_NAME                                 "remix"
 #define CRYPTONOTE_POOLDATA_FILENAME                    "poolstate.bin"
 #define CRYPTONOTE_BLOCKCHAINDATA_FILENAME              "data.mdb"
 #define CRYPTONOTE_BLOCKCHAINDATA_LOCK_FILENAME         "lock.mdb"
@@ -167,8 +167,8 @@
 
 #define HASH_OF_HASHES_STEP                             256
 
-#define DONATION_URL                                    "donate.epoch.cash"
-#define DONATION_EMAIL_ADDRESS                          "donate@epoch.cash"
+#define DONATION_URL                                    "donate.remix.cash"
+#define DONATION_EMAIL_ADDRESS                          "donate@remix.cash"
 
 // New constants are intended to go here
 namespace config
@@ -192,12 +192,12 @@ namespace config
 
   boost::uuids::uuid const NETWORK_ID = { 
     { 0x45, 0x36, 0x78, 0x0f, 0x45, 0xd2, 0x11, 0xe8, 0xac, 0x80, 0x28, 0x18, 0x78, 0xb8, 0x64, 0x80 } 
-  }; // Bender's nightmare EpochCoin MAINNET
+  }; // Bender's nightmare RemixCoin MAINNET
   
   std::string const GENESIS_TX = "013c01ff0001ffffffffffff03029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd08807121012bf2d282da90cee9c7a28c16e81418101ee28607d9e50f706594ee144a453b68";
   
-  std::string const DONATION_EPOCH_WALLET_ADDRESS = "WmsSWgtT1JPg5e3cK41hKXSHVpKW7e47bjgiKmWZkYrhSS5LhRemNyqayaSBtAQ6517eo5PtH9wxHVmM78JDZSUu2W8PqRiNs";
-  std::string const DONATION_EPOCH_WALLET_PUBLIC_VIEWKEY = "71bf19a7348ede17fa487167710dac401ef1556851bfd36b76040facf051630b";
+  std::string const DONATION_REMIX_WALLET_ADDRESS = "WmsSWgtT1JPg5e3cK41hKXSHVpKW7e47bjgiKmWZkYrhSS5LhRemNyqayaSBtAQ6517eo5PtH9wxHVmM78JDZSUu2W8PqRiNs";
+  std::string const DONATION_REMIX_WALLET_PUBLIC_VIEWKEY = "71bf19a7348ede17fa487167710dac401ef1556851bfd36b76040facf051630b";
   std::string const DONATION_BITCOIN_WALLET_ADDRESS = "12Cyjf3qV6qLyXdzpLSLPdRFPUVidvnzFM";
 
   namespace testnet
@@ -218,7 +218,7 @@ namespace config
 
     std::string const GENESIS_TX = "013c01ff0001ffffffffffff03029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd0880712101a3b2db6ba6d8941ee26cfc96cd57bfa62562eb38e9c940520b847daa8967f374"; //A3RK Test Net
     
-    std::string const DONATION_EPOCH_WALLET_ADDRESS = "Wx22Jx6NsuXViqX6dGiM1gXdzZBphgpPBAo1WMG8HdxLQUXKzn48X4sFXHKUbtjmDNUkmuurbFvA9HmNSh7cVDwT2KoiMvVoY";
-    std::string const DONATION_EPOCH_WALLET_PUBLIC_VIEWKEY = "55df2eb6cfc056d2692a405442bda5ef47d4cc898576643b3a2248bffed69a3c";
+    std::string const DONATION_REMIX_WALLET_ADDRESS = "Wx22Jx6NsuXViqX6dGiM1gXdzZBphgpPBAo1WMG8HdxLQUXKzn48X4sFXHKUbtjmDNUkmuurbFvA9HmNSh7cVDwT2KoiMvVoY";
+    std::string const DONATION_REMIX_WALLET_PUBLIC_VIEWKEY = "55df2eb6cfc056d2692a405442bda5ef47d4cc898576643b3a2248bffed69a3c";
   }
 }

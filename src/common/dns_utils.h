@@ -1,4 +1,4 @@
-// Copyright (c) 2018, The Epoch Project
+// Copyright (c) 2018, The Remix Project
 // 
 // All rights reserved.
 // 
@@ -108,7 +108,7 @@ public:
    * @brief Gets a DNS address from OpenAlias format
    *
    * If the address looks good, but contains one @ symbol, replace that with a .
-   * e.g. donate@epoch.cash becomes donate.epoch.cash
+   * e.g. donate@remix.cash becomes donate.remix.cash
    *
    * @param oa_addr  OpenAlias address
    *

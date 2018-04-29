@@ -1,6 +1,6 @@
 # Monero Blockchain Utilities
 
-Copyright (c) 2018, The Epoch Project
+Copyright (c) 2018, The Remix Project
 
 ## Introduction
 
@@ -12,16 +12,16 @@ See also each utility's "--help" option.
 
 ### Export an existing blockchain database
 
-`$ epoch-blockchain-export`
+`$ remix-blockchain-export`
 
-This loads the existing blockchain and exports it to `$EPOCH_DATA_DIR/export/blockchain.raw`
+This loads the existing blockchain and exports it to `$REMIX_DATA_DIR/export/blockchain.raw`
 
 ### Import the exported file
 
-`$ epoch-blockchain-import`
+`$ remix-blockchain-import`
 
-This imports blocks from `$EPOCH_DATA_DIR/export/blockchain.raw` (exported using the
-`epoch-blockchain-export` tool as described above) into the current database.
+This imports blocks from `$REMIX_DATA_DIR/export/blockchain.raw` (exported using the
+`remix-blockchain-export` tool as described above) into the current database.
 
 Defaults: `--batch on`, `--batch size 20000`, `--verify on`
 
@@ -30,14 +30,14 @@ Batch size refers to number of blocks and can be adjusted for performance based 
 Verification should only be turned off if importing from a trusted blockchain.
 
 If you encounter an error like "resizing not supported in batch mode", you can just re-run
-the `epoch-blockchain-import` command again, and it will restart from where it left off.
+the `remix-blockchain-import` command again, and it will restart from where it left off.
 
 ```bash
 ## use default settings to import blockchain.raw into database
-$ epoch-blockchain-import
+$ remix-blockchain-import
 
 ## fast import with large batch size, database mode "fastest", verification off
-$ epoch-blockchain-import --batch-size 20000 --database lmdb#fastest --verify off
+$ remix-blockchain-import --batch-size 20000 --database lmdb#fastest --verify off
 
 ```
 
@@ -80,9 +80,9 @@ LMDB flags (more than one may be specified):
 ## Examples:
 
 ```
-$ epoch-blockchain-import --database lmdb#fastest
+$ remix-blockchain-import --database lmdb#fastest
 
-$ epoch-blockchain-import --database lmdb#nosync
+$ remix-blockchain-import --database lmdb#nosync
 
-$ epoch-blockchain-import --database lmdb#nosync,nometasync
+$ remix-blockchain-import --database lmdb#nosync,nometasync
 ```

@@ -1,4 +1,4 @@
-# Copyright (c) 2018, The Epoch Project
+# Copyright (c) 2018, The Remix Project
 #
 # All rights reserved.
 #
@@ -29,7 +29,7 @@
 set(gen_multisig_sources
   gen_multisig.cpp)
 
-EPOCH_add_executable(gen_multisig
+REMIX_add_executable(gen_multisig
   ${gen_multisig_sources})
 target_link_libraries(gen_multisig
   PRIVATE
@@ -50,5 +50,5 @@ add_dependencies(gen_multisig
   version)
 set_property(TARGET gen_multisig
   PROPERTY
-    OUTPUT_NAME "epoch-gen-trusted-multisig")
+    OUTPUT_NAME "remix-gen-trusted-multisig")
 install(TARGETS gen_multisig DESTINATION bin)

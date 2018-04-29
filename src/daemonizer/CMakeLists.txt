@@ -1,4 +1,4 @@
-# Copyright (c) 2018, The Epoch Project
+# Copyright (c) 2018, The Remix Project
 #
 # All rights reserved.
 #
@@ -54,9 +54,9 @@ else()
   )
 endif()
 
-EPOCH_private_headers(daemonizer
+REMIX_private_headers(daemonizer
   ${daemonizer_private_headers})
-EPOCH_add_library(daemonizer
+REMIX_add_library(daemonizer
   ${daemonizer_sources}
   ${daemonizer_headers}
   ${daemonizer_private_headers})

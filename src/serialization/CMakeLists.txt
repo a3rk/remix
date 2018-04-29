@@ -1,4 +1,4 @@
-# Copyright (c) 2018, The Epoch Project
+# Copyright (c) 2018, The Remix Project
 #
 # All rights reserved.
 #
@@ -34,9 +34,9 @@ set(serialization_headers)
 set(serialization_private_headers
   json_object.h)
 
-EPOCH_private_headers(serialization
+REMIX_private_headers(serialization
   ${serialization_private_headers})
-EPOCH_add_library(serialization
+REMIX_add_library(serialization
   ${serialization_sources}
   ${serialization_headers}
   ${serialization_private_headers})

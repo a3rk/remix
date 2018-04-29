@@ -2,7 +2,7 @@
 
 if [ ! -d "$SNAP_USER_DATA/etc" ]; then
   mkdir $SNAP_USER_DATA/etc/
-  cp -R $SNAP/etc/epochd.conf $SNAP_USER_DATA/etc/epochd.conf
+  cp -R $SNAP/etc/remixd.conf $SNAP_USER_DATA/etc/remixd.conf
 fi
 
-exec "$SNAP/bin/epochd" "$@"
+exec "$SNAP/bin/remixd" "$@"

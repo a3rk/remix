@@ -1,4 +1,4 @@
-# Copyright (c) 2018, The Epoch Project
+# Copyright (c) 2018, The Remix Project
 #
 # All rights reserved.
 #
@@ -41,9 +41,9 @@ set(ringct_private_headers
   rctTypes.h
   bulletproofs.h)
 
-EPOCH_private_headers(ringct
+REMIX_private_headers(ringct
   ${crypto_private_headers})
-EPOCH_add_library(ringct
+REMIX_add_library(ringct
   ${ringct_sources}
   ${ringct_headers}
   ${ringct_private_headers})

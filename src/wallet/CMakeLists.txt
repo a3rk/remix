@@ -1,4 +1,4 @@
-# Copyright (c) 2018, The Epoch Project
+# Copyright (c) 2018, The Remix Project
 #
 # All rights reserved.
 #
@@ -44,9 +44,9 @@ set(wallet_private_headers
   wallet_rpc_server_error_codes.h
   node_rpc_proxy.h)
 
-EPOCH_private_headers(wallet
+REMIX_private_headers(wallet
   ${wallet_private_headers})
-EPOCH_add_library(wallet
+REMIX_add_library(wallet
   ${wallet_sources}
   ${wallet_private_headers})
 target_link_libraries(wallet
@@ -72,9 +72,9 @@ set(wallet_rpc_headers)
 set(wallet_rpc_private_headers
   wallet_rpc_server.h)
 
-EPOCH_private_headers(wallet_rpc_server
+REMIX_private_headers(wallet_rpc_server
   ${wallet_rpc_private_headers})
-EPOCH_add_executable(wallet_rpc_server
+REMIX_add_executable(wallet_rpc_server
   ${wallet_rpc_sources}
   ${wallet_rpc_headers}
   ${wallet_rpc_private_headers})
@@ -96,7 +96,7 @@ target_link_libraries(wallet_rpc_server
     ${EXTRA_LIBRARIES})
 set_property(TARGET wallet_rpc_server
   PROPERTY
-    OUTPUT_NAME "epoch-wallet-rpc")
+    OUTPUT_NAME "remix-wallet-rpc")
 install(TARGETS wallet_rpc_server DESTINATION bin)
 
 

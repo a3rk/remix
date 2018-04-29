@@ -1,4 +1,4 @@
-# Copyright (c) 2018, The Epoch Project
+# Copyright (c) 2018, The Remix Project
 #
 # All rights reserved.
 #
@@ -47,9 +47,9 @@ else()
   set(Blocks "")
 endif()
 
-EPOCH_private_headers(cryptonote_core
+REMIX_private_headers(cryptonote_core
   ${cryptonote_core_private_headers})
-EPOCH_add_library(cryptonote_core
+REMIX_add_library(cryptonote_core
   ${cryptonote_core_sources}
   ${cryptonote_core_headers}
   ${cryptonote_core_private_headers})

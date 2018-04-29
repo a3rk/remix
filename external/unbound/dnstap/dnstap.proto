@@ -188,7 +188,7 @@ message Message {
 
     // The time at which the DNS query message was sent or received, depending
     // on whether this is an AUTH_QUERY, RESOLVER_QUERY, or CLIENT_QUERY.
-    // This is the number of seconds since the UNIX epoch.
+    // This is the number of seconds since the UNIX remix.
     optional uint64             query_time_sec = 8;
 
     // The time at which the DNS query message was sent or received.
@@ -205,7 +205,7 @@ message Message {
     // The time at which the DNS response message was sent or received,
     // depending on whether this is an AUTH_RESPONSE, RESOLVER_RESPONSE, or
     // CLIENT_RESPONSE.
-    // This is the number of seconds since the UNIX epoch.
+    // This is the number of seconds since the UNIX remix.
     optional uint64             response_time_sec = 12;
 
     // The time at which the DNS response message was sent or received.

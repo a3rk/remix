@@ -1,30 +1,30 @@
-name: epoch
+name: remix
 version: 0.10.0.A
-summary: "EpochCoin: the private, secure, untraceable currency - http://www.epoch.cash"
+summary: "RemixCoin: the private, secure, untraceable currency - http://www.remix.cash"
 description: |
-    EpochCoin is a private, secure, untraceable currency. You are your bank, you 
+    RemixCoin is a private, secure, untraceable currency. You are your bank, you 
     control your funds, and nobody can trace your transfers.
 grade: devel
 confinement: strict
 
 apps:
-    epochd:
+    remixd:
         daemon: forking
         command: |
-          epochd-wrapper --detach --data-dir ${SNAP_COMMON} --config-file ${SNAP_USER_DATA}/etc/epochd.conf
+          remixd-wrapper --detach --data-dir ${SNAP_COMMON} --config-file ${SNAP_USER_DATA}/etc/remixd.conf
         plugs:
             - network
             - network-bind
-    epoch-wallet-rpc:
+    remix-wallet-rpc:
         command: |
-          epoch-wallet-rpc --log-file ${SNAP_USER_DATA}
+          remix-wallet-rpc --log-file ${SNAP_USER_DATA}
         plugs:
             - home
             - network
             - network-bind
-    epoch-wallet-cli:
+    remix-wallet-cli:
         command: |
-          epoch-wallet-cli --log-file ${SNAP_USER_DATA}
+          remix-wallet-cli --log-file ${SNAP_USER_DATA}
         plugs:
             - home
             - network
@@ -71,8 +71,8 @@ parts:
         plugin: dump
         source: .
         organize:
-            contrib/snap/epochd.conf: etc/epochd.conf
-            contrib/snap/epochd-wrapper: bin/epochd-wrapper
+            contrib/snap/remixd.conf: etc/remixd.conf
+            contrib/snap/remixd-wrapper: bin/remixd-wrapper
         prime:
             - etc
             - bin

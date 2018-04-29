@@ -27,8 +27,8 @@
 
 #define TM_YEAR_BASE	1900
 
-#define EPOCH_YEAR	1970
-#define EPOCH_WDAY	TM_THURSDAY
+#define REMIX_YEAR	1970
+#define REMIX_WDAY	TM_THURSDAY
 
 #define isleap(y) (((y) % 4) == 0 && (((y) % 100) != 0 || ((y) % 400) == 0))
 
@@ -72,10 +72,10 @@ struct tm * const		tmp;
 	** representation.  This uses "... ??:59:60" et seq.
 	*/
 	tmp->tm_sec = (int) (rem % SECSPERMIN) ;
-	tmp->tm_wday = (int) ((EPOCH_WDAY + days) % DAYSPERWEEK);
+	tmp->tm_wday = (int) ((REMIX_WDAY + days) % DAYSPERWEEK);
 	if (tmp->tm_wday < 0)
 		tmp->tm_wday += DAYSPERWEEK;
-	y = EPOCH_YEAR;
+	y = REMIX_YEAR;
 #define LEAPS_THRU_END_OF(y)	((y) / 4 - (y) / 100 + (y) / 400)
 	while (days < 0 || days >= (long) year_lengths[yleap = isleap(y)]) {
 		long	newy;

@@ -1,4 +1,4 @@
-# Copyright (c) 2018, The Epoch Project
+# Copyright (c) 2018, The Remix Project
 #
 # All rights reserved.
 #
@@ -40,9 +40,9 @@ set(checkpoints_headers)
 set(checkpoints_private_headers
   checkpoints.h)
 
-EPOCH_private_headers(checkpoints
+REMIX_private_headers(checkpoints
   ${checkpoints_private_headers})
-EPOCH_add_library(checkpoints
+REMIX_add_library(checkpoints
   ${checkpoints_sources}
   ${checkpoints_headers}
   ${checkpoints_private_headers})

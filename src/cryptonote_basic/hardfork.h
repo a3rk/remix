@@ -1,4 +1,4 @@
-// Copyright (c) 2018, The Epoch Project
+// Copyright (c) 2018, The Remix Project
 // 
 // All rights reserved.
 // 
@@ -69,7 +69,7 @@ namespace cryptonote
      * @param version the major block version for the fork
      * @param height The height the hardfork takes effect
      * @param threshold The threshold of votes needed for this fork (0-100)
-     * @param time Approximate time of the hardfork (seconds since epoch)
+     * @param time Approximate time of the hardfork (seconds since remix)
      */
     bool add_fork(uint8_t version, uint64_t height, uint8_t threshold, time_t time);
 
@@ -81,7 +81,7 @@ namespace cryptonote
      * @param version the major block version for the fork
      * @param voting_version the minor block version for the fork, used for voting
      * @param height The height the hardfork takes effect
-     * @param time Approximate time of the hardfork (seconds since epoch)
+     * @param time Approximate time of the hardfork (seconds since remix)
      */
     bool add_fork(uint8_t version, uint64_t height, time_t time);
 

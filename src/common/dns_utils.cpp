@@ -1,4 +1,4 @@
-// Copyright (c) 2018, The Epoch Project
+// Copyright (c) 2018, The Remix Project
 //
 // All rights reserved.
 //
@@ -39,8 +39,8 @@
 using namespace epee;
 namespace bf = boost::filesystem;
 
-#undef EPOCH_DEFAULT_LOG_CATEGORY
-#define EPOCH_DEFAULT_LOG_CATEGORY "net.dns"
+#undef REMIX_DEFAULT_LOG_CATEGORY
+#define REMIX_DEFAULT_LOG_CATEGORY "net.dns"
 
 #define DEFAULT_DNS_PUBLIC_ADDR "8.8.4.4"
 
@@ -335,8 +335,8 @@ namespace dns_utils
 // TODO: parse the string in a less stupid way, probably with regex
 std::string address_from_txt_record(const std::string& s)
 {
-  // make sure the txt record has "oa1:epoch" and find it
-  auto pos = s.find("oa1:epoch");
+  // make sure the txt record has "oa1:remix" and find it
+  auto pos = s.find("oa1:remix");
   if (pos == std::string::npos)
     return {};
   // search from there to find "recipient_address="
@@ -361,18 +361,18 @@ std::string address_from_txt_record(const std::string& s)
   return {};
 }
 /**
- * @brief gets an EpochCoin address from the TXT record of a DNS entry
+ * @brief gets an RemixCoin address from the TXT record of a DNS entry
  *
- * gets the EpochCoin address from the TXT record of the DNS entry associated
+ * gets the RemixCoin address from the TXT record of the DNS entry associated
  * with <url>.  If this lookup fails, or the TXT record does not contain an
- * EpochCoin address in the correct format, returns an empty string.  <dnssec_valid>
+ * RemixCoin address in the correct format, returns an empty string.  <dnssec_valid>
  * will be set true or false according to whether or not the DNS query passes
  * DNSSEC validation.
  *
  * @param url the url to look up
  * @param dnssec_valid return-by-reference for DNSSEC status of query
  *
- * @return an EpochCoin address (as a string) or an empty string
+ * @return an RemixCoin address (as a string) or an empty string
  */
 std::vector<std::string> addresses_from_url(const std::string& url, bool& dnssec_valid)
 {
@@ -389,7 +389,7 @@ std::vector<std::string> addresses_from_url(const std::string& url, bool& dnssec
   }
   else dnssec_valid = false;
 
-  // for each txt record, try to find an EpochCoin address in it.
+  // for each txt record, try to find an RemixCoin address in it.
   for (auto& rec : records)
   {
     std::string addr = address_from_txt_record(rec);

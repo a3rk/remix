@@ -1,4 +1,4 @@
-// Copyright (c) 2018, The Epoch Project
+// Copyright (c) 2018, The Remix Project
 //
 // All rights reserved.
 //
@@ -32,7 +32,7 @@
 #include "wallet/api/wallet2_api.h"
 #include <string>
 
-namespace EpochCoin {
+namespace RemixCoin {
 
 class WalletManagerImpl : public WalletManager
 {

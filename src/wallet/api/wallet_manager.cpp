@@ -1,4 +1,4 @@
-// Copyright (c) 2018, The Epoch Project
+// Copyright (c) 2018, The Remix Project
 //
 // All rights reserved.
 //
@@ -41,8 +41,8 @@
 #include <boost/filesystem.hpp>
 #include <boost/regex.hpp>
 
-#undef EPOCH_DEFAULT_LOG_CATEGORY
-#define EPOCH_DEFAULT_LOG_CATEGORY "WalletAPI"
+#undef REMIX_DEFAULT_LOG_CATEGORY
+#define REMIX_DEFAULT_LOG_CATEGORY "WalletAPI"
 
 namespace epee {
     unsigned int g_test_dbg_lock_sleep = 0;
@@ -57,7 +57,7 @@ namespace {
     }
 }
 
-namespace EpochCoin {
+namespace RemixCoin {
 
 Wallet *WalletManagerImpl::createWallet(const std::string &path, const std::string &password,
                                     const std::string &language, bool testnet)
@@ -300,7 +300,7 @@ std::tuple<bool, std::string, std::string, std::string, std::string> WalletManag
     if (!tools::check_updates(software, buildtag, version, hash))
       return std::make_tuple(false, "", "", "", "");
 
-    if (tools::vercmp(version.c_str(), EPOCH_VERSION) > 0)
+    if (tools::vercmp(version.c_str(), REMIX_VERSION) > 0)
     {
       std::string user_url = tools::get_update_url(software, subdir, buildtag, version, true);
       std::string auto_url = tools::get_update_url(software, subdir, buildtag, version, false);
