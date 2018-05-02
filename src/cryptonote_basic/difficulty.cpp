@@ -121,8 +121,7 @@ namespace cryptonote {
 
   difficulty_type next_difficulty(std::vector<std::uint64_t> timestamps, std::vector<difficulty_type> cumulative_difficulties, size_t target_seconds, size_t height) {
 
-    if (height < HARDFORK_1_HEIGHT)
-      target_seconds = HARDFORK_1_OLD_TARGET;
+    target_seconds = REMIX_TARGET;
 
     if(timestamps.size() > DIFFICULTY_WINDOW)
     {
@@ -164,10 +163,6 @@ namespace cryptonote {
     }
 
     difficulty_type new_diff = (low + time_span - 1) / time_span;
-
-    if (height >= HARDFORK_1_HEIGHT && height < HARDFORK_1_HEIGHT+HARDFORK_1_DIFFADJ_WINDOW) {
-        new_diff += new_diff*(HARDFORK_1_HEIGHT+HARDFORK_1_DIFFADJ_WINDOW-height)*(HARDFORK_1_DIFFADJ-1)/HARDFORK_1_DIFFADJ_WINDOW;
-    }
 
     return new_diff;
   }

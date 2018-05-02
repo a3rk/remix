@@ -302,7 +302,7 @@ namespace cryptonote
     // uint64_t diff_v2 = max_block_height > last_block_v1 ? std::min(abs_diff, max_block_height - last_block_v1) : 0;
     
     MCLOG(is_inital ? el::Level::Info : el::Level::Debug, "global", context <<  "Sync data returned unknown top block: " << m_core.get_current_blockchain_height() << " -> " << hshd.current_height
-      << " [" << abs_diff << " blocks " << (std::min(m_core.get_current_blockchain_height(),hshd.current_height) < HARDFORK_1_HEIGHT ? "" : "("+std::to_string(abs_diff / (24 * 60 * 60 / DIFFICULTY_TARGET)) +" days) ")
+      << " [" << abs_diff << " blocks " <<  ""
       << (0 <= diff ? std::string("behind") : std::string("ahead"))
       << "] " << ENDL << "SYNCHRONIZATION started");
       m_core.safesyncmode(false);

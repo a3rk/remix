@@ -90,17 +90,11 @@ static const struct {
   time_t time;
 } mainnet_hard_forks[] = {
  // OYE! Pay attention here:
- // Forks are entered like this { Version, Height, Threshold, RemixTime}
-
-  //Start of Aeon - V0
-  //{ 0, 1, 0, 1341378000 },
-  // version 1 hard fork of RemixCoin was at 592000 2015-08-04 14:45:24
-  // at that time Target diff gets changes from 60 to 240
-  // and speed changes from 20 to 18
-  { 1, HARDFORK_1_HEIGHT, 0, 1438699524 }
+ // Forks are entered like this { Version, Height, Threshold, EpochTime}
+  
 };
 
-static const uint64_t mainnet_hard_fork_version_1_till = HARDFORK_1_HEIGHT - 1;
+static const uint64_t mainnet_hard_fork_version_1_till = ((uint64_t)(-1));
 
 static const struct {
   uint8_t version;
@@ -971,7 +965,7 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
     }
   }
 
-  size_t target = bei.height < HARDFORK_1_HEIGHT ? HARDFORK_1_OLD_TARGET : DIFFICULTY_TARGET;
+  size_t target =  REMIX_TARGET;
 
   // calculate the difficulty target for the block and return it
   return next_difficulty(timestamps, cumulative_difficulties, target, bei.height);

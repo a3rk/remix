@@ -34,16 +34,6 @@
 #include <boost/uuid/uuid.hpp>
 
 
-// Left-monerovers
-#define EMISSION_SPEED_FACTOR_PER_MINUTE                (20)
-#define CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V5    300000
-#define DYNAMIC_FEE_PER_KB_BASE_FEE                     ((uint64_t)2000000000) // 2 * pow(10,9)
-#define BLOCKS_SYNCHRONIZING_DEFAULT_COUNT              100
-// ----------------
-
-
-
-
 #define HARDFORK_1_HEIGHT                               592000
 #define HARDFORK_1_OLD_TARGET                           60
 #define HARDFORK_1_OLD_SPEED_FACTOR                     (20)
@@ -51,6 +41,10 @@
 #define HARDFORK_1_POW_SPEED_MULTIPLIER                 2
 #define HARDFORK_1_DIFFADJ                              HARDFORK_1_POW_SPEED_MULTIPLIER
 #define HARDFORK_1_DIFFADJ_WINDOW                       360
+
+//New Stuff Goes Here
+#define REMIX_SPEED_FACTOR                              (18)
+#define REMIX_TARGET                                    (60)
 
 #define CRYPTONOTE_DNS_TIMEOUT_MS                       20000
 
@@ -119,7 +113,7 @@
 
 #define BLOCKS_IDS_SYNCHRONIZING_DEFAULT_COUNT          10000  //by default, blocks ids count in synchronizing
 #define BLOCKS_SYNCHRONIZING_DEFAULT_COUNT_V1           200    //by default, blocks count in blocks downloading
-#define BLOCKS_SYNCHRONIZING_DEFAULT_COUNT_V2           20     //by default, blocks count in blocks downloading
+#define BLOCKS_SYNCHRONIZING_DEFAULT_COUNT_V2           200    //Placeholder for future version
 
 #define CRYPTONOTE_MEMPOOL_TX_LIVETIME                  86400 //seconds, one day
 #define CRYPTONOTE_MEMPOOL_TX_FROM_ALT_BLOCK_LIVETIME   604800 //seconds, one week
@@ -194,7 +188,8 @@ namespace config
     { 0x45, 0x36, 0x78, 0x0f, 0x45, 0xd2, 0x11, 0xe8, 0xac, 0x80, 0x28, 0x18, 0x78, 0xb8, 0x64, 0x80 } 
   }; // Bender's nightmare RemixCoin MAINNET
   
-  std::string const GENESIS_TX = "013c01ff0001ffffffffffff03029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd08807121012bf2d282da90cee9c7a28c16e81418101ee28607d9e50f706594ee144a453b68";
+  //std::string const GENESIS_TX = "013c01ff0001ffffffffffff03029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd08807121012bf2d282da90cee9c7a28c16e81418101ee28607d9e50f706594ee144a453b68";
+  std::string const GENESIS_TX = "013c01ff0001ffffffffffff0f029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd08807121010c1b8be569a448fc231b92bc344270e96294638a3424743b7ebaec9f41fc94e7";
   
   std::string const DONATION_REMIX_WALLET_ADDRESS = "WmsSWgtT1JPg5e3cK41hKXSHVpKW7e47bjgiKmWZkYrhSS5LhRemNyqayaSBtAQ6517eo5PtH9wxHVmM78JDZSUu2W8PqRiNs";
   std::string const DONATION_REMIX_WALLET_PUBLIC_VIEWKEY = "71bf19a7348ede17fa487167710dac401ef1556851bfd36b76040facf051630b";

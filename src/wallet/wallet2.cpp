@@ -6976,9 +6976,6 @@ uint64_t wallet2::get_upper_transaction_size_limit()
   uint64_t full_reward_zone = CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V1; 
   uint64_t height = m_blockchain.size() - 1;
 
-  if (height < HARDFORK_1_HEIGHT)
-    full_reward_zone = CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V1;
-
   return full_reward_zone - CRYPTONOTE_COINBASE_BLOB_RESERVED_SIZE;
 }
 //----------------------------------------------------------------------------------------------------
