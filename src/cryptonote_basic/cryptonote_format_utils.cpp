@@ -912,7 +912,7 @@ namespace cryptonote
   bool get_block_longhash(const block& b, crypto::hash& res, uint64_t height)
   {
     blobdata bd = get_block_hashing_blob(b);
-    crypto::cn_slow_hash(bd.data(), bd.size(), res, height >= HARDFORK_1_HEIGHT);
+    crypto::cn_slow_hash(bd.data(), bd.size(), res, false);
     return true;
   }
   //---------------------------------------------------------------
@@ -1017,7 +1017,7 @@ namespace cryptonote
   crypto::secret_key encrypt_key(crypto::secret_key key, const epee::wipeable_string &passphrase, uint64_t height)
   {
     crypto::hash hash;
-    crypto::cn_slow_hash(passphrase.data(), passphrase.size(), hash, height >= HARDFORK_1_HEIGHT);
+    crypto::cn_slow_hash(passphrase.data(), passphrase.size(), hash, false);
     sc_add((unsigned char*)key.data, (const unsigned char*)key.data, (const unsigned char*)hash.data);
     return key;
   }
@@ -1025,7 +1025,7 @@ namespace cryptonote
   crypto::secret_key decrypt_key(crypto::secret_key key, const epee::wipeable_string &passphrase, uint64_t height)
   {
     crypto::hash hash;
-    crypto::cn_slow_hash(passphrase.data(), passphrase.size(), hash, height >= HARDFORK_1_HEIGHT);
+    crypto::cn_slow_hash(passphrase.data(), passphrase.size(), hash, false);
     sc_sub((unsigned char*)key.data, (const unsigned char*)key.data, (const unsigned char*)hash.data);
     return key;
   }
