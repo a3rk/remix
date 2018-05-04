@@ -33,15 +33,6 @@
 #include <string>
 #include <boost/uuid/uuid.hpp>
 
-
-#define HARDFORK_1_HEIGHT                               592000
-#define HARDFORK_1_OLD_TARGET                           60
-#define HARDFORK_1_OLD_SPEED_FACTOR                     (20)
-#define AFTER_HARDFORK_SPEED_FACTOR                     (18)
-#define HARDFORK_1_POW_SPEED_MULTIPLIER                 2
-#define HARDFORK_1_DIFFADJ                              HARDFORK_1_POW_SPEED_MULTIPLIER
-#define HARDFORK_1_DIFFADJ_WINDOW                       360
-
 //New Stuff Goes Here
 #define REMIX_SPEED_FACTOR                              (18)
 #define REMIX_TARGET                                    (60)
@@ -64,6 +55,7 @@
 #define CURRENT_TRANSACTION_VERSION                     1
 #define CURRENT_BLOCK_MAJOR_VERSION                     1
 #define CURRENT_BLOCK_MINOR_VERSION                     0
+#define CRYPTONOTE_V2_POW_BLOCK_VERSION                 1
 #define CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT              60*60*2
 #define CRYPTONOTE_DEFAULT_TX_SPENDABLE_AGE             10
 
@@ -85,7 +77,6 @@
 // COIN - number of smallest units in one coin
 #define COIN                                            ((uint64_t)1000000000000) // pow(10, 12)
 
-#define FEE_PER_KB_OLD                                  ((uint64_t)10000000000) // pow(10, 10)
 #define FEE_PER_KB                                      ((uint64_t)2000000000) // 2 * pow(10, 9)
 #define DEFAULT_FEE                                     ((uint64_t)10000000000) // pow(10, 10)
 #define MINIMUM_RELAY_FEE                               ((uint64_t)1000000) // pow(10, 6)

@@ -44,8 +44,9 @@ set(crypto_sources
   oaes_lib.c
   random.c
   skein.c
-  slow-hash.c
-  tree-hash.c)
+  tree-hash.c
+  cn_slow_hash_soft.cpp
+  cn_slow_hash_hard_intel.cpp)
 
 set(crypto_headers)
 
@@ -66,7 +67,8 @@ set(crypto_private_headers
   oaes_lib.h
   random.h
   skein.h
-  skein_port.h)
+  skein_port.h
+  cn_slow_hash.hpp)
 
 REMIX_private_headers(cncrypto
   ${crypto_private_headers})
