@@ -82,14 +82,14 @@
 #define ORPHANED_BLOCKS_MAX_COUNT                       100
 
 
-#define DIFFICULTY_TARGET                               240  // seconds
+#define DIFFICULTY_TARGET                               120  // seconds
 
-#define DIFFICULTY_WINDOW                               720 // blocks
-#define DIFFICULTY_LAG                                  15  // !!!
-#define DIFFICULTY_CUT                                  60  // timestamps to cut after sorting
+#define DIFFICULTY_WINDOW                               60 // blocks
+#define DIFFICULTY_LAG                                  4  // !!!
+#define DIFFICULTY_CUT                                  6  // timestamps to cut after sorting
 #define DIFFICULTY_BLOCKS_COUNT                         DIFFICULTY_WINDOW + 1
 
-#define CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT              60*60*2
+#define CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT              60*5
 
 #define CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V1   DIFFICULTY_TARGET * CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_BLOCKS
 #define CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V2   DIFFICULTY_TARGET * CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_BLOCKS

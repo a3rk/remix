@@ -69,11 +69,7 @@ namespace cryptonote {
   //-----------------------------------------------------------------------------------------------
   int get_emission_speed(uint8_t version, uint64_t height, bool testnet) 
   {
-    static_assert(DIFFICULTY_TARGET % 60 == 0, "difficulty targets must be a multiple of 60");
-    const int target_minutes = DIFFICULTY_TARGET / 60;
-    const int emission_speed_factor = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1);
-        
-    return emission_speed_factor;
+    return REMIX_SPEED_FACTOR;
   }
   //-----------------------------------------------------------------------------------------------
   size_t get_min_block_size(uint8_t version)
