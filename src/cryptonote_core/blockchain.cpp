@@ -1109,18 +1109,10 @@ bool Blockchain::create_block_template(block& b, const account_public_address& m
 
   uint8_t version = get_current_hard_fork_version();
   uint64_t blockchain_timestamp_check_window =  BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW;
-  if(m_db->height() >= blockchain_timestamp_check_window) {
-    std::vector<uint64_t> timestamps;
-    auto h = m_db->height();
-
-    for(size_t offset = h - blockchain_timestamp_check_window; offset < h; ++offset)
-    {
-      timestamps.push_back(m_db->get_block_timestamp(offset));
-    }
-    uint64_t median_ts = epee::misc_utils::median(timestamps);
-    if (b.timestamp < median_ts) {
-      b.timestamp = median_ts;
-    }
+  uint64_t median_ts;
+  if (!check_block_timestamp(b, median_ts))
+  {
+    b.timestamp = median_ts;
   }
 
 
@@ -3113,10 +3105,10 @@ uint64_t Blockchain::get_adjusted_time() const
 }
 //------------------------------------------------------------------
 //TODO: revisit, has changed a bit on upstream
-bool Blockchain::check_block_timestamp(std::vector<uint64_t>& timestamps, const block& b) const
+bool Blockchain::check_block_timestamp(std::vector<uint64_t>& timestamps, const block& b, uint64_t& median_ts) const
 {
   LOG_PRINT_L3("Blockchain::" << __func__);
-  uint64_t median_ts = epee::misc_utils::median(timestamps);
+  median_ts = epee::misc_utils::median(timestamps);
 
   if(b.timestamp < median_ts)
   {
@@ -3134,7 +3126,7 @@ bool Blockchain::check_block_timestamp(std::vector<uint64_t>& timestamps, const 
 //   true if the block's timestamp is not less than the timestamp of the
 //       median of the selected blocks
 //   false otherwise
-bool Blockchain::check_block_timestamp(const block& b) const
+bool Blockchain::check_block_timestamp(const block& b, uint64_t& median_ts) const
 {
   LOG_PRINT_L3("Blockchain::" << __func__);
   if(b.timestamp > get_adjusted_time() + CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT)
@@ -3159,7 +3151,7 @@ bool Blockchain::check_block_timestamp(const block& b) const
     timestamps.push_back(m_db->get_block_timestamp(offset));
   }
 
-  return check_block_timestamp(timestamps, b);
+  return check_block_timestamp(timestamps, b, median_ts);
 }
 //------------------------------------------------------------------
 void Blockchain::return_tx_to_pool(std::vector<transaction> &txs)

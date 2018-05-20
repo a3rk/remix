@@ -1,5 +1,7 @@
 // Copyright (c) 2018, The Remix Project
 // 
+// Copyright (c) 2014-2017 The Monero Project.
+//
 // All rights reserved.
 // 
 // Redistribution and use in source and binary forms, with or without modification, are
@@ -27,16 +29,15 @@
 // THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // 
 // Parts of this file are originally copyright (c) 2012-2013 The Cryptonote developers
+// Parts of this file are originally copyright (c) 2014-2017, The Monero Project
 
 #pragma once
 
 #include <string>
 #include <boost/uuid/uuid.hpp>
 
-//New Stuff Goes Here
 #define REMIX_SPEED_FACTOR                              (18)
 #define REMIX_TARGET                                    (60)
-
 #define CRYPTONOTE_DNS_TIMEOUT_MS                       20000
 
 #define CRYPTONOTE_MAX_BLOCK_NUMBER                     500000000
@@ -45,13 +46,6 @@
 #define CRYPTONOTE_MAX_TX_SIZE                          1000000000
 #define CRYPTONOTE_PUBLIC_ADDRESS_TEXTBLOB_VER          0
 #define CRYPTONOTE_MINED_MONEY_UNLOCK_WINDOW            60
-
-// --NOTE--
-// RemixCoin v0.9.14.0 has no version, and rebase is set as version 1, with version 2 here and 
-// elsewhere meant to serve as placeholders, in order to allow for easier future development.
-// Take note that you will see this reflected in the define naming convention as well, 
-// whenever you happen upon a *_V1 and *_V2 pair and are confused as to why a second
-// version even exists in the first place
 #define CURRENT_TRANSACTION_VERSION                     1
 #define CURRENT_BLOCK_MAJOR_VERSION                     1
 #define CURRENT_BLOCK_MINOR_VERSION                     0
@@ -60,13 +54,13 @@
 #define CRYPTONOTE_DEFAULT_TX_SPENDABLE_AGE             10
 
 
-#define BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW               12
+#define BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW               60
 // MONEY_SUPPLY - total number coins to be generated
 #define MONEY_SUPPLY                                    ((uint64_t)(-1))
+#define EMISSION_SPEED_FACTOR_PER_MINUTE                (18)
 #define FINAL_SUBSIDY_PER_MINUTE                        ((uint64_t)300000000000) // 3 * pow(10, 11)
 
 #define CRYPTONOTE_REWARD_BLOCKS_WINDOW                 100
-
 #define CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V1    20000   //size of block (bytes) after which reward for block calculated using block size - before first fork
 #define CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_LIMBO 60000   //(previously V2) 
 #define CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V2    300000  //(previously V5) size of block (bytes) after which reward for block calculated using block size
@@ -82,6 +76,7 @@
 #define MINIMUM_RELAY_FEE                               ((uint64_t)1000000) // pow(10, 6)
 #define DYNAMIC_FEE_PER_KB_BASE_FEE_V1                  ((uint64_t)2000000000) // 2 * pow(10,9)
 #define DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD            ((uint64_t)10000000000000) // 10 * pow(10,12)
+#define DYNAMIC_FEE_PER_KB_BASE_FEE                     ((uint64_t)20000000)
 #define DYNAMIC_FEE_PER_KB_BASE_FEE_V2                  ((uint64_t)2000000000 * (uint64_t)CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_LIMBO / CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V2)
 
 #define ORPHANED_BLOCKS_MAX_COUNT                       100
@@ -89,12 +84,12 @@
 
 #define DIFFICULTY_TARGET                               240  // seconds
 
-#define DIFFICULTY_WINDOW                               60 // blocks
+#define DIFFICULTY_WINDOW                               720 // blocks
 #define DIFFICULTY_LAG                                  15  // !!!
 #define DIFFICULTY_CUT                                  60  // timestamps to cut after sorting
 #define DIFFICULTY_BLOCKS_COUNT                         DIFFICULTY_WINDOW + 1
 
-#define CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT              60*5
+#define CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT              60*60*2
 
 #define CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V1   DIFFICULTY_TARGET * CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_BLOCKS
 #define CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V2   DIFFICULTY_TARGET * CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_BLOCKS
