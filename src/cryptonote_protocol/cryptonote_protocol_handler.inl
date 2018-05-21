@@ -792,7 +792,7 @@ namespace cryptonote
       relay_transactions(arg, context);
     }
 
-    return true;
+    return 1;
   }
   //------------------------------------------------------------------------------------------------------------------------
   template<class t_core>
@@ -999,12 +999,19 @@ skip:
           }
           MDEBUG(context << " next span in the queue has blocks " << start_height << "-" << (start_height + blocks.size() - 1)
               << ", we need " << previous_height);
-
+          
+          if (blocks.empty())
+          {
+            MERROR("Next span has no blocks");
+            m_block_queue.remove_spans(span_connection_id, start_height);
+            break;
+          }
 
           block new_block;
           if (!parse_and_validate_block_from_blob(blocks.front().block, new_block))
           {
             MERROR("Failed to parse block, but it should already have been parsed");
+            m_block_queue.remove_spans(span_connection_id, start_height);
             break;
           }
           bool parent_known = m_core.have_block(new_block.prev_id);
@@ -1021,6 +1028,7 @@ skip:
               // this can happen if a connection was sicced onto a late span, if it did not have those blocks,
               // since we don't know that at the sic time
               LOG_ERROR_CCONTEXT("Got block with unknown parent which was not requested - querying block hashes");
+              m_block_queue.remove_spans(span_connection_id, start_height);
               context.m_needed_objects.clear();
               context.m_last_response_height = 0;
               goto skip;

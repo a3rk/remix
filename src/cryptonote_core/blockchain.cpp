@@ -964,7 +964,7 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
     }
   }
 
-  size_t target =  REMIX_TARGET;
+  size_t target =  DIFFICULTY_TARGET;
 
   // calculate the difficulty target for the block and return it
   return next_difficulty_v2(timestamps, cumulative_difficulties, target, bei.height);

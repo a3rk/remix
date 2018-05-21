@@ -36,8 +36,6 @@
 #include <string>
 #include <boost/uuid/uuid.hpp>
 
-#define REMIX_SPEED_FACTOR                              (18)
-#define REMIX_TARGET                                    (60)
 #define CRYPTONOTE_DNS_TIMEOUT_MS                       20000
 
 #define CRYPTONOTE_MAX_BLOCK_NUMBER                     500000000
@@ -54,7 +52,7 @@
 #define CRYPTONOTE_DEFAULT_TX_SPENDABLE_AGE             10
 
 
-#define BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW               60
+#define BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW               11 //60
 // MONEY_SUPPLY - total number coins to be generated
 #define MONEY_SUPPLY                                    ((uint64_t)(-1))
 #define EMISSION_SPEED_FACTOR_PER_MINUTE                (18)
@@ -85,11 +83,11 @@
 #define DIFFICULTY_TARGET                               120  // seconds
 
 #define DIFFICULTY_WINDOW                               60 // blocks
-#define DIFFICULTY_LAG                                  4  // !!!
-#define DIFFICULTY_CUT                                  6  // timestamps to cut after sorting
-#define DIFFICULTY_BLOCKS_COUNT                         DIFFICULTY_WINDOW + 1
+#define DIFFICULTY_LAG                                  15  // !!!
+#define DIFFICULTY_CUT                                  60  // timestamps to cut after sorting
+#define DIFFICULTY_BLOCKS_COUNT                         DIFFICULTY_WINDOW
 
-#define CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT              60*5
+#define CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT              120*7  // 7xT https://github.com/zawy12/difficulty-algorithms/issues/3, TimeStamp manipulation
 
 #define CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V1   DIFFICULTY_TARGET * CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_BLOCKS
 #define CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V2   DIFFICULTY_TARGET * CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_BLOCKS

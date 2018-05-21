@@ -69,7 +69,13 @@ namespace cryptonote {
   //-----------------------------------------------------------------------------------------------
   int get_emission_speed(uint8_t version, uint64_t height, bool testnet) 
   {
-    return REMIX_SPEED_FACTOR;
+    if (height > 1)
+    {
+      const int target_minutes = DIFFICULTY_TARGET / 60;
+      return EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes -1);
+    }
+    
+    return EMISSION_SPEED_FACTOR_PER_MINUTE;
   }
   //-----------------------------------------------------------------------------------------------
   size_t get_min_block_size(uint8_t version)
