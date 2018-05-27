@@ -765,6 +765,9 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
     m_difficulties = difficulties;
   }
   size_t target = get_difficulty_target();
+  if(height <= 1){
+    return next_difficulty(timestamps, difficulties, target);
+  }
   return next_difficulty_v2(timestamps, difficulties, target, height);
 }
 //------------------------------------------------------------------
@@ -967,6 +970,9 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
   size_t target =  DIFFICULTY_TARGET;
 
   // calculate the difficulty target for the block and return it
+  if(bei.height <= 1){
+    return next_difficulty(timestamps, cumulative_difficulties, target);
+  }
   return next_difficulty_v2(timestamps, cumulative_difficulties, target, bei.height);
 }
 //------------------------------------------------------------------
