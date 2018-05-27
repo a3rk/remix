@@ -51,8 +51,6 @@
 
 #define CRYPTONOTE_DEFAULT_TX_SPENDABLE_AGE             10
 
-
-#define BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW               11 //60
 // MONEY_SUPPLY - total number coins to be generated
 #define MONEY_SUPPLY                                    ((uint64_t)(-1))
 #define EMISSION_SPEED_FACTOR_PER_MINUTE                (18)
@@ -79,15 +77,15 @@
 
 #define ORPHANED_BLOCKS_MAX_COUNT                       100
 
-
+#define BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW               11
 #define DIFFICULTY_TARGET                               120  // seconds
 
-#define DIFFICULTY_WINDOW                               60 // blocks
+#define DIFFICULTY_WINDOW                               60 + 1 // blocks
 #define DIFFICULTY_LAG                                  15  // !!!
-#define DIFFICULTY_CUT                                  60  // timestamps to cut after sorting
-#define DIFFICULTY_BLOCKS_COUNT                         DIFFICULTY_WINDOW
+#define DIFFICULTY_CUT                                  6  // timestamps to cut after sorting, only used in tests
+#define DIFFICULTY_BLOCKS_COUNT                         DIFFICULTY_WINDOW + 1
 
-#define CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT              120*7  // 7xT https://github.com/zawy12/difficulty-algorithms/issues/3, TimeStamp manipulation
+#define CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT              3*DIFFICULTY_TARGET
 
 #define CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V1   DIFFICULTY_TARGET * CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_BLOCKS
 #define CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V2   DIFFICULTY_TARGET * CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_BLOCKS
@@ -110,7 +108,7 @@
 #define P2P_LOCAL_GRAY_PEERLIST_LIMIT                   5000
 
 #define P2P_DEFAULT_CONNECTIONS_COUNT                   8
-#define P2P_DEFAULT_HANDSHAKE_INTERVAL                  60           //secondes
+#define P2P_DEFAULT_HANDSHAKE_INTERVAL                  60           //seconds
 #define P2P_DEFAULT_PACKET_MAX_SIZE                     50000000     //50000000 bytes maximum packet size
 #define P2P_DEFAULT_PEERS_IN_HANDSHAKE                  250
 #define P2P_DEFAULT_CONNECTION_TIMEOUT                  5000       //5 seconds
@@ -139,9 +137,9 @@
 
 #define THREAD_STACK_SIZE                               5 * 1024 * 1024
 
-#define HF_VERSION_DYNAMIC_FEE                          2
+#define HF_VERSION_DYNAMIC_FEE                          255
 #define HF_VERSION_MIN_MIXIN_4                          2
-#define HF_VERSION_ENFORCE_RCT                          2
+#define HF_VERSION_ENFORCE_RCT                          255
 
 #define PER_KB_FEE_QUANTIZATION_DECIMALS                8
 

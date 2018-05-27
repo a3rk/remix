@@ -121,85 +121,88 @@ namespace cryptonote {
     return !carry;
   }
   
-  // LWMA difficulty algorithm
-  // Background:  https://github.com/zawy12/difficulty-algorithms/issues/3
-  // Copyright (c) 2017-2018 Zawy (pseudocode)
-  // MIT license http://www.opensource.org/licenses/mit-license.php
-  // Copyright (c) 2018 The Masari Project (10x max for quicker recoveries, minimum to be symmetric with FTL)
-  // Copyright (c) 2018 Wownero Inc., a Monero Enterprise Alliance partner company
-  // Copyright (c) 2018 The Karbowanec developers (initial code)
-  // Copyright (c) 2018 Haven Protocol (refinements)
-  // Degnr8, Karbowanec, Masari, Bitcoin Gold, Bitcoin Candy, and Haven have contributed.
+  // LWMA-2 difficulty algorithm (commented version)
+  // Copyright (c) 2017-2018 Zawy
+  // https://github.com/zawy12/difficulty-algorithms/issues/3
+  // Bitcoin clones must lower their FTL. 
+  // Cryptonote et al coins must make the following changes:
+  // #define BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW    11
+  // #define CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT        3 * DIFFICULTY_TARGET 
+  // #define DIFFICULTY_WINDOW                      60 + 1
+  // Do not sort timestamps.  CN coins must deploy the Jagerman MTP Patch. See:
+  // https://github.com/loki-project/loki/pull/26   or
+  // https://github.com/wownero/wownero/commit/1f6760533fcec0d84a6bd68369e0ea26716b01e7
+
+  // New coins:  "return 100;" should have the 100 changed based on expected hashrate.
+
   difficulty_type next_difficulty_v2(std::vector<std::uint64_t> timestamps, std::vector<difficulty_type> cumulative_difficulties, size_t target_seconds, size_t height) {
     
-    if (timestamps.size() > DIFFICULTY_BLOCKS_COUNT) {
-      timestamps.resize(DIFFICULTY_BLOCKS_COUNT);
-      cumulative_difficulties.resize(DIFFICULTY_BLOCKS_COUNT);
+    if (height < 6 ){
+      return 100;
     }
+    double T = DIFFICULTY_TARGET; // target solvetime seconds
+    double N = DIFFICULTY_WINDOW - 1; //  N=45, 60, and 90 for T=600, 120, 60.
+    double FTL = CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT; // < 3xT
+    double L(0), sum_6_ST(0), sum_9_ST(0), ST, next_D, prev_D, SMAn, SMAd;
 
-    size_t length = timestamps.size();
-    assert(length == cumulative_difficulties.size());
-    if (length <= 1) {
-      return 1;
+    // If expecting a 10x decrease or 1000x increase in D after a fork, consider: 
+    // if ( height >= fork_height && height < fork_height+62 )  { return uint64_t difficulty_guess; }
+
+    // TS and CD vectors should be size 61 after startup.
+    if ( timestamps.size() > N  ) { timestamps.resize(N+1); cumulative_difficulties.resize(N+1);  }
+    else if (timestamps.size() < 4)  {  return 100;  } // start up
+    else  {  N = timestamps.size() - 1;  } // start up
+
+    // N is most recently solved block. i must be signed
+    for ( int64_t i = 1; i <= N; i++) {  
+        // +/- FTL limits are bad timestamp protection.  6xT limits drop in D to reduce oscillations.
+        ST = std::max(-FTL, std::min(double(timestamps[i] - timestamps[i-1]), 6*T));
+        L +=  ST * i ; // Give more weight to most recent blocks.
+        // Do these inside loop to capture -FTL and +6*T limitations.
+        if ( i > N-6 ) { sum_6_ST += ST; }      
+        if ( i > N-9 ) { sum_9_ST += ST; }     
     }
+    if (L < T*N) { L= T*N*6; } // sanity limit. Accidentally limits D rise at startup for ~60 blocks.
 
-    uint64_t weighted_timespans = 0;
-    uint64_t target;
+    // Calculate next_D = avgD * T / LWMA(STs) 
+    next_D = (cumulative_difficulties[N] - cumulative_difficulties[0]) * T*(N+1)*0.991 / (L*2);
 
-    uint64_t previous_max = timestamps[0];
-    for (size_t i = 1; i < length; i++) {
-      uint64_t timespan;
-      uint64_t max_timestamp;
+    // LWMA-2 change from LWMA
+    // Trigger sudden increase in D if hash attack is detected. Also limit rate of fall in D.
+    // ====  begin LWMA-2 trigger and fall limitations  ====
 
-      if (timestamps[i] > previous_max) {
-        max_timestamp = timestamps[i];
-      } else {
-        max_timestamp = previous_max;
-      }
+    prev_D = cumulative_difficulties[N] - cumulative_difficulties[N-1];
 
-      timespan = max_timestamp - previous_max;
-      if (timespan == 0) {
-        timespan = 1;
-      } else if (timespan > 10 * target_seconds) {
-        timespan = 10 * target_seconds;
-      }
+    // Use Digishield-type tempered SMA to get long-term (~4*N) avg D to limit how high 
+    // consecutive triggers can send D.
+    SMAn = (cumulative_difficulties[N] - cumulative_difficulties[0]) * 4 *T;
+    SMAd = 3*N + double( timestamps[N] - timestamps[0] ); 
 
-      weighted_timespans += i * timespan;
-      previous_max = max_timestamp;
+    // If a trigger would send D>1.7*avgD, then don't do it.
+    // 1.70 allows 30% increase for 2 consecutive blocks and 14% for 4 blocks.
+    // Tempered SMA = SMAn / SMAd, but do not divide for round off protection
+
+    if  ( 1.14*next_D*SMAd > 1.70*SMAn ) {  
+        if ( next_D < 0.7*prev_D ) { next_D = 0.7*prev_D; }
     }
-
-    double derivative = 0;
-    if (length >= 4 && timestamps[length - 1] - timestamps[length - 3] > 0) {
-      double d_last = 1.0 * (cumulative_difficulties[length - 1] - cumulative_difficulties[length - 2]);
-      double d_prev = 1.0 * (cumulative_difficulties[length - 3] - cumulative_difficulties[length - 4]);
-      double h = 1.0 * (timestamps[length - 1] - timestamps[0]) / timestamps.size();
-      if (h > 0) {
-        derivative = (d_last - d_prev) / h;
-      }
+    else if  ( 1.3*next_D*SMAd < 1.70*SMAn && sum_6_ST < 1.2*T )   {
+        next_D = 1.3*prev_D; 
     }
-    // adjust = 0.99 for N=60, leaving the + 1 for now as it's not affecting N
-    double adjust = 0.9909;
-    if (derivative < 0) {
-      adjust *= 1 + std::atan(derivative) / (10 * M_PI);
-    }
-    target = adjust * (((length + 1) / 2) * target_seconds);
+    else if (sum_9_ST < 3.4*T )   {  next_D = 1.14*prev_D;  }
+    // Prevent D falling too much after triggers, as long as D is not > 1.7*avgD
+    else if  ( next_D < 0.9*prev_D )  { next_D = 0.9*prev_D;  }
 
-    uint64_t minimum_timespan = target_seconds * length / 2;
-    if (weighted_timespans < minimum_timespan) {
-      weighted_timespans = minimum_timespan;
-    }
+    // ==== end LWMA-2's trigger and fall limitations ====
 
-    difficulty_type total_work = cumulative_difficulties.back() - cumulative_difficulties.front();
-    assert(total_work > 0);
+    // Prevent round off difference between systems to prevent chain split.
+    // Theoretically not needed by C++ standard.  Requires D > 1. Needs 1E12 > D > 100.
 
-    uint64_t low, high;
-    mul(total_work, target, low, high);
-    if (high != 0) {
-      return 0;
-    }
-    uint64_t result =  low / weighted_timespans;
-    return result > 0 ? result : 1;
- 
+    if  ( ceil(next_D + 0.01) > ceil(next_D) ) { next_D = ceil(next_D + 0.03);  }
+
+    // next_Target = sumTargets*L*2/0.998/T/(N+1)/N/N; // To show the difference.
+
+    return static_cast<uint64_t>(next_D);
+    
   }
 }
 
