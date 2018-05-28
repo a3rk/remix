@@ -23,6 +23,7 @@ cscope.po.out
 external/miniupnpc/Makefile
 miniupnpcstrings.h
 version/
+.vscode/
 # Created by https://www.gitignore.io
 
 ### C++ ###
@@ -103,3 +104,5 @@ local.properties
 .idea/
 
 /testnet
+.vscode/settings.json
+.vscode/settings.json
