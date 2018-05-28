@@ -157,27 +157,26 @@ namespace config
   uint16_t const RPC_DEFAULT_PORT = 11331;
   uint16_t const ZMQ_RPC_DEFAULT_PORT = 11332;
 
-  uint32_t const GENESIS_NONCE = 10000;
+  uint32_t const GENESIS_NONCE = 10013;
 
   uint64_t const DEFAULT_FEE_ATOMIC_XMR_PER_KB = 500; // Just a placeholder!  Change me!
   uint64_t const DEFAULT_DUST_THRESHOLD = ((uint64_t)2000000000); // 2 * pow(10, 9)
   uint64_t const BASE_REWARD_CLAMP_THRESHOLD = ((uint64_t)100000000); // pow(10, 8)
-  uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 0x762; // Wallet Starts with ep;
-  uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 0x3861; //ei
-  uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 0x2ee2; //es
+  uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 0x3dee10; // Wallet Starts with REMXi
+  uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 0xfca18ec90; //REEmix
+  uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 0x67d311a; //SubRM
 
   std::string const P2P_REMOTE_DEBUG_TRUSTED_PUB_KEY = "0000000000000000000000000000000000000000000000000000000000000000";
 
   boost::uuids::uuid const NETWORK_ID = { 
     { 0x45, 0x36, 0x78, 0x0f, 0x45, 0xd2, 0x11, 0xe8, 0xac, 0x80, 0x28, 0x18, 0x78, 0xb8, 0x64, 0x80 } 
-  }; // Bender's nightmare RemixCoin MAINNET
+  }; //RemixCoin MAINNET
   
-  //std::string const GENESIS_TX = "013c01ff0001ffffffffffff03029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd08807121012bf2d282da90cee9c7a28c16e81418101ee28607d9e50f706594ee144a453b68";
-  std::string const GENESIS_TX = "013c01ff0001ffffffffffff0f029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd08807121010c1b8be569a448fc231b92bc344270e96294638a3424743b7ebaec9f41fc94e7";
+  std::string const GENESIS_TX = "013c01ff0001ffffffffffff0f029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd088071210128dbc932d1c2cb30cf4acb9d6d73467d24bd931289745232ecea3f42c89e7346";
   
-  std::string const DONATION_REMIX_WALLET_ADDRESS = "WmsSWgtT1JPg5e3cK41hKXSHVpKW7e47bjgiKmWZkYrhSS5LhRemNyqayaSBtAQ6517eo5PtH9wxHVmM78JDZSUu2W8PqRiNs";
-  std::string const DONATION_REMIX_WALLET_PUBLIC_VIEWKEY = "71bf19a7348ede17fa487167710dac401ef1556851bfd36b76040facf051630b";
-  std::string const DONATION_BITCOIN_WALLET_ADDRESS = "12Cyjf3qV6qLyXdzpLSLPdRFPUVidvnzFM";
+  std::string const DONATION_REMIX_WALLET_ADDRESS = "TODO";
+  std::string const DONATION_REMIX_WALLET_PUBLIC_VIEWKEY = "TODO";
+  std::string const DONATION_BITCOIN_WALLET_ADDRESS = "TODO";
 
   namespace testnet
   {
@@ -187,7 +186,7 @@ namespace config
 
     uint32_t const GENESIS_NONCE = 10001;
 
-    uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 0x2d4b45; // Wallet Starts with a3rk
+    uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 0x2d4b45; // Wallet Starts with a3rkx
     uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 0x509c5; //Starts with a3in
     uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 0xe8bc5; //a3su
 
