@@ -1,5 +1,7 @@
 // Copyright (c) 2018, The Remix Project
 // 
+// Copyright (c) 2014-2017 The Monero Project.
+//
 // All rights reserved.
 // 
 // Redistribution and use in source and binary forms, with or without modification, are
@@ -27,15 +29,12 @@
 // THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // 
 // Parts of this file are originally copyright (c) 2012-2013 The Cryptonote developers
+// Parts of this file are originally copyright (c) 2014-2017, The Monero Project
 
 #pragma once
 
 #include <string>
 #include <boost/uuid/uuid.hpp>
-
-//New Stuff Goes Here
-#define REMIX_SPEED_FACTOR                              (18)
-#define REMIX_TARGET                                    (60)
 
 #define CRYPTONOTE_DNS_TIMEOUT_MS                       20000
 
@@ -45,28 +44,19 @@
 #define CRYPTONOTE_MAX_TX_SIZE                          1000000000
 #define CRYPTONOTE_PUBLIC_ADDRESS_TEXTBLOB_VER          0
 #define CRYPTONOTE_MINED_MONEY_UNLOCK_WINDOW            60
-
-// --NOTE--
-// RemixCoin v0.9.14.0 has no version, and rebase is set as version 1, with version 2 here and 
-// elsewhere meant to serve as placeholders, in order to allow for easier future development.
-// Take note that you will see this reflected in the define naming convention as well, 
-// whenever you happen upon a *_V1 and *_V2 pair and are confused as to why a second
-// version even exists in the first place
 #define CURRENT_TRANSACTION_VERSION                     1
 #define CURRENT_BLOCK_MAJOR_VERSION                     1
 #define CURRENT_BLOCK_MINOR_VERSION                     0
 #define CRYPTONOTE_V2_POW_BLOCK_VERSION                 1
-#define CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT              60*60*2
-#define CRYPTONOTE_DEFAULT_TX_SPENDABLE_AGE             10
 
-#define BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW               60
+#define CRYPTONOTE_DEFAULT_TX_SPENDABLE_AGE             10
 
 // MONEY_SUPPLY - total number coins to be generated
 #define MONEY_SUPPLY                                    ((uint64_t)(-1))
+#define EMISSION_SPEED_FACTOR_PER_MINUTE                (18)
 #define FINAL_SUBSIDY_PER_MINUTE                        ((uint64_t)300000000000) // 3 * pow(10, 11)
 
 #define CRYPTONOTE_REWARD_BLOCKS_WINDOW                 100
-
 #define CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V1    20000   //size of block (bytes) after which reward for block calculated using block size - before first fork
 #define CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_LIMBO 60000   //(previously V2) 
 #define CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V2    300000  //(previously V5) size of block (bytes) after which reward for block calculated using block size
@@ -82,17 +72,20 @@
 #define MINIMUM_RELAY_FEE                               ((uint64_t)1000000) // pow(10, 6)
 #define DYNAMIC_FEE_PER_KB_BASE_FEE_V1                  ((uint64_t)2000000000) // 2 * pow(10,9)
 #define DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD            ((uint64_t)10000000000000) // 10 * pow(10,12)
+#define DYNAMIC_FEE_PER_KB_BASE_FEE                     ((uint64_t)20000000)
 #define DYNAMIC_FEE_PER_KB_BASE_FEE_V2                  ((uint64_t)2000000000 * (uint64_t)CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_LIMBO / CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V2)
 
 #define ORPHANED_BLOCKS_MAX_COUNT                       100
 
+#define BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW               11
+#define DIFFICULTY_TARGET                               120  // seconds
 
-#define DIFFICULTY_TARGET                               240  // seconds
-#define DIFFICULTY_WINDOW                               720 // blocks
+#define DIFFICULTY_WINDOW                               60 + 1 // blocks
 #define DIFFICULTY_LAG                                  15  // !!!
-#define DIFFICULTY_CUT                                  60  // timestamps to cut after sorting
-#define DIFFICULTY_BLOCKS_COUNT                         DIFFICULTY_WINDOW + DIFFICULTY_LAG
+#define DIFFICULTY_CUT                                  6  // timestamps to cut after sorting, only used in tests
+#define DIFFICULTY_BLOCKS_COUNT                         DIFFICULTY_WINDOW + 1
 
+#define CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT              3*DIFFICULTY_TARGET
 
 #define CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V1   DIFFICULTY_TARGET * CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_BLOCKS
 #define CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V2   DIFFICULTY_TARGET * CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_BLOCKS
@@ -115,7 +108,7 @@
 #define P2P_LOCAL_GRAY_PEERLIST_LIMIT                   5000
 
 #define P2P_DEFAULT_CONNECTIONS_COUNT                   8
-#define P2P_DEFAULT_HANDSHAKE_INTERVAL                  60           //secondes
+#define P2P_DEFAULT_HANDSHAKE_INTERVAL                  60           //seconds
 #define P2P_DEFAULT_PACKET_MAX_SIZE                     50000000     //50000000 bytes maximum packet size
 #define P2P_DEFAULT_PEERS_IN_HANDSHAKE                  250
 #define P2P_DEFAULT_CONNECTION_TIMEOUT                  5000       //5 seconds
@@ -144,9 +137,9 @@
 
 #define THREAD_STACK_SIZE                               5 * 1024 * 1024
 
-#define HF_VERSION_DYNAMIC_FEE                          2
+#define HF_VERSION_DYNAMIC_FEE                          255
 #define HF_VERSION_MIN_MIXIN_4                          2
-#define HF_VERSION_ENFORCE_RCT                          2
+#define HF_VERSION_ENFORCE_RCT                          255
 
 #define PER_KB_FEE_QUANTIZATION_DECIMALS                8
 
@@ -164,27 +157,26 @@ namespace config
   uint16_t const RPC_DEFAULT_PORT = 11331;
   uint16_t const ZMQ_RPC_DEFAULT_PORT = 11332;
 
-  uint32_t const GENESIS_NONCE = 10000;
+  uint32_t const GENESIS_NONCE = 10013;
 
   uint64_t const DEFAULT_FEE_ATOMIC_XMR_PER_KB = 500; // Just a placeholder!  Change me!
   uint64_t const DEFAULT_DUST_THRESHOLD = ((uint64_t)2000000000); // 2 * pow(10, 9)
   uint64_t const BASE_REWARD_CLAMP_THRESHOLD = ((uint64_t)100000000); // pow(10, 8)
-  uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 0x762; // Wallet Starts with ep;
-  uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 0x3861; //ei
-  uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 0x2ee2; //es
+  uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 0x3dee10; // Wallet Starts with REMXi
+  uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 0xfca18ec90; //REEmix
+  uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 0x67d311a; //SubRM
 
   std::string const P2P_REMOTE_DEBUG_TRUSTED_PUB_KEY = "0000000000000000000000000000000000000000000000000000000000000000";
 
   boost::uuids::uuid const NETWORK_ID = { 
     { 0x45, 0x36, 0x78, 0x0f, 0x45, 0xd2, 0x11, 0xe8, 0xac, 0x80, 0x28, 0x18, 0x78, 0xb8, 0x64, 0x80 } 
-  }; // Bender's nightmare RemixCoin MAINNET
+  }; //RemixCoin MAINNET
   
-  //std::string const GENESIS_TX = "013c01ff0001ffffffffffff03029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd08807121012bf2d282da90cee9c7a28c16e81418101ee28607d9e50f706594ee144a453b68";
-  std::string const GENESIS_TX = "013c01ff0001ffffffffffff0f029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd08807121010c1b8be569a448fc231b92bc344270e96294638a3424743b7ebaec9f41fc94e7";
+  std::string const GENESIS_TX = "013c01ff0001ffffffffffff0f029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd088071210128dbc932d1c2cb30cf4acb9d6d73467d24bd931289745232ecea3f42c89e7346";
   
-  std::string const DONATION_REMIX_WALLET_ADDRESS = "WmsSWgtT1JPg5e3cK41hKXSHVpKW7e47bjgiKmWZkYrhSS5LhRemNyqayaSBtAQ6517eo5PtH9wxHVmM78JDZSUu2W8PqRiNs";
-  std::string const DONATION_REMIX_WALLET_PUBLIC_VIEWKEY = "71bf19a7348ede17fa487167710dac401ef1556851bfd36b76040facf051630b";
-  std::string const DONATION_BITCOIN_WALLET_ADDRESS = "12Cyjf3qV6qLyXdzpLSLPdRFPUVidvnzFM";
+  std::string const DONATION_REMIX_WALLET_ADDRESS = "TODO";
+  std::string const DONATION_REMIX_WALLET_PUBLIC_VIEWKEY = "TODO";
+  std::string const DONATION_BITCOIN_WALLET_ADDRESS = "TODO";
 
   namespace testnet
   {
@@ -194,7 +186,7 @@ namespace config
 
     uint32_t const GENESIS_NONCE = 10001;
 
-    uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 0x2d4b45; // Wallet Starts with a3rk
+    uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 0x2d4b45; // Wallet Starts with a3rkx
     uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 0x509c5; //Starts with a3in
     uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 0xe8bc5; //a3su
 

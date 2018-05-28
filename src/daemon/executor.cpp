@@ -41,7 +41,7 @@
 
 namespace daemonize
 {
-  std::string const t_executor::NAME = "Monero Daemon";
+  std::string const t_executor::NAME = "Remix Daemon";
 
   void t_executor::init_options(
       boost::program_options::options_description & configurable_options
