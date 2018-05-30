@@ -53,6 +53,7 @@
 
 // MONEY_SUPPLY - total number coins to be generated
 #define MONEY_SUPPLY                                    ((uint64_t)(-1))
+#define DEV_ALLOC                                       ((uint64_t)1106804000000000001)
 #define EMISSION_SPEED_FACTOR_PER_MINUTE                (18)
 #define FINAL_SUBSIDY_PER_MINUTE                        ((uint64_t)300000000000) // 3 * pow(10, 11)
 
@@ -194,7 +195,8 @@ namespace config
       { 0x76, 0x36, 0x78, 0x0f, 0x45, 0xd2, 0x11, 0xe8, 0xac, 0x80, 0x28, 0x18, 0x78, 0xb8, 0x64, 0x15 } 
     };
 
-    std::string const GENESIS_TX = "013c01ff0001ffffffffffff03029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd0880712101a3b2db6ba6d8941ee26cfc96cd57bfa62562eb38e9c940520b847daa8967f374"; //A3RK Test Net
+    //std::string const GENESIS_TX = "013c01ff0001ffffffffffff03029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd0880712101a3b2db6ba6d8941ee26cfc96cd57bfa62562eb38e9c940520b847daa8967f374"; //A3RK Test Net
+    std::string const GENESIS_TX = "013c01ff00018180edbffb8b8aae0f02c5a0320489885cb0836a1deb229bb2b00cccd0dc1ce97f42f3b9b4884fa745e521010b49aadfb8358450760ec5d90e912409b0f3d4e20e2bf6fb304c0f5c0c2a5753";
     
     std::string const DONATION_REMIX_WALLET_ADDRESS = "Wx22Jx6NsuXViqX6dGiM1gXdzZBphgpPBAo1WMG8HdxLQUXKzn48X4sFXHKUbtjmDNUkmuurbFvA9HmNSh7cVDwT2KoiMvVoY";
     std::string const DONATION_REMIX_WALLET_PUBLIC_VIEWKEY = "55df2eb6cfc056d2692a405442bda5ef47d4cc898576643b3a2248bffed69a3c";
