@@ -93,6 +93,9 @@ namespace cryptonote {
   //-----------------------------------------------------------------------------------------------
   uint64_t get_base_reward(uint8_t version, uint64_t height, uint64_t already_generated_coins, int speed) 
   {
+    if(height == 1){
+      return DEV_ALLOC;
+    }
     uint64_t base_reward = (MONEY_SUPPLY - already_generated_coins) >> speed;
   
     if (version == 1)
