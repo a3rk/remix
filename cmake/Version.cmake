@@ -1,4 +1,5 @@
 # Copyright (c) 2018, The Remix Project
+# Copyright (c) 2014-2017, The Monero Project
 # 
 # All rights reserved.
 # 
@@ -28,7 +29,7 @@
 
 function (write_static_version_header hash)
   set(VERSIONTAG "${hash}")
-  configure_file("src/version.cpp.in" "version.cpp")
+  configure_file("${CMAKE_SOURCE_DIR}/src/version.cpp.in" "${CMAKE_BINARY_DIR}/version.cpp")
 endfunction ()
 
 find_package(Git QUIET)
