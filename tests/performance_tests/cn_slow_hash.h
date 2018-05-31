@@ -62,7 +62,7 @@ public:
   bool test()
   {
     crypto::hash hash;
-    crypto::cn_pow_hash_v2(&m_data, sizeof(m_data), hash);
+    cn_pow_hash_v2(&m_data, sizeof(m_data), hash);
     return hash == m_expected_hash;
   }
 
