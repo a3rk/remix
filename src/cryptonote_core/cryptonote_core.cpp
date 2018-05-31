@@ -42,6 +42,7 @@ using namespace epee;
 #include "common/download.h"
 #include "common/threadpool.h"
 #include "common/command_line.h"
+#include "common/scoped_message_writer.h"
 #include "warnings.h"
 #include "crypto/crypto.h"
 #include "cryptonote_config.h"
@@ -132,6 +133,14 @@ namespace cryptonote
   , "Relay blocks as fluffy blocks where possible (automatic on testnet)"
   , false
   };
+  //-----------------------------------------------------------------------------------------------
+ 
+
+  tools::scoped_message_writer message_writer(epee::console_colors color = epee::console_color_default, bool bright = false)
+  {
+    return tools::scoped_message_writer(color, bright);
+  }
+
 
   //-----------------------------------------------------------------------------------------------
   core::core(i_cryptonote_protocol* pprotocol):
@@ -1339,19 +1348,78 @@ namespace cryptonote
     if(!m_starter_message_showed)
     {
       std::string main_message;
+      std::string remix_ascii =
+      "\n\n"
+      "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n"
+      "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n"
+      "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWNNXKKK00KKKXNNWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n"
+      "MMMMMMMMMMMMMMMMMMMMMMMMMWNKkdl:;'............';:ldkKNWMMMMMMMMMMMMMMMMMMMMMMMMM\n"
+      "MMMMMMMMMMMMMMMMMMMMMWXko:'.                        .':okXWMMMMMMMMMMMMMMMMMMMMM\n"
+      "MMMMMMMMMMMMMMMMMMW0d;.       ..';:cloooooolc:;'..       .;d0WMMMMMMMMMMMMMMMMMM\n"
+      "MMMMMMMMMMMMMMMWKd;.     .':ok0XNWMMMMMMMMMMMMWNX0ko:'.     .;dKWMMMMMMMMMMMMMMM\n"
+      "MMMMMMMMMMMMMW0c.     .:x0NMMMMMMMMMMMMMMMMMMMMMMMMMMN0x:.     .c0WMMMMMMMMMMMMM\n"
+      "MMMMMMMMMMMW0c.    .:xXWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWXx:.    .c0WMMMMMMMMMMM\n"
+      "MMMMMMMMMMKl.    .oKWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWKo.    .lKMMMMMMMMMM\n"
+      "MMMMMMMMWk'    .oKWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWKo.    'kWMMMMMMMM\n"
+      "MMMMMMMNo.   .c0WMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMW0:.   .oNMMMMMMM\n"
+      "MMMMMMXl    .dNMMMMMWXKXNNNMMMMMMMMMMMWNXWMMMMMMMMMMMWNWXKKNMMMMMNd.    lXMMMMMM\n"
+      "MMMMMXc    'OWMMMMMM0;.'dolXMMMMMMMMMWd,.lXMMMMMMMMMNocx;.'kMMMMMMWO'    cXMMMMM\n"
+      "MMMMNo    'OMMMMMMMMX;  ,. :KMMMMMMMWd.   cXMMMMMMMNl .,. .OMMMMMMMMO'    oNMMMM\n"
+      "MMMMk.   .kWMMMMMMMMWo      :KMMMMMWd.     cXMMMMMNl.     ;XMMMMMMMMWk.   .kMMMM\n"
+      "MMMX;    oWMMMMMMMMMMk.      :XMMMWd. .ld,  cXMMMNl.      oWMMMMMMMMMWo    ;XMMM\n"
+      "MMMx.   ,KMMMMMMMMMMMK,       :XMNd. .xWM0;  cXMNo.      .kMMMMMMMMMMMK,   .xMMM\n"
+      "MMNc    oWMMMMMMMMMMMNc   .o;  :0d. .xWMMM0;  l0o. 'o'   ,KMMMMMMMMMMMWo    cNMM\n"
+      "MMK,   .kMMMMMMMMMMMMWd.  ;KK;  .. .xWMMMMM0;  .. 'OXc   cNMMMMMMMMMMMMk.   ,KMM\n"
+      "MM0'   'OMMMMMMMMMMMMMO.  lNMK;   .xWMMMMMMM0,   'OWWd. .dWMMMMMMMMMMMMO'   '0MM\n"
+      "MM0'   '0MMMMMMMMMMMMM0'  oWMNl   ,KMMMMMMMMNc   :XMMx. .kMMMMMMMMMMMMM0'   '0MM\n"
+      "MM0'   .OMMMMMMMMMMMMMk.  :XNd.    :XMMMMMMNo.    lNWo   oWMMMMMMMMMMMMO.   '0MM\n"
+      "MMX:   .xWMMMMMMMMMMMWo   'Od. .l;  :KMMMMNd. 'l,  l0;   ;XMMMMMMMMMMMWx.   :XMM\n"
+      "MMWo    :XMMMMMMMMMMMX;   .'. .xWK;  :XMMNd. 'kW0, .'.   .OMMMMMMMMMMMX:    oWMM\n"
+      "MMMO'   .kMMMMMMMMMMMO.      .xWMMK;  :0Xd. 'kWMWO'      .dWMMMMMMMMMMk.   'OMMM\n"
+      "MMMNl    ;KMMMMMMMMMWd.     .xWMMMMK;  .'. .kWMMMWO'      cNMMMMMMMMMK;    lNMMM\n"
+      "MMMMK;    lNMMMMMMMMNc  .. .xWMMMMMMK;    .kWMMMMMWO'  .  ,KMMMMMMMMNl    ;KMMMM\n"
+      "MMMMMO'   .lNMMMMMMMK, .c;.xWMMMMMMMMK;  .kWMMMMMMMWO''c. .kMMMMMMMNl.   'OMMMMM\n"
+      "MMMMMWk.    cXMMMMMMXdld000WMMMMMMMMMMKxdOWMMMMMMMMMW0OKxlo0MMMMMMXc    .kWMMMMM\n"
+      "MMMMMMWO'    ,OWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWO,    'OWMMMMMM\n"
+      "MMMMMMMM0:    .lKWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMKl.    :0MMMMMMMM\n"
+      "MMMMMMMMMNd.    .oKWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWKo.    .dNMMMMMMMMM\n"
+      "MMMMMMMMMMW0c.    .lONMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNOl.    .c0WMMMMMMMMMM\n"
+      "MMMMMMMMMMMMWOc.    .,o0NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN0o,.    .cOWMMMMMMMMMMMM\n"
+      "MMMMMMMMMMMMMMW0o'     .'cd0XWMMMMMMMMMMMMMMMMMMMMWX0dc'.     'o0WMMMMMMMMMMMMMM\n"
+      "MMMMMMMMMMMMMMMMMXkc'       .,coxk0KKXXXXXXKK0kxoc;.       'ckXMMMMMMMMMMMMMMMMM\n"
+      "MMMMMMMMMMMMMMMMMMMWXOo;.          ..........          .;oOXWMMMMMMMMMMMMMMMMMMM\n"
+      "MMMMMMMMMMMMMMMMMMMMMMMWXOdc;'.                  .';cdOXWMMMMMMMMMMMMMMMMMMMMMMM\n"
+      "MMMMMMMMMMMMMMMMMMMMMMMMMMMMWNK0kxdollccccllodxk0KNWMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n"
+      "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n"
+      "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n"
+      "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n";
+
       if (m_offline)
-        main_message = "The daemon is running offline and will not attempt to sync to the RemixCoin network.";
-      else
-        main_message = "The daemon will start synchronizing with the network. This may take a long time to complete.";
-      MGINFO_YELLOW(ENDL << "**********************************************************************" << ENDL
-        << main_message << ENDL
-        << ENDL
-        << "You can set the level of process detailization through \"set_log <level|categories>\" command," << ENDL
-        << "where <level> is between 0 (no details) and 4 (very verbose), or custom category based levels (eg, *:WARNING)." << ENDL
-        << ENDL
-        << "Use the \"help\" command to see the list of available commands." << ENDL
-        << "Use \"help <command>\" to see a command's documentation." << ENDL
-        << "**********************************************************************" << ENDL);
+      {
+          main_message = "The daemon is running offline and will not attempt to sync to the RemixCoin network.\n";
+
+      } else {
+
+        main_message = "\nThe daemon will start synchronizing with the network. \n"
+        "This may take a long time to complete.\n\n"
+        "Type [help] for more options\n";
+        //MGINFO_GREEN(ENDL << remix_ascii << ENDL);
+        message_writer(console_color_cyan, false) << remix_ascii;
+        message_writer(console_color_green, false) << "MADE WITH [HEART] by: A3RK";
+        message_writer(console_color_magenta, false) <<  
+        "\n********************************************************************************\n" 
+        << main_message <<
+        "\n********************************************************************************\n";
+      }
+      // MGINFO_YELLOW(ENDL << "**********************************************************************" << ENDL
+      //   << main_message << ENDL
+      //   << ENDL
+      //   << "You can set the level of process detailization through \"set_log <level|categories>\" command," << ENDL
+      //   << "where <level> is between 0 (no details) and 4 (very verbose), or custom category based levels (eg, *:WARNING)." << ENDL
+      //   << ENDL
+      //   << "Use the \"help\" command to see the list of available commands." << ENDL
+      //   << "Use \"help <command>\" to see a command's documentation." << ENDL
+      //   << "**********************************************************************" << ENDL);
       m_starter_message_showed = true;
     }
 
