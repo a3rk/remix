@@ -524,17 +524,17 @@ void Configurations::unsafeSetGlobally(ConfigurationType configurationType, cons
 
 void LogBuilder::convertToColoredOutput(base::type::string_t* logLine, Level level) {
   if (!m_termSupportsColor) return;
-  const base::type::char_t* resetColor = ELPP_LITERAL("\x1b[0m");
+  const base::type::char_t* resetColor = ELPP_LITERAL("\033[0m");
   if (level == Level::Error || level == Level::Fatal)
-    *logLine = ELPP_LITERAL("\x1b[31m") + *logLine + resetColor;
+    *logLine = ELPP_LITERAL("\033[1;31m") + *logLine + resetColor;
   else if (level == Level::Warning)
-    *logLine = ELPP_LITERAL("\x1b[33m") + *logLine + resetColor;
+    *logLine = ELPP_LITERAL("\033[33m") + *logLine + resetColor;
   else if (level == Level::Debug)
-    *logLine = ELPP_LITERAL("\x1b[32m") + *logLine + resetColor;
+    *logLine = ELPP_LITERAL("\033[32m") + *logLine + resetColor;
   else if (level == Level::Info)
-    *logLine = ELPP_LITERAL("\x1b[36m") + *logLine + resetColor;
+    *logLine = ELPP_LITERAL("\033[36m") + *logLine + resetColor;
   else if (level == Level::Trace)
-    *logLine = ELPP_LITERAL("\x1b[35m") + *logLine + resetColor;
+    *logLine = ELPP_LITERAL("\033[35m") + *logLine + resetColor;
 }
 
 // Logger
