@@ -42,6 +42,8 @@
 #include "cryptonote_basic/cryptonote_format_utils.h"
 #include "profile_tools.h"
 #include "net/network_throttle-detail.hpp"
+#include "common/scoped_message_writer.h"
+#include "misc_log_ex.h"
 
 #undef REMIX_DEFAULT_LOG_CATEGORY
 #define REMIX_DEFAULT_LOG_CATEGORY "net.cn"
@@ -1555,6 +1557,10 @@ skip:
     bool val_expected = false;
     if(m_synchronized.compare_exchange_strong(val_expected, true))
     {
+      // message_writer(console_color_green, false) <<  
+      //   "\n********************************************************************************\n" 
+      //   "You are now synchronized with the network. You may now start remix-wallet-cli.\n"
+      //   "\n********************************************************************************\n";
       MGINFO_YELLOW(ENDL << "**********************************************************************" << ENDL
         << "You are now synchronized with the network. You may now start remix-wallet-cli." << ENDL
         << ENDL
