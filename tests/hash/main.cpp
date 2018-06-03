@@ -58,9 +58,7 @@ extern "C" typedef void hash_f(const void *, size_t, char *);
 struct hash_func {
   const string name;
   hash_f &f;
-} hashes[] = {{"fast", cn_fast_hash}, {"slow", cn_pow_hash_v2}, {"tree", hash_tree},
-  {"extra-blake", hash_extra_blake}, {"extra-groestl", hash_extra_groestl},
-  {"extra-jh", hash_extra_jh}, {"extra-skein", hash_extra_skein}};
+} hashes[] = {{"fast", cn_fast_hash}, {"tree", hash_tree}};
 
 int main(int argc, char *argv[]) {
   hash_f *f;
