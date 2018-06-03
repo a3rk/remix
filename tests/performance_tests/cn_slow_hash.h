@@ -33,6 +33,7 @@
 #include "string_tools.h"
 #include "crypto/crypto.h"
 #include "cryptonote_basic/cryptonote_basic.h"
+#include "cn_slow_hash.hpp"
 
 class test_cn_slow_hash
 {
@@ -62,7 +63,7 @@ public:
   bool test()
   {
     crypto::hash hash;
-    crypto::cn_slow_hash_2m(&m_data, sizeof(m_data), hash);
+    cn_pow_hash_v2(&m_data, sizeof(m_data), hash);
     return hash == m_expected_hash;
   }
 
