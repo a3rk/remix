@@ -373,15 +373,14 @@ namespace nodetool
     std::set<std::string> full_addrs;
     if (testnet)
     {
-      //full_addrs.insert("d13.testnet.remix.direct:21180");
-      //full_addrs.insert("n1.testnet.remix.direct:21180");
-      full_addrs.insert("127.0.0.1:21330"); 
+      full_addrs.insert("167.99.232.33:21330"); //rmx-node-east-01
+      full_addrs.insert("52.234.228.19:21330"); //devops-testnet
+      full_addrs.insert("127.0.0.1:21330"); //localhost 
     }
     else
     {
-      //full_addrs.insert("74.91.23.186:11180");
-      //full_addrs.insert("192.187.114.114:11180");
-      //full_addrs.insert("127.0.0.1:11180"); // Add VPS when ready
+      full_addrs.insert("167.99.232.33:11330"); //rmx-node-east-01
+      full_addrs.insert("52.234.228.19:11330"); //devops-mainnet
     }
     return full_addrs;
   }
