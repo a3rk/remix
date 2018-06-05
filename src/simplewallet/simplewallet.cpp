@@ -2697,6 +2697,17 @@ bool simple_wallet::open_wallet(const boost::program_options::variables_map& vm)
     fail_msg_writer() << tr("wallet file path not valid: ") << m_wallet_file;
     return false;
   }
+  
+  bool keys_file_exists;
+  bool wallet_file_exists;
+
+  tools::wallet2::wallet_exists(m_wallet_file, keys_file_exists, wallet_file_exists);
+  if(!keys_file_exists)
+  {
+    fail_msg_writer() << tr("Key file not found. Failed to open wallet");
+    return false;
+  }
+  
   epee::wipeable_string password;
   try
   {
@@ -3032,8 +3043,8 @@ void simple_wallet::on_skip_transaction(uint64_t height, const crypto::hash &txi
 //----------------------------------------------------------------------------------------------------
 bool simple_wallet::refresh_main(uint64_t start_height, bool reset, bool is_init)
 {
-  if (!try_connect_to_daemon())
-    return true;
+  if (!try_connect_to_daemon(is_init))
+     return true;
 
   LOCK_IDLE_SCOPE();
 

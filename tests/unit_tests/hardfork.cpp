@@ -1,4 +1,5 @@
 // Copyright (c) 2018, The Remix Project
+// Copyright (c) 2014-2017, The Monero Project
 // 
 // All rights reserved.
 // 
@@ -112,7 +113,6 @@ public:
   virtual bool for_all_outputs(std::function<bool(uint64_t amount, const crypto::hash &tx_hash, size_t tx_idx)> f) const { return true; }
   virtual bool is_read_only() const { return false; }
   virtual std::map<uint64_t, std::tuple<uint64_t, uint64_t, uint64_t>> get_output_histogram(const std::vector<uint64_t> &amounts, bool unlocked, uint64_t recent_cutoff) const { return std::map<uint64_t, std::tuple<uint64_t, uint64_t, uint64_t>>(); }
-
   virtual void add_txpool_tx(const transaction &tx, const txpool_tx_meta_t& details) {}
   virtual void update_txpool_tx(const crypto::hash &txid, const txpool_tx_meta_t& details) {}
   virtual uint64_t get_txpool_tx_count(bool include_unrelayed_txes = true) const { return 0; }
