@@ -6,7 +6,7 @@ Portions Copyright 2012-2013 The Cryptonote developers
 
 ## Remix Development and Community Resources
 
-- Web:     [A3RK Industries](http://erp.a3rk.com)
+- Web:     [A3RK Industries](https://gitlab.com/a3rk/remix-website)
 - GitLab:  [Remix, by A<sup>3</sup>RK Industries](https://gitlab.com/a3rk/remix)
 - Reddit:  [RemixCoin](https://www.reddit.com/r/RemixCoin/)
 - Discord: [Later]
