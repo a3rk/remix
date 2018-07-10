@@ -1,19 +1,19 @@
 # Remix
 
-Copyright 2018 A<sup>3</sup>RK Industries    
-Copyright 2014-2017 The Monero Project.   
+Copyright 2018, The Remix Project    
+Copyright 2014-2017, The Monero Project   
 Portions Copyright 2012-2013 The Cryptonote developers
 
 ## Remix Development and Community Resources
 
-- Web:     [A3RK Industries](https://gitlab.com/a3rk/remix-website)
-- GitLab:  [Remix, by A<sup>3</sup>RK Industries](https://gitlab.com/a3rk/remix)
-- Reddit:  [RemixCoin](https://www.reddit.com/r/RemixCoin/)
-- Discord: [Later]
+- [Remix Website](https://remixcoin.io)
+- [Remix GitLab Repository](https://gitlab.com/a3rk/remix)
+- [Remix on Reddit](https://www.reddit.com/r/RemixCoin/)
+- [Remix on Discord](https://discord.gg/dxWkpGX)
 
 ## Introduction
 
-Remix is a private, secure, untraceable, lightweight, decentralised digital currency based on the Monero and RemixCoin code bases. Remix aims to be a fungible and untraceable digital peer-to-peer medium of exchange, actively developed. Remix is the start of a new, distinctive period for CryptoNote-Lite cryptocurrencies.
+Remix is a private, secure, untraceable, decentralised digital currency based on the Monero and AEON code bases. Remix aims to be a fungible and untraceable digital peer-to-peer medium of exchange, actively developed. Remix is the start of a new, distinctive period for CryptoNote cryptocurrencies.
 
 - **Privacy:** Remix uses a cryptographically sound system to allow you to send and receive funds without your transactions being easily revealed on the blockchain<sup id="a1">[1](#f1)</sup>. This ensures that your purchases, receipts, and all transfers remain absolutely private by default.
 
@@ -56,24 +56,24 @@ If you want to help out, see [CONTRIBUTING](CONTRIBUTING.md) for a set of guidel
 The following table summarizes the tools and libraries required to build. A few of the libraries are also included in this repository (marked as "Vendored"). By default, the build uses the library installed on the system, and ignores the vendored sources. However, if no library is found installed on the system, then the vendored source will be built and used. The vendored sources are also used for statically-linked builds because distribution packages often include only shared library binaries (`.so`) but not static library archives (`.a`).
 
 #### Dependencies
-| Dep            | Min. version  | Vendored | Debian/Ubuntu pkg     | Arch pkg       | Optional | Purpose        |
+| Dep            | Min. version  | Vendored | Debian/Ubuntu pkg     | Arch pkg       | Required | Purpose        |
 | -------------- | ------------- | ---------| --------------------- | -------------- | -------- | -------------- |
-| GCC            | 4.7.3         | NO       | `build-essential`     | `base-devel`   | NO       |                |
-| CMake          | 3.0.0         | NO       | `cmake`               | `cmake`        | NO       |                |
-| pkg-config     | any           | NO       | `pkg-config`          | `base-devel`   | NO       |                |
-| Boost          | 1.58          | NO       | `libboost-all-dev`    | `boost`        | NO       | C++ libraries  |
-| OpenSSL        | basically any | NO       | `libssl-dev`          | `openssl`      | NO       | sha256 sum     |
-| libzmq         | 3.0.0         | NO       | `libzmq3-dev`**^1**   | `zeromq`       | NO       | ZeroMQ library |
-| libunbound     | 1.4.16        | YES      | `libunbound-dev`      | `unbound`      | NO       | DNS resolver   |
-| libminiupnpc   | 2.0           | YES      | `libminiupnpc-dev`    | `miniupnpc`    | YES      | NAT punching   |
-| libunwind      | any           | NO       | `libunwind8-dev`      | `libunwind`    | YES      | Stack traces   |
-| liblzma        | any           | NO       | `liblzma-dev`         | `xz`           | YES      | For libunwind  |
-| libreadline    | 6.3.0         | NO       | `libreadline6-dev`    | `readline`     | YES      | Input editing  |
-| ldns           | 1.6.17        | NO       | `libldns-dev`         | `ldns`         | YES      | SSL toolkit    |
-| expat          | 1.1           | NO       | `libexpat1-dev`       | `expat`        | YES      | XML parsing    |
-| GTest          | 1.5           | YES      | `libgtest-dev`**^2**  | `gtest`        | YES      | Test suite     |
-| Doxygen        | any           | NO       | `doxygen`             | `doxygen`      | YES      | Documentation  |
-| Graphviz       | any           | NO       | `graphviz`            | `graphviz`     | YES      | Documentation  |
+| GCC            | 4.7.3         | NO       | `build-essential`     | `base-devel`   | YES      |                |
+| CMake          | 3.0.0         | NO       | `cmake`               | `cmake`        | YES      |                |
+| pkg-config     | any           | NO       | `pkg-config`          | `base-devel`   | YES      |                |
+| Boost          | 1.58          | NO       | `libboost-all-dev`    | `boost`        | YES      | C++ libraries  |
+| OpenSSL        | basically any | NO       | `libssl-dev`          | `openssl`      | YES      | sha256 sum     |
+| libzmq         | 3.0.0         | NO       | `libzmq3-dev`**^1**   | `zeromq`       | YES      | ZeroMQ library |
+| libunbound     | 1.4.16        | YES      | `libunbound-dev`      | `unbound`      | YES      | DNS resolver   |
+| libminiupnpc   | 2.0           | YES      | `libminiupnpc-dev`    | `miniupnpc`    | NO       | NAT punching   |
+| libunwind      | any           | NO       | `libunwind8-dev`      | `libunwind`    | NO       | Stack traces   |
+| liblzma        | any           | NO       | `liblzma-dev`         | `xz`           | NO       | For libunwind  |
+| libreadline    | 6.3.0         | NO       | `libreadline6-dev`    | `readline`     | NO       | Input editing  |
+| ldns           | 1.6.17        | NO       | `libldns-dev`         | `ldns`         | NO       | SSL toolkit    |
+| expat          | 1.1           | NO       | `libexpat1-dev`       | `expat`        | NO       | XML parsing    |
+| GTest          | 1.5           | YES      | `libgtest-dev`**^2**  | `gtest`        | NO       | Test suite     |
+| Doxygen        | any           | NO       | `doxygen`             | `doxygen`      | NO       | Documentation  |
+| Graphviz       | any           | NO       | `graphviz`            | `graphviz`     | NO       | Documentation  |
 
 [**^1**] On Debian/Ubuntu, `libzmq3-dev` may not be the correct version, and may not include libczmq3-dev/dbg when it's installed, so you may want to install cppzmq and libzmq manually with the following ordered procedures:
 
@@ -227,9 +227,6 @@ config](utils/conf/Remixd.conf).
 If you're on Mac, you may need to add the `--max-concurrency 1` option to
 Remix-wallet-cli, and possibly Remixd, if you get crashes refreshing.
 
-## Internationalization
-
-See [README.i18n.md](README.i18n.md).
 
 ## Using Tor
 
