@@ -47,20 +47,18 @@
 #define CURRENT_TRANSACTION_VERSION                     1
 #define CURRENT_BLOCK_MAJOR_VERSION                     1
 #define CURRENT_BLOCK_MINOR_VERSION                     0
-#define CRYPTONOTE_V2_POW_BLOCK_VERSION                 1
+#define CRYPTONOTE_POW_BLOCK_VERSION                    1
 
 #define CRYPTONOTE_DEFAULT_TX_SPENDABLE_AGE             10
 
 // MONEY_SUPPLY - total number coins to be generated
 #define MONEY_SUPPLY                                    ((uint64_t)(-1))
 #define DEV_ALLOC                                       ((uint64_t)1106804000000000001)
-#define EMISSION_SPEED_FACTOR_PER_MINUTE                (18)
+#define EMISSION_SPEED_FACTOR_PER_MINUTE                (20)
 #define FINAL_SUBSIDY_PER_MINUTE                        ((uint64_t)300000000000) // 3 * pow(10, 11)
 
 #define CRYPTONOTE_REWARD_BLOCKS_WINDOW                 100
-#define CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V1    20000   //size of block (bytes) after which reward for block calculated using block size - before first fork
-#define CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_LIMBO 60000   //(previously V2) 
-#define CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V2    300000  //(previously V5) size of block (bytes) after which reward for block calculated using block size
+#define CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE    300000  
 
 
 #define CRYPTONOTE_COINBASE_BLOB_RESERVED_SIZE          600
@@ -71,10 +69,8 @@
 #define FEE_PER_KB                                      ((uint64_t)2000000000) // 2 * pow(10, 9)
 #define DEFAULT_FEE                                     ((uint64_t)10000000000) // pow(10, 10)
 #define MINIMUM_RELAY_FEE                               ((uint64_t)1000000) // pow(10, 6)
-#define DYNAMIC_FEE_PER_KB_BASE_FEE_V1                  ((uint64_t)2000000000) // 2 * pow(10,9)
 #define DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD            ((uint64_t)10000000000000) // 10 * pow(10,12)
-#define DYNAMIC_FEE_PER_KB_BASE_FEE                     ((uint64_t)20000000)
-#define DYNAMIC_FEE_PER_KB_BASE_FEE_V2                  ((uint64_t)2000000000 * (uint64_t)CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_LIMBO / CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V2)
+#define DYNAMIC_FEE_PER_KB_BASE_FEE                     ((uint64_t)400000000)
 
 #define ORPHANED_BLOCKS_MAX_COUNT                       100
 
@@ -88,8 +84,7 @@
 
 #define CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT              3*DIFFICULTY_TARGET
 
-#define CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V1   DIFFICULTY_TARGET * CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_BLOCKS
-#define CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V2   DIFFICULTY_TARGET * CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_BLOCKS
+#define CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS   DIFFICULTY_TARGET * CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_BLOCKS
 #define CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_BLOCKS       1
 
 
@@ -97,8 +92,7 @@
 
 
 #define BLOCKS_IDS_SYNCHRONIZING_DEFAULT_COUNT          10000  //by default, blocks ids count in synchronizing
-#define BLOCKS_SYNCHRONIZING_DEFAULT_COUNT_V1           200    //by default, blocks count in blocks downloading
-#define BLOCKS_SYNCHRONIZING_DEFAULT_COUNT_V2           200    //Placeholder for future version
+#define BLOCKS_SYNCHRONIZING_DEFAULT_COUNT              200
 
 #define CRYPTONOTE_MEMPOOL_TX_LIVETIME                  86400 //seconds, one day
 #define CRYPTONOTE_MEMPOOL_TX_FROM_ALT_BLOCK_LIVETIME   604800 //seconds, one week
@@ -196,8 +190,8 @@ namespace config
     };
 
     //std::string const GENESIS_TX = "013c01ff0001ffffffffffff03029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd0880712101a3b2db6ba6d8941ee26cfc96cd57bfa62562eb38e9c940520b847daa8967f374"; //A3RK Test Net
-    std::string const GENESIS_TX = "013c01ff00018180edbffb8b8aae0f02c5a0320489885cb0836a1deb229bb2b00cccd0dc1ce97f42f3b9b4884fa745e521010b49aadfb8358450760ec5d90e912409b0f3d4e20e2bf6fb304c0f5c0c2a5753";
-    
+    //std::string const GENESIS_TX = "013c01ff00018180edbffb8b8aae0f02c5a0320489885cb0836a1deb229bb2b00cccd0dc1ce97f42f3b9b4884fa745e521010b49aadfb8358450760ec5d90e912409b0f3d4e20e2bf6fb304c0f5c0c2a5753";
+    std::string const GENESIS_TX = "013c01ff0005ff8fe3a410027a6ee1dfd475b8e9fe858fd5a49e8e04c7060718ea2624bdd269c4708b4e1d0e80c0fc82aa0202829bed24f779b807176fa1a24b54c847bff3c561784fb735b822043d6e511f2680d0dbc3f40202a33d81ea8befdf0fe801b896f8a1de0cadc5db24e296e3739b6192e3b34b742980a0e5b9c2910102b52058b51f7b6fc79214439d2019cb3238b3d3eface72b6e87c21ccddec72fc080c0dfda8ee906026d9a649ae94b34865ecbc1bfef2058d6015e607b804ae176c4cb25046ae1915e2101da30a1d7c21c0e8af1d3ef4682163ca12baaa159458d91ebe592073cf7b675f8";
     std::string const DONATION_REMIX_WALLET_ADDRESS = "Wx22Jx6NsuXViqX6dGiM1gXdzZBphgpPBAo1WMG8HdxLQUXKzn48X4sFXHKUbtjmDNUkmuurbFvA9HmNSh7cVDwT2KoiMvVoY";
     std::string const DONATION_REMIX_WALLET_PUBLIC_VIEWKEY = "55df2eb6cfc056d2692a405442bda5ef47d4cc898576643b3a2248bffed69a3c";
   }

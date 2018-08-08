@@ -3809,7 +3809,7 @@ bool wallet2::is_tx_spendtime_unlocked(uint64_t unlock_time, uint64_t block_heig
     // XXX: this needs to be fast, so we'd need to get the starting heights
     // from the daemon to be correct once voting kicks in
     uint64_t v2height = m_testnet ? 624634 : 1009827;
-    uint64_t leeway = block_height < v2height ? CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V1 : CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V2;
+    uint64_t leeway = block_height < v2height ? CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS : CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS;
     if(current_time + leeway >= unlock_time)
       return true;
     else
@@ -6988,7 +6988,7 @@ uint64_t wallet2::get_upper_transaction_size_limit()
   if (m_upper_transaction_size_limit > 0)
     return m_upper_transaction_size_limit;
 
-  uint64_t full_reward_zone = CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V1; 
+  uint64_t full_reward_zone = CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE; 
   uint64_t height = m_blockchain.size() - 1;
 
   return full_reward_zone - CRYPTONOTE_COINBASE_BLOB_RESERVED_SIZE;
