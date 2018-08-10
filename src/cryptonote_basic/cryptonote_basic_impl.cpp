@@ -69,41 +69,35 @@ namespace cryptonote {
   //-----------------------------------------------------------------------------------------------
   int get_emission_speed(uint8_t version, uint64_t height, bool testnet) 
   {
-    if (height > 1)
-    {
+    
       const int target_minutes = DIFFICULTY_TARGET / 60;
       return EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes -1);
-    }
     
-    return EMISSION_SPEED_FACTOR_PER_MINUTE;
   }
   //-----------------------------------------------------------------------------------------------
   size_t get_min_block_size(uint8_t version)
   {
-    size_t min_block_size = CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V1;
-
-    if (version == 1) {
-      min_block_size = CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V1;
-    } else if (version == 2) {
-      min_block_size = CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V2;
-    } 
+    size_t min_block_size = CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE;
 
     return min_block_size;
   }
   //-----------------------------------------------------------------------------------------------
   uint64_t get_base_reward(uint8_t version, uint64_t height, uint64_t already_generated_coins, int speed) 
   {
+
     if(height == 1){
       return DEV_ALLOC;
     }
+
     uint64_t base_reward = (MONEY_SUPPLY - already_generated_coins) >> speed;
   
-    if (version == 1)
+   
+    int target_minutes = DIFFICULTY_TARGET/60;
+    if(base_reward < FINAL_SUBSIDY_PER_MINUTE * target_minutes)
     {
-      int target_minutes = DIFFICULTY_TARGET/60;
-      if(base_reward < FINAL_SUBSIDY_PER_MINUTE * target_minutes)
-        base_reward = FINAL_SUBSIDY_PER_MINUTE * target_minutes;
+      base_reward = FINAL_SUBSIDY_PER_MINUTE * target_minutes;
     }
+    
 
     return base_reward;
   }
