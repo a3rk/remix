@@ -19,7 +19,7 @@
 #  Readline_LIBRARY          The readline library.
 
 find_path(Readline_ROOT_DIR
-    NAMES include/readline/rlconf.h
+    NAMES include/readline/readline.h
     PATHS /usr/local/opt/readline/ /opt/local/ /usr/local/ /usr/
     NO_DEFAULT_PATH
 )
