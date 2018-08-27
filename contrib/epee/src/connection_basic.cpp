@@ -3,6 +3,7 @@
 /// @brief base for connection, contains e.g. the ratelimit hooks
 
 // Copyright (c) 2018, The Remix Project
+// Copyright (c) 2014-2017, The Monero Project
 // 
 // All rights reserved.
 // 
