@@ -238,7 +238,7 @@ using namespace cryptonote;
 
 account_base miner_acc1;
 miner_acc1.generate();
-bool testnet = true;
+bool testnet = false;
 std::cout << "Gennerating miner wallet..." << std::endl;
 std::cout << "Miner account address:" << std::endl;
 std::cout << cryptonote::get_account_address_as_str(testnet, false, miner_acc1.get_keys().m_account_address);

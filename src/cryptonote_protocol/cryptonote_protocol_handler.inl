@@ -44,6 +44,7 @@
 #include "net/network_throttle-detail.hpp"
 #include "common/scoped_message_writer.h"
 #include "misc_log_ex.h"
+#include "spdlog/spdlog.h"
 
 #undef REMIX_DEFAULT_LOG_CATEGORY
 #define REMIX_DEFAULT_LOG_CATEGORY "net.cn"
@@ -56,6 +57,7 @@
 #define IDLE_PEER_KICK_TIME (600 * 1000000) // microseconds
 #define PASSIVE_PEER_KICK_TIME (60 * 1000000) // microseconds
 
+namespace spd = spdlog;
 namespace cryptonote
 {
 
@@ -303,11 +305,17 @@ namespace cryptonote
     // uint64_t last_block_v1 = m_core.get_testnet() ? 624633 : 1009826;
     // uint64_t diff_v2 = max_block_height > last_block_v1 ? std::min(abs_diff, max_block_height - last_block_v1) : 0;
     
-    MCLOG(is_inital ? el::Level::Info : el::Level::Debug, "global", context <<  "Sync data returned unknown top block: " << m_core.get_current_blockchain_height() << " -> " << hshd.current_height
-      << " [" << abs_diff << " blocks " <<  ""
-      << (0 <= diff ? std::string("behind") : std::string("ahead"))
-      << "] " << ENDL << "SYNCHRONIZATION started");
+    // MCLOG(is_inital ? el::Level::Info : el::Level::Debug, "global", context <<  "Sync data returned unknown top block: " << m_core.get_current_blockchain_height() << " -> " << hshd.current_height
+    //   << " [" << abs_diff << " blocks " <<  ""
+    //   << (0 <= diff ? std::string("behind") : std::string("ahead"))
+    //   << "] " << ENDL << "SYNCHRONIZATION started");
+      spd::get("rmx_logger")->info("The network detected a new top block: " + std::to_string(m_core.get_current_blockchain_height()) + " -> " + std::to_string(static_cast<int64_t>(hshd.current_height))
+      + " [" + std::to_string(abs_diff) + " blocks " +  ""
+      + (0 <= diff ? std::string("behind") : std::string("ahead")) + "]");
+      spd::get("rmx_logger")->info("SYNCHRONIZATION started");
+      
       m_core.safesyncmode(false);
+      
     }
     LOG_PRINT_L1("Remote blockchain height: " << hshd.current_height << ", id: " << hshd.top_id);
     context.m_state = cryptonote_connection_context::state_synchronizing;
@@ -1160,6 +1168,7 @@ skip:
               timing_message += std::string(": ") + m_block_queue.get_overview();
             MGINFO_YELLOW(context << " Synced " << m_core.get_current_blockchain_height() << "/" << m_core.get_target_blockchain_height()
                 << timing_message);
+            spd::get("rmx_logger")->info(" Synced " + std::to_string(m_core.get_current_blockchain_height()) + "/" + std::to_string(m_core.get_target_blockchain_height()));
           }
         }
       }

@@ -46,6 +46,11 @@
 #include "blockchain_db/db_types.h"
 #include "version.h"
 
+#include "spdlog/spdlog.h"
+#include "spdlog/sinks/stdout_color_sinks.h" //support for stdout logging
+#include "spdlog/sinks/basic_file_sink.h"
+
+
 #ifdef STACK_TRACE
 #include "common/stack_trace.h"
 #endif // STACK_TRACE
@@ -130,7 +135,7 @@ int main(int argc, char const * argv[])
       return 0;
     }
 
-    // Monero Version
+    // Remix Version
     if (command_line::get_arg(vm, command_line::arg_version))
     {
       std::cout << "Remix '" << REMIX_RELEASE_NAME << "' (v" << REMIX_VERSION_FULL << ")" << ENDL;
@@ -203,11 +208,26 @@ int main(int argc, char const * argv[])
     //     absolute path
     //     relative path: relative to data_dir
     bf::path log_file_path {data_dir / std::string(CRYPTONOTE_NAME ".log")};
+    bf::path log_file_path_v2 {data_dir / std::string(CRYPTONOTE_NAME "-v2.log")};
     if (!command_line::is_arg_defaulted(vm, daemon_args::arg_log_file))
       log_file_path = command_line::get_arg(vm, daemon_args::arg_log_file);
     log_file_path = bf::absolute(log_file_path, relative_path_base);
     mlog_configure(log_file_path.string(), true, command_line::get_arg(vm, daemon_args::arg_max_log_file_size));
 
+    // Start New Logger System
+    //Multithreaded console logger(with color support) //////////////////////////////////////////////
+    std::vector<spdlog::sink_ptr> sinks;
+    auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
+    console_sink->set_level(spdlog::level::info);
+    console_sink->set_pattern("[REMIX] [%^%l%$] %v");
+    auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(log_file_path_v2.string(), true);
+    file_sink->set_level(spdlog::level::trace);
+    sinks.push_back(console_sink);
+    sinks.push_back(file_sink);
+
+    auto shared_logger = std::make_shared<spdlog::logger>("rmx_logger", begin(sinks), end(sinks));
+    spdlog::register_logger(shared_logger);
+    shared_logger->info("Remix Console Output Sub-Module Loaded.");
     // Set log level
     if (!command_line::is_arg_defaulted(vm, daemon_args::arg_log_level))
     {
@@ -298,19 +318,21 @@ int main(int argc, char const * argv[])
       tools::set_max_concurrency(command_line::get_arg(vm, daemon_args::arg_max_concurrency));
 
     // logging is now set up
-    MGINFO("Remix '" << REMIX_RELEASE_NAME << "' (v" << REMIX_VERSION_FULL << ")");
-
+    //MGINFO("Remix '" << REMIX_RELEASE_NAME << "' (v" << REMIX_VERSION_FULL << ")");
+    shared_logger->info("Remix {} v{}", REMIX_RELEASE_NAME, REMIX_VERSION_FULL);
     MINFO("Moving from main() into the daemonize now.");
 
     return daemonizer::daemonize(argc, argv, daemonize::t_executor{}, vm);
   }
   catch (std::exception const & ex)
   {
-    LOG_ERROR("Exception in main! " << ex.what());
+    //LOG_ERROR("Exception in main! " << ex.what());
+    spdlog::get("rmx_logger")->error("Exception in main: {}", ex.what());
   }
   catch (...)
   {
-    LOG_ERROR("Exception in main!");
+    //LOG_ERROR("Exception in main!");
+    spdlog::get("rmx_logger")->error("Exception in main!");
   }
   return 1;
 }

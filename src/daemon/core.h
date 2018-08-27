@@ -32,10 +32,12 @@
 #include "cryptonote_protocol/cryptonote_protocol_handler.h"
 #include "misc_log_ex.h"
 #include "daemon/command_line_args.h"
+#include "spdlog/spdlog.h"
 
 #undef REMIX_DEFAULT_LOG_CATEGORY
 #define REMIX_DEFAULT_LOG_CATEGORY "daemon"
 
+namespace spd = spdlog;
 namespace daemonize
 {
 
@@ -82,13 +84,15 @@ public:
   bool run()
   {
     //initialize core here
-    MGINFO("Initializing core...");
+    //MGINFO("Initializing core...");
+    spd::get("rmx_logger")->info("Initializing core...");
     std::string config_subdir = get_config_subdir();
     if (!m_core.init(m_vm_HACK, config_subdir.empty() ? NULL : config_subdir.c_str()))
     {
       return false;
     }
-    MGINFO("Core initialized OK");
+    //MGINFO("Core initialized OK");
+    spd::get("rmx_logger")->info("Core initialized OK");
     return true;
   }
 
@@ -99,12 +103,14 @@ public:
 
   ~t_core()
   {
-    MGINFO("Deinitializing core...");
+    //MGINFO("Deinitializing core...");
+    spd::get("rmx_logger")->info("Deinitializing core...");
     try {
       m_core.deinit();
       m_core.set_cryptonote_protocol(nullptr);
     } catch (...) {
-      MERROR("Failed to deinitialize core...");
+      //MERROR("Failed to deinitialize core...");
+      spd::get("rmx_logger")->error("Failed to deinitialize core...");
     }
   }
 };
