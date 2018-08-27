@@ -1,5 +1,5 @@
 [Unit]
-Description=REMIX Full Node
+Description=Remix Full Node
 After=network.target
 
 [Service]

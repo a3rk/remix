@@ -1,8 +1,8 @@
 name: remix
-version: 0.10.0.A
-summary: "RemixCoin: the private, secure, untraceable currency - http://www.remix.cash"
+version: 1.0.0
+summary: "Remix: the private, secure, untraceable currency - https://remixcoin.io"
 description: |
-    RemixCoin is a private, secure, untraceable currency. You are your bank, you 
+    Remix is a private, secure, untraceable currency. You are your bank, you 
     control your funds, and nobody can trace your transfers.
 grade: devel
 confinement: strict

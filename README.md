@@ -13,7 +13,7 @@ Portions Copyright 2012-2013 The Cryptonote developers
 
 ## Introduction
 
-Remix is a private, secure, untraceable, decentralised digital currency based on the Monero and AEON code bases. Remix aims to be a fungible and untraceable digital peer-to-peer medium of exchange, actively developed. Remix is the start of a new, distinctive period for CryptoNote cryptocurrencies.
+Remix is a private, secure, untraceable, decentralized digital currency based on the Monero codebase. Remix aims to be a fungible and untraceable digital peer-to-peer medium of exchange, actively developed. Remix is the start of a new, distinctive period for CryptoNote cryptocurrencies.
 
 - **Privacy:** Remix uses a cryptographically sound system to allow you to send and receive funds without your transactions being easily revealed on the blockchain<sup id="a1">[1](#f1)</sup>. This ensures that your purchases, receipts, and all transfers remain absolutely private by default.
 
@@ -27,7 +27,7 @@ This is the core implementation of Remix. It is open source and free to use with
 
 As with many other existing development projects, the repository on GitLab is considered to be the staging<sup id="a2">[2](#f2)</sup> area for the latest changes. Before changes are merged into the master repository they are tested by individual developers as well as contributors who focus on thorough testing and code reviews. However, the repository should be carefully considered before using it in a production environment unless there is a patch in the repository for a particular show-stopping issue you are experiencing. It is generally a better idea to use a tagged release for stability.
 
-## Licence
+## License
 
 Remix is released under the terms of the Modified BSD License. See [LICENSE](LICENSE) for more information.
 
@@ -63,39 +63,18 @@ The following table summarizes the tools and libraries required to build. A few 
 | pkg-config     | any           | NO       | `pkg-config`          | `base-devel`   | YES      |                |
 | Boost          | 1.58          | NO       | `libboost-all-dev`    | `boost`        | YES      | C++ libraries  |
 | OpenSSL        | basically any | NO       | `libssl-dev`          | `openssl`      | YES      | sha256 sum     |
-| libzmq         | 3.0.0         | NO       | `libzmq3-dev`**^1**   | `zeromq`       | YES      | ZeroMQ library |
+| libzmq         | 3.0.0         | NO       | `libzmq3-dev`         | `zeromq`       | YES      | ZeroMQ library |
 | libunbound     | 1.4.16        | YES      | `libunbound-dev`      | `unbound`      | YES      | DNS resolver   |
 | libminiupnpc   | 2.0           | YES      | `libminiupnpc-dev`    | `miniupnpc`    | NO       | NAT punching   |
 | libunwind      | any           | NO       | `libunwind8-dev`      | `libunwind`    | NO       | Stack traces   |
 | liblzma        | any           | NO       | `liblzma-dev`         | `xz`           | NO       | For libunwind  |
-| libreadline    | 6.3.0         | NO       | `libreadline6-dev`    | `readline`     | NO       | Input editing  |
+| libreadline    | 6.3.0         | NO       | `libreadline-dev`     | `readline`     | NO       | Input editing  |
 | ldns           | 1.6.17        | NO       | `libldns-dev`         | `ldns`         | NO       | SSL toolkit    |
 | expat          | 1.1           | NO       | `libexpat1-dev`       | `expat`        | NO       | XML parsing    |
-| GTest          | 1.5           | YES      | `libgtest-dev`**^2**  | `gtest`        | NO       | Test suite     |
+| GTest          | 1.5           | YES      | `libgtest-dev`        | `gtest`        | NO       | Test suite     |
 | Doxygen        | any           | NO       | `doxygen`             | `doxygen`      | NO       | Documentation  |
 | Graphviz       | any           | NO       | `graphviz`            | `graphviz`     | NO       | Documentation  |
 
-[**^1**] On Debian/Ubuntu, `libzmq3-dev` may not be the correct version, and may not include libczmq3-dev/dbg when it's installed, so you may want to install cppzmq and libzmq manually with the following ordered procedures:
-
-  zeromq/libzmq
-
-    git clone https://github.com/zeromq/libzmq.git;
-    cd libzmq;
-    mkdir build;
-    cd build;
-    cmake ..;
-    sudo make install;
-
-  zeromq/cppzmq
-
-    git clone https://github.com/zeromq/cppzmq.git;
-    cd cppzmq;
-    mkdir build;
-    cd build;
-    cmake ..;
-    sudo make install;
-
-[**^2**] On Debian/Ubuntu `libgtest-dev` only includes sources and headers. You must build the library binary manually. This can be done with the following command ```sudo apt-get install libgtest-dev && cd /usr/src/gtest && sudo cmake . && sudo make && sudo mv libg* /usr/lib/ ```
 
 ### Build instructions
 
@@ -106,7 +85,7 @@ Remix uses the CMake build system and a top-level [Makefile](Makefile) that invo
 - Install the dependencies
 - Change to the root of the source code directory and build:
 
-        cd Remix
+        cd remix
         make
 
     *Optional*: If your machine has several cores and enough memory, enable
@@ -119,9 +98,9 @@ Remix uses the CMake build system and a top-level [Makefile](Makefile) that invo
 
 * The resulting executables can be found in `build/release/bin`
 
-* Add `PATH="$PATH:$HOME/Remix/build/release/bin"` to `.profile`
+* Add `PATH="$PATH:$HOME/remix/build/release/bin"` to `.profile`
 
-* Run Remix with `Remixd --detach`
+* Run Remix with `remixd --detach`
 
 * **Optional**: build and run the test suite to verify the binaries:
 
@@ -199,15 +178,15 @@ By default, in either dynamically or statically linked builds, binaries target t
 * ```make release-static-win64``` builds binaries on 64-bit Windows portable across 64-bit Windows systems
 * ```make release-static-win32``` builds binaries on 64-bit or 32-bit Windows portable across 32-bit Windows systems
 
-## Running Remixd
+## Running remixd
 
 The build places the binary in `bin/` sub-directory within the build directory
 from which cmake was invoked (repository root by default). To run in
 foreground:
 
-    ./bin/Remixd
+    ./bin/remixd
 
-To list all available options, run `./bin/Remixd --help`.  Options can be
+To list all available options, run `./bin/remixd --help`.  Options can be
 specified either on the command line or in a configuration file passed by the
 `--config-file` argument.  To specify an option in the configuration file, add
 a line with the syntax `argumentname=value`, where `argumentname` is the name
@@ -215,40 +194,40 @@ of the argument without the leading dashes, for example `log-level=1`.
 
 To run in background:
 
-    ./bin/Remixd --log-file Remixd.log --detach
+    ./bin/remixd --log-file remixd.log --detach
 
 To run as a systemd service, copy
-[Remixd.service](utils/systemd/Remixd.service) to `/etc/systemd/system/` and
-[Remixd.conf](utils/conf/Remixd.conf) to `/etc/`. The [example
-service](utils/systemd/Remixd.service) assumes that the user `Remix` exists
+[remixd.service](utils/systemd/remixd.service) to `/etc/systemd/system/` and
+[remixd.conf](utils/conf/remixd.conf) to `/etc/`. The [example
+service](utils/systemd/remixd.service) assumes that the user `remix` exists
 and its home is the data directory specified in the [example
-config](utils/conf/Remixd.conf).
+config](utils/conf/remixd.conf).
 
 If you're on Mac, you may need to add the `--max-concurrency 1` option to
-Remix-wallet-cli, and possibly Remixd, if you get crashes refreshing.
+remix-wallet-cli, and possibly remixd, if you get crashes refreshing.
 
 
 ## Using Tor
 
-While Remix isn't made to integrate with Tor, it can be used wrapped with torsocks, if you add --p2p-bind-ip 127.0.0.1 to the Remixd command line. You also want to set DNS requests to go over TCP, so they'll be routed through Tor, by setting DNS_PUBLIC=tcp or use a particular DNS server with DNS_PUBLIC=tcp://a.b.c.d (default is 8.8.4.4, which is Google DNS). You may also disable IGD (UPnP port forwarding negotiation), which is pointless with Tor. To allow local connections from the wallet, you might have to add TORSOCKS_ALLOW_INBOUND=1, some OSes need it and some don't. Example:
+While Remix isn't made to integrate with Tor, it can be used wrapped with torsocks, if you add --p2p-bind-ip 127.0.0.1 to the remixd command line. You also want to set DNS requests to go over TCP, so they'll be routed through Tor, by setting DNS_PUBLIC=tcp or use a particular DNS server with DNS_PUBLIC=tcp://a.b.c.d (default is 8.8.4.4, which is Google DNS). You may also disable IGD (UPnP port forwarding negotiation), which is pointless with Tor. To allow local connections from the wallet, you might have to add TORSOCKS_ALLOW_INBOUND=1, some OSes need it and some don't. Example:
 
-`DNS_PUBLIC=tcp torsocks Remixd --p2p-bind-ip 127.0.0.1 --no-igd`
+`DNS_PUBLIC=tcp torsocks remixd --p2p-bind-ip 127.0.0.1 --no-igd`
 
 or:
 
-`DNS_PUBLIC=tcp TORSOCKS_ALLOW_INBOUND=1 torsocks Remixd --p2p-bind-ip 127.0.0.1 --no-igd`
+`DNS_PUBLIC=tcp TORSOCKS_ALLOW_INBOUND=1 torsocks remixd --p2p-bind-ip 127.0.0.1 --no-igd`
 
 TAILS ships with a very restrictive set of firewall rules. Therefore, you need to add a rule to allow this connection too, in addition to telling torsocks to allow inbound connections. Full example:
 
 `sudo iptables -I OUTPUT 2 -p tcp -d 127.0.0.1 -m tcp --dport 18081 -j ACCEPT`
 
-`DNS_PUBLIC=tcp torsocks ./Remixd --p2p-bind-ip 127.0.0.1 --no-igd --rpc-bind-ip 127.0.0.1 --data-dir /home/amnesia/Persistent/your/directory/to/the/blockchain`
+`DNS_PUBLIC=tcp torsocks ./remixd --p2p-bind-ip 127.0.0.1 --no-igd --rpc-bind-ip 127.0.0.1 --data-dir /home/amnesia/Persistent/your/directory/to/the/blockchain`
 
-`./Remix-wallet-cli`
+`./remix-wallet-cli`
 
 ## Debugging
 
-This section contains general instructions for debugging failed installs or problems encountered with Remix. First ensure you are running the latest version built from the Github repo.
+This section contains general instructions for debugging failed installs or problems encountered with Remix. First ensure you are running the latest version built from the Gitlab repo.
 
 ### Obtaining stack traces and core dumps on Unix systems
 
@@ -261,7 +240,7 @@ Run the build.
 Once it stalls, enter the following command:
 
 ```
-gdb /path/to/Remixd `pidof Remixd`
+gdb /path/to/remixd `pidof remixd`
 ```
 
 Type `thread apply all bt` within gdb in order to obtain the stack trace
@@ -274,27 +253,27 @@ Enter `echo core | sudo tee /proc/sys/kernel/core_pattern` to stop cores from be
 
 Run the build.
 
-When it terminates with an output along the lines of "Segmentation fault (core dumped)", there should be a core dump file in the same directory as Remixd. It may be named just `core`, or `core.xxxx` with numbers appended.
+When it terminates with an output along the lines of "Segmentation fault (core dumped)", there should be a core dump file in the same directory as remixd. It may be named just `core`, or `core.xxxx` with numbers appended.
 
 You can now analyse this core dump with `gdb` as follows:
 
-`gdb /path/to/Remixd /path/to/dumpfile`
+`gdb /path/to/remixd /path/to/dumpfile`
 
 Print the stack trace with `bt`
 
 * To run Remix within gdb:
 
-Type `gdb /path/to/Remixd`
+Type `gdb /path/to/remixd`
 
 Pass command-line options with `--args` followed by the relevant arguments
 
-Type `run` to run Remixd
+Type `run` to run remixd
 
-### Analysing memory corruption
+### Analyzing memory corruption
 
 We use the tool `valgrind` for this.
 
-Run with `valgrind /path/to/Remixd`. It will be slow.
+Run with `valgrind /path/to/remixd`. It will be slow.
 
 ### LMDB
 
@@ -302,7 +281,7 @@ Instructions for debugging suspected blockchain corruption as per @HYC of the Mo
 
 There is an `mdb_stat` command in the LMDB source that can print statistics about the database but it's not routinely built. This can be built with the following command:
 
-`cd ~/Remix/external/db_drivers/liblmdb && make`
+`cd ~/remix/external/db_drivers/liblmdb && make`
 
 The output of `mdb_stat -ea <path to blockchain dir>` will indicate inconsistencies in the blocks, block_heights and block_info table.
 
@@ -317,7 +296,7 @@ Instructions for setting up OpenAlias on a domain name.
 
 Create a TXT DNS Record on your domain with using the following syntax
 
-`oa1:Remix recipient_address=<YOUR WALLET ADDRESS>;`
+`oa1:remix recipient_address=<YOUR WALLET ADDRESS>;`
 
 You can then send funds to the domain name in place of the wallet address. 
 
