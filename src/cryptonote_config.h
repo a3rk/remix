@@ -139,8 +139,8 @@
 
 #define HASH_OF_HASHES_STEP                             256
 
-#define DONATION_URL                                    "donate.remix.cash"
-#define DONATION_EMAIL_ADDRESS                          "donate@remix.cash"
+#define DONATION_URL                                    "donate.remixcoin.io"
+#define DONATION_EMAIL_ADDRESS                          "donate@remixcoin.io"
 
 // New constants are intended to go here
 namespace config
