@@ -373,14 +373,14 @@ namespace nodetool
     std::set<std::string> full_addrs;
     if (testnet)
     {
-      full_addrs.insert("167.99.232.33:21330"); //rmx-node-east-01
-      full_addrs.insert("52.234.228.19:21330"); //devops-testnet
-      full_addrs.insert("127.0.0.1:21330"); //localhost 
+      full_addrs.insert("167.99.232.33:21330"); // n1.remixcoin.io
+      full_addrs.insert("207.246.78.8:21330");  // n2.remixcoin.io
+      full_addrs.insert("127.0.0.1:21330");     // localhost 
     }
     else
     {
-      full_addrs.insert("167.99.232.33:11330"); //rmx-node-east-01
-      full_addrs.insert("52.234.228.19:11330"); //devops-mainnet
+      full_addrs.insert("167.99.232.33:11330"); // n1.remixcoin.io
+      full_addrs.insert("207.246.78.8:11330");  // n2.remixcoin.io
     }
     return full_addrs;
   }

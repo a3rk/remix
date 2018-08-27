@@ -124,10 +124,6 @@ namespace nodetool
     virtual std::map<std::string, time_t> get_blocked_hosts() { CRITICAL_REGION_LOCAL(m_blocked_hosts_lock); return m_blocked_hosts; }
   private:
     const std::vector<std::string> m_seed_nodes_list =
-    //todo() set to remix seed nodes dns entries for these ip addresses
-    //ADD_HARDCODED_SEED_NODE("74.91.23.186:11180");
-    //ADD_HARDCODED_SEED_NODE("192.187.114.114:11180");
-    //
     { ""
     , ""
     };

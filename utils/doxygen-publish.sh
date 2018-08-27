@@ -19,7 +19,7 @@ if [[ ! -d "$wwwdir/doc" ]] ; then
 fi
 
 echo "Generating:"
-doxygen Doxyfile && echo "Backup previous version:" && rm -rf ~/remix-www-previous && mv "$wwwdir/doc" ~/remix-www-previous && cp -ar doc/ "$wwwdir/" && echo "Done, builded and copied to public - the doxygen docs" && echo "size:" && du -Dsh "$wwwdir/" && echo "files:" && find "$wwwdir/" | wc -l
+doxygen Doxyfile && echo "Backup previous version:" && rm -rf ~/remix-www-previous && mv "$wwwdir/doc" ~/remix-www-previous && cp -ar doc/ "$wwwdir/" && echo "Done, built and copied to public - the doxygen docs" && echo "size:" && du -Dsh "$wwwdir/" && echo "files:" && find "$wwwdir/" | wc -l
 
 
 
