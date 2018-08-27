@@ -3,6 +3,7 @@
 /// @brief implementaion for throttling of connection (count and rate-limit speed etc)
 
 // Copyright (c) 2018, The Remix Project
+// Copyright (c) 2014-2017, The Monero Project
 // 
 // All rights reserved.
 // 
