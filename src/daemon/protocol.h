@@ -34,7 +34,9 @@
 #define REMIX_DEFAULT_LOG_CATEGORY "daemon"
 
 #include "common/scoped_message_writer.h"
+#include "spdlog/spdlog.h"
 
+namespace spd = spdlog;
 namespace daemonize
 {
 
@@ -52,12 +54,14 @@ public:
     )
     : m_protocol{core.get(), nullptr}
   {
-    MGINFO("Initializing cryptonote protocol...");
+    //MGINFO("Initializing cryptonote protocol...");
+    spd::get("rmx_logger")->info("Initializing cryptonote protocol...");
     if (!m_protocol.init(vm))
     {
       throw std::runtime_error("Failed to initialize cryptonote protocol.");
     }
-    MGINFO("Cryptonote protocol initialized OK");
+    //MGINFO("Cryptonote protocol initialized OK");
+    spd::get("rmx_logger")->info("Cryptonote protocol initialized OK");
   }
 
   t_protocol_raw & get()

@@ -32,6 +32,8 @@
 
 #include "include_base_utils.h"
 #include "string_tools.h"
+#include "spdlog/spdlog.h"
+namespace spd = spdlog;
 using namespace epee;
 
 #include <unordered_set>
@@ -394,7 +396,8 @@ namespace cryptonote
     }
 
     folder /= db->get_db_name();
-    MGINFO("Loading blockchain from folder " << folder.string() << " ...");
+    //MGINFO("Loading blockchain from folder " << folder.string() << " ...");
+    spd::get("rmx_logger")->info("Loading blockchain from folder " + folder.string() + " ...");
 
     const std::string filename = folder.string();
     // default to fast:async:1
@@ -492,8 +495,8 @@ namespace cryptonote
 
     block_sync_size = command_line::get_arg(vm, arg_block_sync_size);
 
-    MGINFO("Loading checkpoints");
-
+    //MGINFO("Loading checkpoints");
+    spd::get("rmx_logger")->info("Loading checkpoints");
     // load json & DNS checkpoints, and verify them
     // with respect to what blocks we already have
     CHECK_AND_ASSERT_MES(update_checkpoints(), false, "One or more checkpoints loaded from json or dns conflicted with existing checkpoints.");

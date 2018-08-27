@@ -60,12 +60,14 @@ public:
     : m_server{protocol.get()}
   {
     //initialize objects
-    MGINFO("Initializing p2p server...");
+    //MGINFO("Initializing p2p server...");
+    spd::get("rmx_logger")->info("Initializing p2p server...");
     if (!m_server.init(vm))
     {
       throw std::runtime_error("Failed to initialize p2p server.");
     }
-    MGINFO("P2p server initialized OK");
+    //MGINFO("P2p server initialized OK");
+    spd::get("rmx_logger")->info("P2p server initialized OK");
   }
 
   t_node_server & get()
@@ -75,9 +77,11 @@ public:
 
   void run()
   {
-    MGINFO("Starting p2p net loop...");
+    //MGINFO("Starting p2p net loop...");
+    spd::get("rmx_logger")->info("Starting p2p net loop...");
     m_server.run();
-    MGINFO("p2p net loop stopped");
+    //MGINFO("p2p net loop stopped");
+    spd::get("rmx_logger")->info("p2p net loop stopped");
   }
 
   void stop()
@@ -87,11 +91,13 @@ public:
 
   ~t_p2p()
   {
-    MGINFO("Deinitializing p2p...");
+    //MGINFO("Deinitializing p2p...");
+    spd::get("rmx_logger")->info("Deinitializing p2p...");
     try {
       m_server.deinit();
     } catch (...) {
-      MERROR("Failed to deinitialize p2p...");
+      //MERROR("Failed to deinitialize p2p...");
+      spd::get("rmx_logger")->error("Failed to deinitialize p2p...");
     }
   }
 };
