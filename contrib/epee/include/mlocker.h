@@ -1,4 +1,4 @@
-// Copyright (c) 2018, The Remix Project
+// Copyright (c) 2018, The Monero Project
 // 
 // All rights reserved.
 // 
@@ -25,56 +25,63 @@
 // INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
 // STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
 // THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-// 
-// Parts of this file are originally copyright (c) 2012-2013 The Cryptonote developers
 
-#pragma once
+#pragma once 
 
-#ifdef __cplusplus
-#include <array>
+#include <map>
+#include <boost/thread/mutex.hpp>
 
-extern "C" {
-#endif
+namespace epee
+{
+  class mlocker
+  {
+  public:
+    mlocker(void *ptr, size_t len);
+    ~mlocker();
 
-void *memwipe(void *src, size_t n);
+    static size_t get_page_size();
+    static size_t get_num_locked_pages();
+    static size_t get_num_locked_objects();
 
-#ifdef __cplusplus
-}
-#endif
+    static void lock(void *ptr, size_t len);
+    static void unlock(void *ptr, size_t len);
 
-#ifdef __cplusplus
-namespace tools {
+  private:
+    static size_t page_size;
+    static size_t num_locked_objects;
 
-  /// Scrubs data in the contained type upon destruction.
+    static boost::mutex &mutex();
+    static std::map<size_t, unsigned int> &map();
+    static void lock_page(size_t page);
+    static void unlock_page(size_t page);
+
+    void *ptr;
+    size_t len;
+  };
+
+  /// Locks memory while in scope
   ///
-  /// Primarily useful for making sure that private keys don't stick around in
-  /// memory after the objects that held them have gone out of scope.
+  /// Primarily useful for making sure that private keys don't get swapped out
+  //  to disk
   template <class T>
-  struct scrubbed : public T {
+  struct mlocked : public T {
     using type = T;
 
-    ~scrubbed() {
-      scrub();
-    }
-
-    /// Destroy the contents of the contained type.
-    void scrub() {
-      static_assert(std::is_pod<T>::value,
-                    "T cannot be auto-scrubbed. T must be POD.");
-      static_assert(std::is_trivially_destructible<T>::value,
-                    "T cannot be auto-scrubbed. T must be trivially destructable.");
-      memwipe(this, sizeof(T));
-    }
+    mlocked(): T() { mlocker::lock(this, sizeof(T)); }
+    mlocked(const T &t): T(t) { mlocker::lock(this, sizeof(T)); }
+    mlocked(const mlocked<T> &mt): T(mt) { mlocker::lock(this, sizeof(T)); }
+    mlocked(const T &&t): T(t) { mlocker::lock(this, sizeof(T)); }
+    mlocked(const mlocked<T> &&mt): T(mt) { mlocker::lock(this, sizeof(T)); }
+    mlocked<T> &operator=(const mlocked<T> &mt) { T::operator=(mt); return *this; }
+    ~mlocked() { mlocker::unlock(this, sizeof(T)); }
   };
 
   template<typename T>
-  T& unwrap(scrubbed<T>& src) { return src; }
+  T& unwrap(mlocked<T>& src) { return src; }
 
   template<typename T>
-  const T& unwrap(scrubbed<T> const& src) { return src; }
+  const T& unwrap(mlocked<T> const& src) { return src; }
 
   template <class T, size_t N>
-  using scrubbed_arr = scrubbed<std::array<T, N>>;
-} // namespace tools
-
-#endif // __cplusplus
+  using mlocked_arr = mlocked<std::array<T, N>>;
+}
