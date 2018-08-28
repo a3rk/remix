@@ -68,6 +68,12 @@ namespace tools {
     }
   };
 
+  template<typename T>
+  T& unwrap(scrubbed<T>& src) { return src; }
+
+  template<typename T>
+  const T& unwrap(scrubbed<T> const& src) { return src; }
+
   template <class T, size_t N>
   using scrubbed_arr = scrubbed<std::array<T, N>>;
 } // namespace tools

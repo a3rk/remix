@@ -29,6 +29,7 @@
 
 #pragma once
 
+#include <boost/optional/optional_fwd.hpp>
 #include <stddef.h>
 #include <vector>
 #include <string>
@@ -38,19 +39,32 @@ namespace epee
   class wipeable_string
   {
   public:
+    typedef char value_type;
+
     wipeable_string() {}
     wipeable_string(const wipeable_string &other);
     wipeable_string(wipeable_string &&other);
     wipeable_string(const std::string &other);
     wipeable_string(std::string &&other);
     wipeable_string(const char *s);
+    wipeable_string(const char *s, size_t len);
     ~wipeable_string();
     void wipe();
     void push_back(char c);
-    void pop_back();
+    void operator+=(char c);
+    void operator+=(const std::string &s);
+    void operator+=(const epee::wipeable_string &s);
+    void operator+=(const char *s);
+    void append(const char *ptr, size_t len);
+    char pop_back();
     const char *data() const noexcept { return buffer.data(); }
+    char *data() noexcept { return buffer.data(); }
     size_t size() const noexcept { return buffer.size(); }
+    size_t length() const noexcept { return buffer.size(); }
     bool empty() const noexcept { return buffer.empty(); }
+    void trim();
+    void split(std::vector<wipeable_string> &fields) const;
+    boost::optional<wipeable_string> parse_hexstr() const;
     void resize(size_t sz);
     void reserve(size_t sz);
     void clear();

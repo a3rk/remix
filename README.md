@@ -33,13 +33,15 @@ Remix is released under the terms of the Modified BSD License. See [LICENSE](LIC
 
 ## Supporting the project
 
-Remix development can be supported directly through donations. Both Remix and Bitcoin donations can be made tin support of future development.
+Remix development can be supported directly through donations. Both Remix and Monero donations can be made in support of future development.
 
 Remix donations:
-- Address: `Later` 
-- ViewKey: `Later`
+- Address: `REMXiqQhgfqWtZ1gfxP4iDbXEV4f8cUDFAp2Bz43PztJSJvv2mUqG4Z2YFBMauJV74YCDcJLyqkbCfsC55LNJhQfZxdiE5tGxKq`
+- Viewkey: `e4a70b5a09330375c11dfcd7ba7e40974ec57a6be85c5da7cfae36d4c50cd44b`
 
-The Bitcoin donation address is: `Later`
+Monero donations:
+- Address: `4963h1qpTN8MP7ETNEuaKU9M8zxEXw36ZYpaHaDkRkyXKrxyHXQdzoeDx8jLPmdQfEVCMXzhzTxFo8xC1X5ozGceUbyq1CL`
+- Viewkey: `c3ed0297af23654d6d29f10b01dbc5a892494c5d0968f62f8a09244d8b87f7f4`
 
 *Note: you can easily donate Remix to the Remix donation address by using the `donate` command. Type `help` in the command-line wallet for details.*
 
@@ -180,31 +182,19 @@ By default, in either dynamically or statically linked builds, binaries target t
 
 ## Running remixd
 
-The build places the binary in `bin/` sub-directory within the build directory
-from which cmake was invoked (repository root by default). To run in
-foreground:
+The build places the binary in `bin/` sub-directory within the build directory from which cmake was invoked (repository root by default). To run in foreground:
 
     ./bin/remixd
 
-To list all available options, run `./bin/remixd --help`.  Options can be
-specified either on the command line or in a configuration file passed by the
-`--config-file` argument.  To specify an option in the configuration file, add
-a line with the syntax `argumentname=value`, where `argumentname` is the name
-of the argument without the leading dashes, for example `log-level=1`.
+To list all available options, run `./bin/remixd --help`.  Options can be specified either on the command line or in a configuration file passed by the `--config-file` argument.  To specify an option in the configuration file, add a line with the syntax `argumentname=value`, where `argumentname` is the name of the argument without the leading dashes, for example `log-level=1`.
 
 To run in background:
 
     ./bin/remixd --log-file remixd.log --detach
 
-To run as a systemd service, copy
-[remixd.service](utils/systemd/remixd.service) to `/etc/systemd/system/` and
-[remixd.conf](utils/conf/remixd.conf) to `/etc/`. The [example
-service](utils/systemd/remixd.service) assumes that the user `remix` exists
-and its home is the data directory specified in the [example
-config](utils/conf/remixd.conf).
+To run as a systemd service, copy [remixd.service](utils/systemd/remixd.service) to `/etc/systemd/system/` and [remixd.conf](utils/conf/remixd.conf) to `/etc/`. The [example service](utils/systemd/remixd.service) assumes that the user `remix` exists and its home is the data directory specified in the [example config](utils/conf/remixd.conf).
 
-If you're on Mac, you may need to add the `--max-concurrency 1` option to
-remix-wallet-cli, and possibly remixd, if you get crashes refreshing.
+If you're on Mac, you may need to add the `--max-concurrency 1` option to remix-wallet-cli, and possibly remixd, if you get crashes refreshing.
 
 
 ## Using Tor
