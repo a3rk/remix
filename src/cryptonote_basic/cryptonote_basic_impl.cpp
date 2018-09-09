@@ -70,8 +70,7 @@ namespace cryptonote {
   int get_emission_speed(uint8_t version, uint64_t height, bool testnet) 
   {
     
-      const int target_minutes = DIFFICULTY_TARGET / 60;
-      return EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes -1);
+      return EMISSION_SPEED_FACTOR_PER_MINUTE;
     
   }
   //-----------------------------------------------------------------------------------------------
@@ -92,10 +91,9 @@ namespace cryptonote {
     uint64_t base_reward = (MONEY_SUPPLY - already_generated_coins) >> speed;
   
    
-    int target_minutes = DIFFICULTY_TARGET/60;
-    if(base_reward < FINAL_SUBSIDY_PER_MINUTE * target_minutes)
+    if(base_reward < FINAL_SUBSIDY_PER_MINUTE )
     {
-      base_reward = FINAL_SUBSIDY_PER_MINUTE * target_minutes;
+      base_reward = FINAL_SUBSIDY_PER_MINUTE ;
     }
     
 
