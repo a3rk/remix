@@ -1301,10 +1301,14 @@ void wallet2::process_new_transaction(const crypto::hash &txid, const cryptonote
   }
 
   // remove change sent to the spending subaddress account from the list of received funds
+  uint64_t sub_change_amount = 0u;
   for (auto i = tx_money_got_in_outs.begin(); i != tx_money_got_in_outs.end();)
   {
     if (subaddr_account && i->first.major == *subaddr_account)
-      i = tx_money_got_in_outs.erase(i);
+    {
+			sub_change_amount += i->second;
+			i = tx_money_got_in_outs.erase(i);
+		}
     else
       ++i;
   }
@@ -1350,7 +1354,7 @@ void wallet2::process_new_transaction(const crypto::hash &txid, const cryptonote
     {
       LOG_PRINT_L2("Found unencrypted payment ID: " << payment_id);
     }
-    uint64_t total_received_acc_control = 0;
+    uint64_t total_received_acc_control = sub_change_amount;
 		for (const auto& i : tx_money_got_in_outs)
 			total_received_acc_control += i.second;
 		if (total_received_acc != total_received_acc_control)
