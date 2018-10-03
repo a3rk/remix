@@ -1,8 +1,15 @@
-# Remix [![Build Status](https://travis-ci.com/a3rk/remix.svg?branch=master)](https://travis-ci.com/a3rk/remix)
+# Remix 
 
 Copyright 2018, The Remix Project    
 Copyright 2014-2017, The Monero Project   
 Portions Copyright 2012-2013 The Cryptonote developers
+
+## Build Status
+
+| Platform | Status                                                                                                                                                                       |
+|----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Ubuntu   | [![Build Status](https://travis-ci.com/a3rk/remix.svg?branch=master)](https://travis-ci.com/a3rk/remix)                                                                      |
+| Windows  | [![Build status](https://ci.appveyor.com/api/projects/status/3hjkq5slvj9ohgmc/branch/master?svg=true)](https://ci.appveyor.com/project/devopsralf/remix-9jf95/branch/master) |
 
 ## Remix Development and Community Resources
 
