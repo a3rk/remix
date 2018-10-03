@@ -36,7 +36,7 @@
     IF %BIT%==64 (
         bash -xlc "make release-static-win64" 
     )
-    IF %BIT%==64 (
+    IF %BIT%==32 (
         bash -xlc "make release-static-win32" 
     )
   )
