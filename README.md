@@ -1,4 +1,4 @@
-# Remix
+# Remix [![Build Status](https://travis-ci.com/a3rk/remix.svg?branch=master)](https://travis-ci.com/a3rk/remix)
 
 Copyright 2018, The Remix Project    
 Copyright 2014-2017, The Monero Project   
