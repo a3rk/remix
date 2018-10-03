@@ -6,6 +6,10 @@ dist: trusty
 
 os: linux
 
+branches:
+  except:
+  - experimental
+
 addons:
   apt:
     update: true
