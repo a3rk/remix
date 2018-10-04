@@ -1,0 +1,23 @@
+environment:
+  matrix:
+    - COMPILER: msys2
+      PLATFORM: x64
+      MSYS2_ARCH: x86_64
+      MSYS2_DIR: msys64
+      MSYSTEM: MINGW64
+      BIT: 64
+
+install:
+  # running under CI
+  - git submodule update --init --recursive
+  - set CI_TESTING=1
+  - '%APPVEYOR_BUILD_FOLDER%\appveyor.bat'
+  - 'echo End intall at: & time /t'
+
+build_script:
+  - 'echo Nothing to build'
+
+test_script:
+  - 'echo Nothing to test'
+
+deploy: off
