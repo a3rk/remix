@@ -1166,9 +1166,7 @@ skip:
                 + " blocks/sec), " + std::to_string(m_block_queue.get_data_size() / 1048576.f) + " MB queued";
             if (ELPP->vRegistry()->allowed(el::Level::Debug, "sync-info"))
               timing_message += std::string(": ") + m_block_queue.get_overview();
-            MGINFO_YELLOW(context << " Synced " << m_core.get_current_blockchain_height() << "/" << m_core.get_target_blockchain_height()
-                << timing_message);
-            spd::get("rmx_logger")->info(" Synced " + std::to_string(m_core.get_current_blockchain_height()) + "/" + std::to_string(m_core.get_target_blockchain_height()));
+            spd::get("rmx_logger")->info(" Synced " + std::to_string(m_core.get_current_blockchain_height()) + "/" + std::to_string(m_core.get_target_blockchain_height()) + " " + timing_message);
           }
         }
       }
