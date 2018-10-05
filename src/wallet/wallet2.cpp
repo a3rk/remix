@@ -1171,6 +1171,7 @@ void wallet2::process_new_transaction(const crypto::hash &txid, const cryptonote
 	    if (0 != m_callback)
 	      m_callback->on_money_received(height, txid, tx, td.m_amount, td.m_subaddr_index);
           }
+          total_received_acc += amount;
         }
 	else if (m_transfers[kit->second].m_spent || m_transfers[kit->second].amount() >= tx_scan_info[o].amount)
         {
