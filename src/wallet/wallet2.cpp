@@ -1006,8 +1006,13 @@ void wallet2::process_new_transaction(const crypto::hash &txid, const cryptonote
         break;
       LOG_PRINT_L0("Public key wasn't found in the transaction extra. Skipping transaction " << txid);
       if(0 != m_callback)
-	m_callback->on_skip_transaction(height, txid, tx);
-      return;
+	            m_callback->on_skip_transaction(height, txid, tx);
+      break;
+    }
+    if (!tx_cache_data.primary.empty())
+    {
+      THROW_WALLET_EXCEPTION_IF(tx_cache_data.primary.size() < pk_index || pub_key_field.pub_key != tx_cache_data.primary[pk_index - 1].pkey,
+          error::wallet_internal_error, "tx_cache_data is out of sync");
     }
 
     int num_vouts_received = 0;
@@ -1016,6 +1021,8 @@ void wallet2::process_new_transaction(const crypto::hash &txid, const cryptonote
     tools::threadpool::waiter waiter;
     const cryptonote::account_keys& keys = m_account.get_keys();
     crypto::key_derivation derivation;
+
+
     if (!generate_key_derivation(tx_pub_key, keys.m_view_secret_key, derivation))
     {
       MWARNING("Failed to generate key derivation from tx pubkey, skipping");
@@ -1023,20 +1030,18 @@ void wallet2::process_new_transaction(const crypto::hash &txid, const cryptonote
       memcpy(&derivation, rct::identity().bytes, sizeof(derivation));
     }
 
-    // additional tx pubkeys and derivations for multi-destination transfers involving one or more subaddresses
     std::vector<crypto::public_key> additional_tx_pub_keys = get_additional_tx_pub_keys_from_extra(tx);
     std::vector<crypto::key_derivation> additional_derivations;
-    if (pk_index == 1)
-    {
-      for (size_t i = 0; i < additional_tx_pub_keys.size(); ++i)
-      {
-        additional_derivations.push_back({});
-        if (!generate_key_derivation(additional_tx_pub_keys[i], keys.m_view_secret_key, additional_derivations.back()))
-        {
-          MWARNING("Failed to generate key derivation from tx pubkey, skipping");
-          additional_derivations.pop_back();
-        }
-      }
+    		if(pk_index == 1)
+		{
+			// additional tx pubkeys and derivations for multi-destination transfers involving one or more subaddresses
+			additional_tx_pub_keys = get_additional_tx_pub_keys_from_extra(tx);
+
+			for(size_t i = 0; i < additional_tx_pub_keys.size(); ++i)
+			{
+				additional_derivations.push_back({});
+				
+			}
     }
 
     if (miner_tx && m_refresh_type == RefreshNoCoinbase)
