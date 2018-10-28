@@ -630,7 +630,7 @@ namespace cryptonote
         // to get the status of the system
         if( m_ignore_battery )
         {
-          on_ac_power = true;
+          on_ac_power = !(bool)battery_powered;
         }
       }
       else
