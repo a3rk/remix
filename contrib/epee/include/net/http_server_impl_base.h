@@ -35,11 +35,10 @@
 
 #include "net/http_server_cp2.h"
 #include "net/http_server_handlers_map2.h"
-#include "spdlog/spdlog.h"
 
 #undef REMIX_DEFAULT_LOG_CATEGORY
 #define REMIX_DEFAULT_LOG_CATEGORY "net.http"
-namespace spd = spdlog;
+
 namespace epee
 {
 
@@ -74,7 +73,7 @@ namespace epee
 
       m_net_server.get_config_object().m_user = std::move(user);
 
-      spd::get("rmx_logger")->info("Binding on " + bind_ip + ":" + bind_port);
+      MGINFO("Binding on " << bind_ip << ":" << bind_port);
       bool res = m_net_server.init_server(bind_port, bind_ip);
       if(!res)
       {
