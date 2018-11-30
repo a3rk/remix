@@ -5169,7 +5169,7 @@ bool simple_wallet::get_reserve_proof(const std::vector<std::string> &args)
   try
   {
     const std::string sig_str = m_wallet->get_reserve_proof(account_minreserve, args.size() == 2 ? args[1] : "");
-    const std::string filename = "monero_reserve_proof";
+    const std::string filename = "remix_reserve_proof";
     if (epee::file_io_utils::save_string_to_file(filename, sig_str))
       success_msg_writer() << tr("signature file saved to: ") << filename;
     else
