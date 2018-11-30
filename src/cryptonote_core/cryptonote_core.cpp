@@ -85,6 +85,10 @@ namespace cryptonote
     "offline"
   , "Do not listen for peers, nor connect to any"
   };
+  const command_line::arg_descriptor<bool> arg_disable_dns_checkpoints = {
+    "disable-dns-checkpoints"
+  , "Do not retrieve checkpoints from DNS"
+  };
 
   static const command_line::arg_descriptor<bool> arg_test_drop_download = {
     "test-drop-download"
@@ -132,7 +136,12 @@ namespace cryptonote
   };
   static const command_line::arg_descriptor<bool> arg_fluffy_blocks  = {
     "fluffy-blocks"
-  , "Relay blocks as fluffy blocks where possible (automatic on testnet)"
+  , "Relay blocks as fluffy blocks (obsolete, now default)"
+  , true
+  };
+  static const command_line::arg_descriptor<bool> arg_no_fluffy_blocks  = {
+    "no-fluffy-blocks"
+  , "Relay blocks as normal blocks"
   , false
   };
   //-----------------------------------------------------------------------------------------------
@@ -244,8 +253,10 @@ namespace cryptonote
     command_line::add_arg(desc, arg_block_sync_size);
     command_line::add_arg(desc, arg_check_updates);
     command_line::add_arg(desc, arg_fluffy_blocks);
+    command_line::add_arg(desc, arg_no_fluffy_blocks);
     command_line::add_arg(desc, arg_test_dbg_lock_sleep);
     command_line::add_arg(desc, arg_offline);
+    command_line::add_arg(desc, arg_disable_dns_checkpoints);
 
     miner::init_options(desc);
     BlockchainDB::init_options(desc);
@@ -278,8 +289,11 @@ namespace cryptonote
 
     set_enforce_dns_checkpoints(command_line::get_arg(vm, arg_dns_checkpoints));
     test_drop_download_height(command_line::get_arg(vm, arg_test_drop_download_height));
-    m_fluffy_blocks_enabled = m_testnet || get_arg(vm, arg_fluffy_blocks);
+    m_fluffy_blocks_enabled = !get_arg(vm, arg_no_fluffy_blocks);
     m_offline = get_arg(vm, arg_offline);
+    m_disable_dns_checkpoints = get_arg(vm, arg_disable_dns_checkpoints);
+    if (!command_line::is_arg_defaulted(vm, arg_fluffy_blocks))
+      MWARNING(arg_fluffy_blocks.name << " is obsolete, it is now default");
 
     if (command_line::get_arg(vm, arg_test_drop_download) == true)
       test_drop_download();

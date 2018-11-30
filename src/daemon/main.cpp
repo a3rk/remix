@@ -322,7 +322,7 @@ int main(int argc, char const * argv[])
     shared_logger->info("Remix {} v{}", REMIX_RELEASE_NAME, REMIX_VERSION_FULL);
     MINFO("Moving from main() into the daemonize now.");
 
-    return daemonizer::daemonize(argc, argv, daemonize::t_executor{}, vm);
+    return daemonizer::daemonize(argc, argv, daemonize::t_executor{}, vm) ? 0 : 1;
   }
   catch (std::exception const & ex)
   {
