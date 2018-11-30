@@ -46,7 +46,7 @@ namespace
     for (size_t i = 0; i < new_block_count; ++i)
     {
       block blk_next;
-      difficulty_type diffic = next_difficulty_v2(timestamps, cummulative_difficulties,DIFFICULTY_TARGET, get_block_height(blk_prev)+1);
+      difficulty_type diffic = next_difficulty_v3(timestamps, cummulative_difficulties,DIFFICULTY_TARGET, get_block_height(blk_prev)+1);
       if (!generator.construct_block_manually(blk_next, blk_prev, miner_account,
         test_generator::bf_timestamp | test_generator::bf_diffic, 0, 0, blk_prev.timestamp, crypto::hash(), diffic))
         return false;
@@ -177,7 +177,7 @@ bool gen_block_invalid_nonce::generate(std::vector<test_event_entry>& events) co
 
   // Create invalid nonce
   const block& blk_last = boost::get<block>(events.back());
-  difficulty_type diffic = next_difficulty_v2(timestamps, commulative_difficulties,DIFFICULTY_TARGET, get_block_height(blk_last)+1);
+  difficulty_type diffic = next_difficulty_v3(timestamps, commulative_difficulties,DIFFICULTY_TARGET, get_block_height(blk_last)+1);
   assert(1 < diffic);
   uint64_t timestamp = blk_last.timestamp;
   block blk_3;
@@ -573,7 +573,7 @@ bool gen_block_invalid_binary_format::generate(std::vector<test_event_entry>& ev
   do
   {
     blk_last = boost::get<block>(events.back());
-    diffic = next_difficulty_v2(timestamps, cummulative_difficulties,DIFFICULTY_TARGET, get_block_height(blk_last)+1);
+    diffic = next_difficulty_v3(timestamps, cummulative_difficulties,DIFFICULTY_TARGET, get_block_height(blk_last)+1);
     if (!lift_up_difficulty(events, timestamps, cummulative_difficulties, generator, 1, blk_last, miner_account))
       return false;
     std::cout << "Block #" << events.size() << ", difficulty: " << diffic << std::endl;

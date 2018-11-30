@@ -227,6 +227,7 @@ int main(int argc, char const * argv[])
 
     auto shared_logger = std::make_shared<spdlog::logger>("rmx_logger", begin(sinks), end(sinks));
     spdlog::register_logger(shared_logger);
+    shared_logger->info("Remix {} v{}", REMIX_RELEASE_NAME, REMIX_VERSION_FULL);
     shared_logger->info("Remix Console Output Sub-Module Loaded.");
     // Set log level
     if (!command_line::is_arg_defaulted(vm, daemon_args::arg_log_level))
@@ -319,7 +320,7 @@ int main(int argc, char const * argv[])
 
     // logging is now set up
     //MGINFO("Remix '" << REMIX_RELEASE_NAME << "' (v" << REMIX_VERSION_FULL << ")");
-    shared_logger->info("Remix {} v{}", REMIX_RELEASE_NAME, REMIX_VERSION_FULL);
+    
     MINFO("Moving from main() into the daemonize now.");
 
     return daemonizer::daemonize(argc, argv, daemonize::t_executor{}, vm);

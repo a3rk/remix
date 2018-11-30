@@ -142,6 +142,9 @@
 #define DONATION_URL                                    "donate.remixcoin.io"
 #define DONATION_EMAIL_ADDRESS                          "donate@remixcoin.io"
 
+#define HF_V1_NAME                                      "LWMA3"
+#define HF_v1_ACTIVATION_HEIGHT                         450000
+#define HF_v1_ACTIVATION_HEIGHT_TESTNET                 15030
 // New constants are intended to go here
 namespace config
 {

@@ -255,6 +255,64 @@ namespace cryptonote {
     return static_cast<uint64_t>(next_D);
     
   }
+
+  difficulty_type next_difficulty_v3(std::vector<std::uint64_t> timestamps, std::vector<difficulty_type> cumulative_difficulties, size_t target_seconds, size_t height) {
+    
+    
+    uint64_t T   = DIFFICULTY_TARGET; // target solvetime seconds
+    uint64_t N   = DIFFICULTY_WINDOW; //  N=45, 60, and 90 for T=600, 120, 60.
+    uint64_t L(0), ST, sum_3_ST(0), next_D, prev_D, this_timestamp, previous_timestamp;
+
+    // Make sure timestamps & CD vectors are not bigger than they are supposed to be.
+    assert(timestamps.size() == cumulative_difficulties.size() && 
+                     timestamps.size() <= N+1 );
+
+    // If it's a new coin, do startup code. 
+    // Increase difficulty_guess if it needs to be much higher, but guess lower than lowest guess.
+    uint64_t difficulty_guess = 100; 
+    if (timestamps.size() <= 10 ) {   return difficulty_guess;   }
+    // Use "if" instead of "else if" in case vectors are incorrectly N all the time instead of N+1.
+    if ( timestamps.size() < N +1 ) { N = timestamps.size()-1;  }
+    
+    // If hashrate/difficulty ratio after a fork is < 1/3 prior ratio, hardcode D for N+1 blocks after fork. 
+    // difficulty_guess = 100; //  Dev may change.  Guess low.
+    // if (height <= UPGRADE_HEIGHT + N+1 ) { return difficulty_guess;  }
+
+    // N is most recently solved block. 
+    previous_timestamp = timestamps[0];
+    for ( uint64_t i = 1; i <= N; i++) {  
+       // prevent out-of-sequence timestamps in a way that prevents 
+       // an exploit caused by "if ST< 0 then ST = 0"
+       if (timestamps[i] > previous_timestamp  ) {   
+           this_timestamp = timestamps[i];
+       } else {  this_timestamp = previous_timestamp+1 ;   }
+       // Limit solvetime ST to 6*T to prevent large drop in difficulty that could cause oscillations.
+       ST = std::min(6*T ,this_timestamp - previous_timestamp);
+       previous_timestamp = this_timestamp;
+       L +=  ST * i ; // give linearly higher weight to more recent solvetimes
+        // delete the following line if you do not want the "jump rule"
+       if ( i > N-3 ) { sum_3_ST += ST; } // used below to check for hashrate jumps
+   }
+   // Calculate next_D = avgD * T / LWMA(STs) using integer math
+
+    next_D = ((cumulative_difficulties[N] - cumulative_difficulties[0])*T*(N+1)*99)/(100*2*L);
+
+    prev_D = cumulative_difficulties[N] - cumulative_difficulties[N-1];
+    // The following is only for safety to limit unexpected extreme events.  
+    next_D = std::max( (prev_D*67)/100, std::min(next_D, (prev_D*150)/100 ));
+
+    // If last 3 solvetimes were so fast it's probably a jump in hashrate, increase D 8%.
+    // delete the following line if you do not want the "jump rule"
+    if ( sum_3_ST < (8*T)/10) {  next_D = std::max(next_D,(prev_D*108)/100); }
+
+   return static_cast<uint64_t>(next_D);
+
+    // next_Target = sumTargets*L*2/0.998/T/(N+1)/N/N; // To show the difference.
+}
+
+    
+    
+  
 }
 
 

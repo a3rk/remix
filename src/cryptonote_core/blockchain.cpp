@@ -52,6 +52,7 @@
 #include "cryptonote_core.h"
 #include "ringct/rctSigs.h"
 #include "common/perf_timer.h"
+#include "spdlog/spdlog.h"
 #if defined(PER_BLOCK_CHECKPOINT)
 #include "blocks/blocks.h"
 #endif
@@ -61,6 +62,7 @@
 
 #define FIND_BLOCKCHAIN_SUPPLEMENT_MAX_SIZE (100*1024*1024) // 100 MB
 
+namespace spd = spdlog;
 using namespace crypto;
 
 //#include "serialization/json_archive.h"
@@ -768,6 +770,19 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   if(height <= 1){
     return next_difficulty(timestamps, difficulties, target);
   }
+  if(height >= HF_v1_ACTIVATION_HEIGHT)
+    return next_difficulty_v3(timestamps, difficulties, target, height);
+
+  if(Blockchain::is_test_net() && height >= HF_v1_ACTIVATION_HEIGHT_TESTNET){
+    spd::get("rmx_logger")->info("SYNCHRONIZATION started");
+    return next_difficulty_v3(timestamps, difficulties, target, height);
+  }
+
+  if(height > HF_v1_ACTIVATION_HEIGHT_TESTNET - 10 && height < HF_v1_ACTIVATION_HEIGHT_TESTNET ){
+    spd::get("rmx_logger")->info("FORK IMMINENT!: " + std::to_string(HF_v1_ACTIVATION_HEIGHT_TESTNET - height) + " blocks until fork!");
+  }
+    
+
   return next_difficulty_v2(timestamps, difficulties, target, height);
 }
 //------------------------------------------------------------------
@@ -973,6 +988,9 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
   if(bei.height <= 1){
     return next_difficulty(timestamps, cumulative_difficulties, target);
   }
+  if(bei.height >= HF_v1_ACTIVATION_HEIGHT)
+    return next_difficulty_v3(timestamps, cumulative_difficulties, target, bei.height);
+  
   return next_difficulty_v2(timestamps, cumulative_difficulties, target, bei.height);
 }
 //------------------------------------------------------------------
