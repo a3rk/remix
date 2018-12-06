@@ -1233,7 +1233,7 @@ bool Blockchain::create_block_template(block& b, const account_public_address& m
 #if defined(DEBUG_CREATE_BLOCK_TEMPLATE)
       MDEBUG("Creating block template: miner tx size " << coinbase_blob_size <<
           ", cumulative size " << txs_size + coinbase_blob_size <<
-          " is less then before, adding " << delta << " zero bytes");
+          " is less than before, adding " << delta << " zero bytes");
 #endif
       b.miner_tx.extra.insert(b.miner_tx.extra.end(), delta, 0);
       //here  could be 1 byte difference, because of extra field counter is varint, and it can become from 1-byte len to 2-bytes len.
@@ -2384,7 +2384,7 @@ bool Blockchain::check_tx_inputs(transaction& tx, uint64_t& max_used_block_heigh
   if (!res)
     return false;
 
-  CHECK_AND_ASSERT_MES(max_used_block_height < m_db->height(), false,  "internal error: max used block index=" << max_used_block_height << " is not less then blockchain size = " << m_db->height());
+  CHECK_AND_ASSERT_MES(max_used_block_height < m_db->height(), false,  "internal error: max used block index=" << max_used_block_height << " is not less than blockchain size = " << m_db->height());
   max_used_block_id = m_db->get_block_hash_from_height(max_used_block_height);
   return true;
 }

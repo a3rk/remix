@@ -292,7 +292,7 @@ namespace cryptonote
       }
       catch (const std::exception &e)
       {
-        MERROR("internal error: transaction already exists at inserting in memorypool: " << e.what());
+        MERROR("internal error: transaction already exists at inserting in memory pool: " << e.what());
         return false;
       }
       tvc.m_added_to_pool = true;
