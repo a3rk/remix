@@ -1182,6 +1182,7 @@ PendingTransaction *WalletImpl::createTransaction(const string &dst_addr, const 
             for (const std::pair<uint64_t, uint64_t> outs_for_amount : e.scanty_outs()) {
                 writer << "\n" << tr("output amount") << " = " << print_money(outs_for_amount.first) << ", " << tr("found outputs to use") << " = " << outs_for_amount.second;
             }
+            writer << "\n" << tr("Please sweep unmixable outputs.");
             m_errorString = writer.str();
             m_status = Status_Error;
         } catch (const tools::error::tx_not_constructed&) {
@@ -1567,6 +1568,55 @@ bool WalletImpl::checkSpendProof(const std::string &txid_str, const std::string 
     {
         m_status = Status_Ok;
         good = m_wallet->check_spend_proof(txid, message, signature);
+        return true;
+    }
+    catch (const std::exception &e)
+    {
+        m_status = Status_Error;
+        m_errorString = e.what();
+        return false;
+    }
+}
+
+std::string WalletImpl::getReserveProof(bool all, uint32_t account_index, uint64_t amount, const std::string &message) const {
+    try
+    {
+        m_status = Status_Ok;
+        boost::optional<std::pair<uint32_t, uint64_t>> account_minreserve;
+        if (!all)
+        {
+            account_minreserve = std::make_pair(account_index, amount);
+        }
+        return m_wallet->get_reserve_proof(account_minreserve, message);
+    }
+    catch (const std::exception &e)
+    {
+        m_status = Status_Error;
+        m_errorString = e.what();
+        return "";
+    }
+}
+
+bool WalletImpl::checkReserveProof(const std::string &address, const std::string &message, const std::string &signature, bool &good, uint64_t &total, uint64_t &spent) const {
+    cryptonote::address_parse_info info;
+    if (!cryptonote::get_account_address_from_str(info, m_wallet->testnet(), address))
+    {
+        m_status = Status_Error;
+        m_errorString = tr("Failed to parse address");
+        return false;
+    }
+    if (info.is_subaddress)
+    {
+        m_status = Status_Error;
+        m_errorString = tr("Address must not be a subaddress");
+        return false;
+    }
+
+    good = false;
+    try
+    {
+        m_status = Status_Ok;
+        good = m_wallet->check_reserve_proof(info.address, message, signature, total, spent);
         return true;
     }
     catch (const std::exception &e)

@@ -40,6 +40,7 @@ using namespace epee;
 #include "wallet/wallet_args.h"
 #include "common/command_line.h"
 #include "common/i18n.h"
+#include "cryptonote_config.h"
 #include "cryptonote_basic/cryptonote_format_utils.h"
 #include "cryptonote_basic/account.h"
 #include "multisig/multisig.h"
@@ -253,7 +254,7 @@ namespace tools
     entry.timestamp = pd.m_timestamp;
     entry.amount = pd.m_amount;
     entry.unlock_time = pd.m_unlock_time;
-    entry.fee = 0; // TODO
+    entry.fee = pd.m_fee;
     entry.note = m_wallet->get_tx_note(pd.m_tx_hash);
     entry.type = "in";
     entry.subaddr_index = pd.m_subaddr_index;
@@ -313,7 +314,7 @@ namespace tools
     entry.timestamp = pd.m_timestamp;
     entry.amount = pd.m_amount;
     entry.unlock_time = pd.m_unlock_time;
-    entry.fee = 0; // TODO
+    entry.fee = pd.m_fee;
     entry.note = m_wallet->get_tx_note(pd.m_tx_hash);
     entry.double_spend_seen = ppd.m_double_spend_seen;
     entry.type = "pool";
@@ -1827,6 +1828,66 @@ namespace tools
     return true;
   }
   //------------------------------------------------------------------------------------------------------------------------------
+  bool wallet_rpc_server::on_get_reserve_proof(const wallet_rpc::COMMAND_RPC_GET_RESERVE_PROOF::request& req, wallet_rpc::COMMAND_RPC_GET_RESERVE_PROOF::response& res, epee::json_rpc::error& er)
+  {
+    if (!m_wallet) return not_open(er);
+
+    boost::optional<std::pair<uint32_t, uint64_t>> account_minreserve;
+    if (!req.all)
+    {
+      if (req.account_index >= m_wallet->get_num_subaddress_accounts())
+      {
+        er.code = WALLET_RPC_ERROR_CODE_UNKNOWN_ERROR;
+        er.message = "Account index is out of bound";
+        return false;
+      }
+      account_minreserve = std::make_pair(req.account_index, req.amount);
+    }
+
+    try
+    {
+      res.signature = m_wallet->get_reserve_proof(account_minreserve, req.message);
+    }
+    catch (const std::exception &e)
+    {
+      er.code = WALLET_RPC_ERROR_CODE_UNKNOWN_ERROR;
+      er.message = e.what();
+      return false;
+    }
+    return true;
+  }
+  //------------------------------------------------------------------------------------------------------------------------------
+  bool wallet_rpc_server::on_check_reserve_proof(const wallet_rpc::COMMAND_RPC_CHECK_RESERVE_PROOF::request& req, wallet_rpc::COMMAND_RPC_CHECK_RESERVE_PROOF::response& res, epee::json_rpc::error& er)
+  {
+    if (!m_wallet) return not_open(er);
+
+    cryptonote::address_parse_info info;
+    if (!get_account_address_from_str(info, m_wallet->testnet(), req.address))
+    {
+      er.code = WALLET_RPC_ERROR_CODE_WRONG_ADDRESS;
+      er.message = "Invalid address";
+      return false;
+    }
+    if (info.is_subaddress)
+    {
+      er.code = WALLET_RPC_ERROR_CODE_UNKNOWN_ERROR;
+      er.message = "Address must not be a subaddress";
+      return false;
+    }
+
+    try
+    {
+      res.good = m_wallet->check_reserve_proof(info.address, req.message, req.signature, res.total, res.spent);
+    }
+    catch (const std::exception &e)
+    {
+      er.code = WALLET_RPC_ERROR_CODE_UNKNOWN_ERROR;
+      er.message = e.what();
+      return false;
+    }
+    return true;
+  }
+  //------------------------------------------------------------------------------------------------------------------------------
   bool wallet_rpc_server::on_get_transfers(const wallet_rpc::COMMAND_RPC_GET_TRANSFERS::request& req, wallet_rpc::COMMAND_RPC_GET_TRANSFERS::response& res, epee::json_rpc::error& er)
   {
     if (!m_wallet) return not_open(er);
@@ -1837,11 +1898,11 @@ namespace tools
       return false;
     }
 
-    uint64_t min_height = 0, max_height = (uint64_t)-1;
+    uint64_t min_height = 0, max_height = CRYPTONOTE_MAX_BLOCK_NUMBER;
     if (req.filter_by_height)
     {
       min_height = req.min_height;
-      max_height = req.max_height;
+      max_height = req.max_height <= max_height ? req.max_height : max_height;
     }
 
     if (req.in)
@@ -1923,8 +1984,15 @@ namespace tools
       return false;
     }
 
+    if (req.account_index >= m_wallet->get_num_subaddress_accounts())
+    {
+      er.code = WALLET_RPC_ERROR_CODE_ACCOUNT_INDEX_OUT_OF_BOUNDS;
+      er.message = "Account index is out of bound";
+      return false;
+    }
+
     std::list<std::pair<crypto::hash, tools::wallet2::payment_details>> payments;
-    m_wallet->get_payments(payments, 0);
+    m_wallet->get_payments(payments, 0, (uint64_t)-1, req.account_index);
     for (std::list<std::pair<crypto::hash, tools::wallet2::payment_details>>::const_iterator i = payments.begin(); i != payments.end(); ++i) {
       if (i->second.m_tx_hash == txid)
       {
@@ -1934,7 +2002,7 @@ namespace tools
     }
 
     std::list<std::pair<crypto::hash, tools::wallet2::confirmed_transfer_details>> payments_out;
-    m_wallet->get_payments_out(payments_out, 0);
+    m_wallet->get_payments_out(payments_out, 0, (uint64_t)-1, req.account_index);
     for (std::list<std::pair<crypto::hash, tools::wallet2::confirmed_transfer_details>>::const_iterator i = payments_out.begin(); i != payments_out.end(); ++i) {
       if (i->first == txid)
       {
@@ -1944,7 +2012,7 @@ namespace tools
     }
 
     std::list<std::pair<crypto::hash, tools::wallet2::unconfirmed_transfer_details>> upayments;
-    m_wallet->get_unconfirmed_payments_out(upayments);
+    m_wallet->get_unconfirmed_payments_out(upayments, req.account_index);
     for (std::list<std::pair<crypto::hash, tools::wallet2::unconfirmed_transfer_details>>::const_iterator i = upayments.begin(); i != upayments.end(); ++i) {
       if (i->first == txid)
       {
@@ -1956,7 +2024,7 @@ namespace tools
     m_wallet->update_pool_state();
 
     std::list<std::pair<crypto::hash, tools::wallet2::pool_payment_details>> pool_payments;
-    m_wallet->get_unconfirmed_payments(pool_payments);
+    m_wallet->get_unconfirmed_payments(pool_payments, req.account_index);
     for (std::list<std::pair<crypto::hash, tools::wallet2::pool_payment_details>>::const_iterator i = pool_payments.begin(); i != pool_payments.end(); ++i) {
       if (i->second.m_pd.m_tx_hash == txid)
       {
@@ -2431,6 +2499,11 @@ namespace tools
     {
       std::rethrow_exception(e);
     }
+    catch (const tools::error::no_connection_to_daemon& e)
+    {
+      er.code = WALLET_RPC_ERROR_CODE_NO_DAEMON_CONNECTION;
+      er.message = e.what();
+    }
     catch (const tools::error::daemon_busy& e)
     {
       er.code = WALLET_RPC_ERROR_CODE_DAEMON_IS_BUSY;
@@ -2446,6 +2519,11 @@ namespace tools
       er.code = WALLET_RPC_ERROR_CODE_NOT_ENOUGH_MONEY;
       er.message = e.what();
     }
+    catch (const tools::error::not_enough_unlocked_money& e)
+    {
+      er.code = WALLET_RPC_ERROR_CODE_NOT_ENOUGH_UNLOCKED_MONEY;
+      er.message = e.what();
+    }
     catch (const tools::error::tx_not_possible& e)
     {
       er.code = WALLET_RPC_ERROR_CODE_TX_NOT_POSSIBLE;
@@ -2459,7 +2537,7 @@ namespace tools
     catch (const tools::error::not_enough_outs_to_mix& e)
     {
       er.code = WALLET_RPC_ERROR_CODE_NOT_ENOUGH_OUTS_TO_MIX;
-      er.message = e.what();
+      er.message = e.what() + std::string(" Please use sweep_dust.");
     }
     catch (const error::file_exists& e)
     {
@@ -2473,12 +2551,12 @@ namespace tools
     }
     catch (const error::account_index_outofbound& e)
     {
-      er.code = WALLET_RPC_ERROR_CODE_ACCOUNT_INDEX_OUTOFBOUND;
+      er.code = WALLET_RPC_ERROR_CODE_ACCOUNT_INDEX_OUT_OF_BOUNDS;
       er.message = e.what();
     }
     catch (const error::address_index_outofbound& e)
     {
-      er.code = WALLET_RPC_ERROR_CODE_ADDRESS_INDEX_OUTOFBOUND;
+      er.code = WALLET_RPC_ERROR_CODE_ADDRESS_INDEX_OUT_OF_BOUNDS;
       er.message = e.what();
     }
     catch (const std::exception& e)

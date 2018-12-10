@@ -278,7 +278,7 @@ bool Configurations::hasConfiguration(ConfigurationType configurationType) {
 bool Configurations::hasConfiguration(Level level, ConfigurationType configurationType) {
   base::threading::ScopedLock scopedLock(lock());
 #if ELPP_COMPILER_INTEL
-  // We cant specify template types here, Intel C++ throws compilation error
+  // We can't specify template types here, Intel C++ throws compilation error
   // "error: type name is not allowed"
   return RegistryWithPred::get(level, configurationType) != nullptr;
 #else

@@ -111,7 +111,7 @@ static const uint64_t testnet_hard_fork_version_1_till = ((uint64_t)(-1));
 
 //------------------------------------------------------------------
 Blockchain::Blockchain(tx_memory_pool& tx_pool) :
-  m_db(), m_tx_pool(tx_pool), m_hardfork(NULL), m_timestamps_and_difficulties_height(0), m_current_block_cumul_sz_limit(0),
+  m_db(), m_tx_pool(tx_pool), m_hardfork(NULL), m_timestamps_and_difficulties_height(0), m_current_block_cumul_sz_limit(0), m_current_block_cumul_sz_median(0),
   m_enforce_dns_checkpoints(false), m_max_prepare_blocks_threads(4), m_db_blocks_per_sync(1), m_db_sync_mode(db_async), m_db_default_sync(false), m_fast_sync(true), m_show_time_stats(false), m_sync_counter(0), m_cancel(false)
 {
   LOG_PRINT_L3("Blockchain::" << __func__);
@@ -1087,6 +1087,12 @@ uint64_t Blockchain::get_current_cumulative_blocksize_limit() const
   return m_current_block_cumul_sz_limit;
 }
 //------------------------------------------------------------------
+uint64_t Blockchain::get_current_cumulative_blocksize_median() const
+{
+  LOG_PRINT_L3("Blockchain::" << __func__);
+  return m_current_block_cumul_sz_median;
+}
+//------------------------------------------------------------------
 //TODO: This function only needed minor modification to work with BlockchainDB,
 //      and *works*.  As such, to reduce the number of things that might break
 //      in moving to BlockchainDB, this function will remain otherwise
@@ -1227,7 +1233,7 @@ bool Blockchain::create_block_template(block& b, const account_public_address& m
 #if defined(DEBUG_CREATE_BLOCK_TEMPLATE)
       MDEBUG("Creating block template: miner tx size " << coinbase_blob_size <<
           ", cumulative size " << txs_size + coinbase_blob_size <<
-          " is less then before, adding " << delta << " zero bytes");
+          " is less than before, adding " << delta << " zero bytes");
 #endif
       b.miner_tx.extra.insert(b.miner_tx.extra.end(), delta, 0);
       //here  could be 1 byte difference, because of extra field counter is varint, and it can become from 1-byte len to 2-bytes len.
@@ -2378,7 +2384,7 @@ bool Blockchain::check_tx_inputs(transaction& tx, uint64_t& max_used_block_heigh
   if (!res)
     return false;
 
-  CHECK_AND_ASSERT_MES(max_used_block_height < m_db->height(), false,  "internal error: max used block index=" << max_used_block_height << " is not less then blockchain size = " << m_db->height());
+  CHECK_AND_ASSERT_MES(max_used_block_height < m_db->height(), false,  "internal error: max used block index=" << max_used_block_height << " is not less than blockchain size = " << m_db->height());
   max_used_block_id = m_db->get_block_hash_from_height(max_used_block_height);
   return true;
 }
@@ -3562,6 +3568,7 @@ bool Blockchain::update_next_cumulative_size_limit()
   get_last_n_blocks_sizes(sz, CRYPTONOTE_REWARD_BLOCKS_WINDOW);
 
   uint64_t median = epee::misc_utils::median(sz);
+  m_current_block_cumul_sz_median = median;
   if(median <= full_reward_zone)
     median = full_reward_zone;
 
@@ -3583,6 +3590,7 @@ bool Blockchain::add_new_block(const block& bl_, block_verification_context& bvc
     LOG_PRINT_L3("block with id = " << id << " already exists");
     bvc.m_already_exists = true;
     m_db->block_txn_stop();
+    m_blocks_txs_check.clear();
     return false;
   }
 
@@ -3592,7 +3600,9 @@ bool Blockchain::add_new_block(const block& bl_, block_verification_context& bvc
     //chain switching or wrong block
     bvc.m_added_to_main_chain = false;
     m_db->block_txn_stop();
-    return handle_alternative_block(bl, id, bvc);
+    bool r = handle_alternative_block(bl, id, bvc);
+    m_blocks_txs_check.clear();
+    return r;
     //never relay alternative blocks
   }
 
